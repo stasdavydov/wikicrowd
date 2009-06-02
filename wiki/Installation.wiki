@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary How to install WikiCrowd
 #labels Phase-Deploy
 
 =Installation Guide=
