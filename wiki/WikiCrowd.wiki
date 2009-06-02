@@ -1,5 +1,1 @@
 #summary WikiCrowd is a light useful wiki engine powered by Ajax, PHP, XML and XSL
-
-= Introduction =
-
-WikiCrowd is a light useful wiki engine powered by Ajax, PHP, XML and XSL.
