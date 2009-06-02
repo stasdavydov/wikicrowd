@@ -16,6 +16,9 @@
 		$d = opendir($path);
 		while($f = readdir($d)) {
 			if ($f != "." && $f != "..") {
+				if (preg_match('/\.svn/', $f))
+					continue;
+
 				if (is_dir($path.$f)) {
 					$zip->addEmptyDir($zipPath.$f);
 					addRecursive($zip, $path.$f.'/', $zipPath.$f.'/');

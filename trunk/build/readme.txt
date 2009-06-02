@@ -7,9 +7,8 @@
 CONTENTS:
   I. SYSTEM REQUIREMENTS
  II. INSTALLATION
-III. NOTES
- IV. RELEASE NOTES
-  V. SUPPORT & CONTACTS
+III. RELEASE NOTES
+ IV. SUPPORT & CONTACTS
 
 I. SYSTEM REQUIREMENTS: 
      PHP 5.2 or higher with DOM, XSL and iconv 
@@ -36,20 +35,11 @@ II. INSTALLATION:
   5. Press "Install" button and enjoy :).
 
 
-III. NOTES:
+III. RELEASE NOTES:
+  0.0.6 - Initial public version.
 
-  *  WikiCrowd used Apache mod_rerite to short page 
-     URLs. If your web server doesn't support 
-     mod_rewrite, WikiCrowd wont work yet. 
-     I appologize for inconvinience.
-
-IV. RELEASE NOTES:
-  0.0.5 - Initial public version.
-
-V. SUPPORT & CONTACTS
+IV. SUPPORT & CONTACTS
   If you have any questions, feel free to ask me
   Stas Davydov <davidovsv@yandex.ru> or check
   the WikiCrowd FAQ for help on 
-  http://wikicrowd.sourceforge.net/faq
-
-
+  http://code.google.com/p/wikicrowd/
