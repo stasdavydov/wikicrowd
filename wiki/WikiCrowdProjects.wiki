@@ -2,4 +2,4 @@
 
 =List of WikiCrowd projects=
  * [http://wikinomika.ru/ Викиномика].
- * [http://stasdavydov.com/freedombook/ The Book About Freedom].
+ * [http://stasdavydov.com/freedombook/ Книга о свободе].
