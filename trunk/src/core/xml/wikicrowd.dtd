@@ -1,0 +1,70 @@
+<!-- 
+	Use the following DOCTYPE for a chapter:
+	<!DOCTYPE chapter PUBLIC "WikiCrowd" "wikicrowd.dtd">
+
+	Use the following DOCTYPE for a person:
+	<!DOCTYPE person PUBLIC "WikiCrowd" "wikicrowd.dtd">
+
+	Use the following DOCTYPE for a changes:
+	<!DOCTYPE changes PUBLIC "WikiCrowd" "wikicrowd.dtd">
+
+	Use the following DOCTYPE for a config:
+	<!DOCTYPE config PUBLIC "WikiCrowd" "wikicrowd.dtd">
+-->
+<!ELEMENT chapter (block)*>
+<!ATTLIST chapter
+	title CDATA #REQUIRED>
+<!ENTITY % author-required '
+	author CDATA #REQUIRED
+	created-ts CDATA #REQUIRED
+	created-date CDATA #REQUIRED'>
+<!ELEMENT block (previous | text)*>
+<!ATTLIST block
+    id ID #REQUIRED
+	type CDATA #REQUIRED
+	rev CDATA #IMPLIED
+	%author-required;>
+<!ELEMENT text (#PCDATA)>
+<!ELEMENT previous (#PCDATA)>
+<!ATTLIST previous
+	rev CDATA #IMPLIED
+	type CDATA #REQUIRED
+	%author-required;>
+
+<!-- 
+	Use the following DOCTYPE for a person:
+	<!DOCTYPE person PUBLIC "WikiCrowd" "wikicrowd.dtd">
+-->
+<!ELEMENT person (info | pic)*>
+<!ATTLIST person
+	uid ID #REQUIRED
+	password CDATA #REQUIRED
+	name CDATA #REQUIRED
+	email CDATA #REQUIRED
+	created-ts CDATA #REQUIRED
+	notify (true | false) "true">
+<!ELEMENT info (#PCDATA)>
+<!ELEMENT pic (#PCDATA)>
+<!ATTLIST pic
+	content-type CDATA #REQUIRED>
+
+<!-- 
+	Use the following DOCTYPE for a changes:
+	<!DOCTYPE changes PUBLIC "WikiCrowd" "wikicrowd.dtd">
+-->
+<!ELEMENT changes (change*)>
+<!ELEMENT change EMPTY>
+<!ATTLIST change 
+	chapter CDATA #REQUIRED
+	id CDATA #REQUIRED
+	%author-required;>
+
+<!--
+	Use the following DOCTYPE for a config:
+	<!DOCTYPE config PUBLIC "WikiCrowd" "wikicrowd.dtd">
+-->
+<!ELEMENT config (property*)>
+<!ELEMENT property EMPTY>
+<!ATTLIST property
+	name ID #REQUIRED
+	value CDATA #REQUIRED>

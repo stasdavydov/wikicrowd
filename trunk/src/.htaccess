@@ -1,0 +1,23 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteBase %www%
+
+RewriteRule ^auth/?$ auth.php [L,QSA]
+RewriteRule ^check/([a-zA-Z0-9]+)-([a-f0-9]{32})/$ confirm.php?login=$1&hash=$2 [L,QSA]
+RewriteRule ^person/([a-zA-Z0-9]+)$ user.php?uid=$1 [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^$ chapter.php?chapter= [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.+)/$ $1 [R]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^([^?#]*)(\?|#)?(.*)$ chapter.php?chapter=$1 [L,QSA]
+
+</IfModule>
