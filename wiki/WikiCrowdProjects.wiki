@@ -1,0 +1,3 @@
+#summary List of projects used WikiCrowd engine
+
+ * [http://stasdavydov.com/freedombook/ The Book About Freedom].
