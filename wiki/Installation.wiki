@@ -1,6 +1,8 @@
 #summary How to install WikiCrowd
 #labels Phase-Deploy
 
+At first, [http://code.google.com/p/wikicrowd/downloads/list download the latest version of WikiCrowd].
+
 =Installation Guide=
  # Copy install.php file to the path where you want to install WikiCrowd. For example: /var/www/wiki/install.php
  # Access it from your browser. For example: http://mysite.com/wiki/install.php.
