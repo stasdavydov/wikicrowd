@@ -2,8 +2,9 @@
     require '../src/core.php';
     $version = file_get_contents('version.txt');
     if(preg_match('/^(\d+)\.(\d+)\.(\d+)$/', $version, $matches)) {
-    	echo "Build $matches[1].$matches[2].$matches[3]\n";
-    	file_put_contents('version.txt', ($matches[1].'.'.$matches[2].'.'.($matches[3] + 1)));
+    	$version = $matches[1].'.'.$matches[2].'.'.($matches[3] + 1);
+    	echo "Build $version\n";
+    	file_put_contents('version.txt', $version);
 	}
 
 	// create zip version
@@ -55,6 +56,27 @@
 		while(! feof($template) && ($line = fgets($template)) !== FALSE) {
 			if (preg_match('/\%version\%/', $line))
 				$line = str_replace('%version%', $version, $line);
+
+			if (preg_match('/\%locales\%/', $line)) {
+				echo 'Detect locales... ';
+				$options = '';
+				$dir = opendir(CORE.'xml/locale');
+				while($f = readdir($dir)) {
+					if (preg_match('/^([^.]+)\.xml$/', $f, $matchs)) {
+						$locale = $matchs[1];
+						echo $locale.' ';
+
+						$dom = new DOMDocument();
+						$dom->load(CORE.'xml/locale/'.$locale.'.xml');
+
+						$options .= '\''.$locale.'\'=>\''.$dom->documentElement->getAttribute('language').'\',';
+					}
+				}
+				closedir($dir);
+				echo "\n";
+
+				$line = str_replace('%locales%', $options, $line);
+			}
 
 			fwrite($install, $line);
 

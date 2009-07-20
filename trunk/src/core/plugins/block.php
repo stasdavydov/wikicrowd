@@ -84,7 +84,7 @@ class chapter {
 		if ($elements->length == 1)
 			return $elements->item(0);
 		else if ($elements->length > 1)
-			internal('Слишком много элементов с ID '.$id);
+			internal(getMessage('ToManyElementsWithID').' '.$id);
 		else
 			return NULL;
 	}
@@ -158,7 +158,7 @@ class chapter {
 //			fb($this->response->saveXML(), 'chapter::respond()');
 
 		if ($eventCount == 0) 
-			warn('Такое впечатление, что ничего не изменилось.');
+			warn(getMessage('NothingIsChanged'));
 		else
 			echo transformDOM($this->response, CORE.'xml/response.xsl', array('MODE' => 'edit'));
 	}
@@ -190,17 +190,17 @@ class chapter {
 
 		// load data
 		if (! array_key_exists('id', $data))
-			internal('ID не задан.');
+			internal(getMessage('IDisNotSet'));
 
 		$id = trim($data['id']);
 		if ($id == "") 
-			internal('ID пуст.');
+			internal(getMessage('IDisEmpty'));
 
 		$rev = trim($data['rev']);
 		$rev = $rev == "" ? 0 : $rev;
 
 		if (! ($block = $this->getBlock($id)))
-			internal("Элемент с ID $id не найден.");
+			internal(sprintf(getMessage('ElementWithIDNotFound'), $id));
 
 //		if (DEBUG)
 //			fb($id, 'Update element');
@@ -240,7 +240,7 @@ class chapter {
 			$dom->appendChild($changes);
 
 			if (! ($block = $this->getBlock($id)))
-				internal("Элемент с ID $id не найден.");
+				internal(sprintf(getMessage('ElementWithIDNotFound'), $id));
 		
 			$block->chnages($changes);
 
@@ -272,7 +272,7 @@ class blockfactory {
 	public static function loadPlugin($type) {
 		if (! (preg_match('/[\w\d_]+/', $type) 
 				&& include_once(blockfactory::getTypeClassFile($type))))
-			internal('Недопустимый тип блока: @'.$type); 
+			internal(getMessage('WrongBlockType').': @'.$type); 
 	}
 
 	public static function blockTypeExists($type) {
@@ -500,7 +500,7 @@ abstract class textblock extends block {
 
 	public function update($data, $author) {
 		if (! array_key_exists('text', $data))
-			internal('Текст не задан.');
+			internal(getMessage('TextIsNotSet'));
 
 		$text = trim(stripslashes($data['text']));
 
@@ -561,7 +561,7 @@ abstract class textblock extends block {
 
 	public function diff($conflict, $data) {
 		if (! array_key_exists('text', $data))
-			internal('Текст не задан.');
+			internal(getMessage('TextIsNotSet'));
 
 		$texts = $conflict->getElementsByTagName('text');
 		

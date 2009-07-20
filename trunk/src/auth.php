@@ -8,11 +8,12 @@
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="RU">
-<head><title>Доступ к закрытой части сайта | <?=title?></title>
+<head><title><?=getMessage('RestrictedAccess')?> | <?=title?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="stylesheet" type="text/css" href="<?=www?>core/css/main.css"/>
 <script type="text/javascript">var www = '<?=www?>';</script>
 <script type="text/javascript" src="<?=www?>core/js/base.js" charset="windows-1251">//<!--"--></script>
+<script type="text/javascript" src="<?=www?>core/js/locale.js" charset="utf-8">//<!--"--></script>
 <script type="text/javascript" src="<?=www?>core/js/auth.js" charset="windows-1251">//<!--"--></script>
 <style type="text/css">
 body { margin: 0 0 0 1em; }
@@ -33,49 +34,49 @@ h2 { margin: 0 0 0.5em 0; }
 </style>
 </head>
 <body>
-<div class="menu"><div class="person"><a href="<?=www?>">Домой</a></div></div>
-<h1>Закрытая часть сайта &raquo; <a href="<?=www?>"><?=title?></a></h1>
+<div class="menu"><div class="person"><a href="<?=www?>"><?=getMessage('ToHome')?></a></div></div>
+<h1><?=getMessage('RestrictedArea')?> &raquo; <a href="<?=www?>"><?=title?></a></h1>
 
 <div class="form floatright odd">
-<h2>Регистрация</h2>
-<p>Если Вы еще не регистрировались на нашем сайте, можно сделать это прямо сейчас.</p>
-<p><strong>Все поля обязательны.</strong></p>
+<h2><?=getMessage('Registration')?></h2>
+<p><?=getMessage('NotRegisteredYet')?></p>
+<p><strong><?=getMessage('AllFieldsRequired')?></strong></p>
 <form method="get" action="" onsubmit="javascript:return register()">
-<label for="reglogin">Логин (последовательность из латинских букв и цифр): <input type="text" id="reglogin"/></label>
-<label for="regpassword">Пароль: <input type="text" id="regpassword"/></label>
-<label for="name">Ваше имя: <input type="text" id="name"/></label>
-<label for="email">Ваш e-mail (для связи, на сайте не публикуется): <input type="text" id="email"/></label>
-<label for="info">Информация о Вас (будет опубликована на сайте): <textarea id="info" rows="7" cols="60"></textarea> 
-<? /*(Можно использовать HTML-тэги <b>&lt;a&gt;</b> и <b>&lt;b&gt;</b>)*/?></label>
+<label for="reglogin"><?=getMessage('LoginField')?>: <input type="text" id="reglogin"/></label>
+<label for="regpassword"><?=getMessage('Password')?>: <input type="text" id="regpassword"/></label>
+<label for="name"><?=getMessage('YourName')?>: <input type="text" id="name"/></label>
+<label for="email"><?=getMessage('YourEmail')?>: <input type="text" id="email"/></label>
+<label for="info"><?=getMessage('YourInformation')?>: <textarea id="info" rows="7" cols="60"></textarea></label>
 <div id="regnotice"></div>
-<input type="submit" value="Зарегистрироваться"/>
+<input type="submit" value="<?=getMessage('Register')?>"/>
 </form>
 </div>
 
 <div class="form floatleft">
-<h2>Вход</h2>
-<p>Для доступа к этой странице Вам необходимо ввести логин и пароль.</p>
+<h2><?=getMessage('Enter')?></h2>
+<p><?=getMessage('EnterLoginAndPassword')?></p>
 <form method="get" action="" onsubmit="javascript:return auth()">
-<label for="login">Логин: <input type="text" id="login"/></label>
-<label for="password">Пароль: <input type="password" id="password"/></label>
-<label for="remember" class="inline">Запомнить меня надолго <input class="inline" type="checkbox" id="remember"/> :)</label>
+<label for="login"><?=getMessage('YourLogin')?>: <input type="text" id="login"/></label>
+<label for="password"><?=getMessage('Password')?>: <input type="password" id="password"/></label>
+<label for="remember" class="inline"><?=getMessage('RememberMe')?> <input class="inline" type="checkbox" id="remember"/> :)</label>
 <div id="authnotice"></div>
-<input type="submit" value="Войти"/>
+<input type="submit" value="<?=getMessage('Login')?>"/>
 </form>
 </div>
 
 <div class="form">
-<h2>Вспомнить пароль</h2>
-<p>Если Вы забыли пароль или логин, укажите e-mail, который Вы использовали при регистрации
-на этом сайте. Мы вышлем Вам новый пароль письмом на указанный адрес.
+<h2><?=getMessage('ForgotPassword')?></h2>
+<p><?=getMessage('IfYourForgetPassword')?></p>
 <form method="get" action="" onsubmit="javascript:return forget()">
-<label for="forgetemail">Ваш e-mail: <input type="text" id="forgetemail"/></label>
+<label for="forgetemail"><?=getMessage('YourEmailField')?>: <input type="text" id="forgetemail"/></label>
 <div id="forgetnotice"></div>
-<input type="submit" value="Выслать"/>
+<input type="submit" value="<?=getMessage('Send')?>"/>
 </form>
 </div>
 
-<p class="copyright">WikiCrowd by <a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a> &#0169; 2008-2009.</p>
+<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<?php echo VERSION; //?> by 
+<a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
+License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
 </body>
 </html>
 <?

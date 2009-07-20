@@ -27,9 +27,9 @@
 				<style type="text/css">h1 { margin: 0.25em 0 0.5em 0.65em; } </style>
 				<script type="text/javascript">var www = '<xsl:value-of select="$config//property[@name='www']/@value"/>';</script>
 				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/base.js">//<!--"--></script>
+				<script type="text/javascript" charset="utf-8" src="{$config//property[@name='www']/@value}core/js/locale.js">//<!--"--></script>
 				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/auth.js">//<!--"--></script>
 				<xsl:if test="$MODE = 'edit'">
-					<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/dates.js">//<!--"--></script>
 					<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/fade.js">//<!--"--></script>
 					<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/person.js">//<!--"--></script>
 					<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/chapter.js">//<!--"--></script>
@@ -39,22 +39,9 @@
 			<body class="{$MODE}">
 				<xsl:call-template name="menu"/>
 				<xsl:if test="$MODE = 'edit'">
-					<div class="help"><a href="javascript:help()" title="Show wiki syntax help">?</a>
+					<div class="help"><a href="javascript:help()" title="{$locale//message[@id='WikiHelpTip']/@text}">?</a>
 						<div class="content" id="help-content">
-							<h2>Wiki-синтаксис</h2>
-							<p><strong>Ссылки:</strong> в любом месте текста:</p>
-							<ul>
-								<li>@page "Название страницы" - ссылка на страницу в wiki.</li>
-								<li>@page[URL] "Название ссылки" - ссылка на внешний URL.</li>
-							</ul>
-							<p><strong>Префиксы типов блоков:</strong> использовать в начале строки<br/>перед текстом, чтобы изменить тип блока:</p>
-							<ul>
-								<li>@title - заголовок;</li>
-								<li>@par - просто текст;</li>
-								<li>@listitem - список;</li>
-								<li>@footnote - сноска;</li>
-								<li>@quote - цитата.</li>
-							</ul>
+							<xsl:value-of select="$locale//message[@id='WikiHelp']" disable-output-escaping="yes"/>
 						</div>
 					</div>
 				</xsl:if>

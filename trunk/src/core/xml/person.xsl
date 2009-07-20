@@ -47,6 +47,7 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 				</style>
 				<script type="text/javascript">var www = '<xsl:value-of select="$config//property[@name='www']/@value"/>';</script>
 				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/base.js">//<!--"--></script>
+				<script type="text/javascript" charset="utf-8" src="{$config//property[@name='www']/@value}core/js/locale.js">//<!--"--></script>
 				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/auth.js">//<!--"--></script>
 				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/person.js">//<!--"--></script>
 			</head>
@@ -56,20 +57,20 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 				<div id="person" class="form">
 					<form method="get" action="" onsubmit="javascript:return savePerson()">
 						<input type="hidden" id="originalemail" value="{/person/@email}"/>
-						<label for="name">Ваше имя: <input type="text" id="name" value="{/person/@name}"/></label>
-						<label for="email">Ваш e-mail (для связи, на сайте не публикуется): <input type="text" id="email" value="{/person/@email}"/></label>
-						<label for="notify" class="cb">Присылать уведомления об ответах на форуме <input type="checkbox" class="inline" id="notify">
+						<label for="name"><xsl:value-of select="$locale//message[@id='YourName']/@text"/>: <input type="text" id="name" value="{/person/@name}"/></label>
+						<label for="email"><xsl:value-of select="$locale//message[@id='YourEmail']/@text"/>: <input type="text" id="email" value="{/person/@email}"/></label>
+<!--						<label for="notify" class="cb">Присылать уведомления об ответах на форуме <input type="checkbox" class="inline" id="notify">
 							<xsl:if test="/person/@notify = 'true'">
 								<xsl:attribute name="checked">checked</xsl:attribute>
 							</xsl:if>
-						</input></label>
-						<label for="info">Информация о Вас (будет опубликована на сайте): <textarea id="info" rows="7" cols="60"><xsl:value-of select="/person/info"/></textarea></label>
-						<label><br/>Чтобы изменить пароль, введите Ваш старый и новый пароли:</label>
-						<label for="regoldpassword">Старый пароль:<input type="text" id="regoldpassword"/></label>
-						<label for="regpassword">Новый пароль:<input type="text" id="regpassword"/></label>
+						</input></label>-->
+						<label for="info"><xsl:value-of select="$locale//message[@id='YourInformation']/@text"/>: <textarea id="info" rows="7" cols="60"><xsl:value-of select="/person/info"/></textarea></label>
+						<label><br/><xsl:value-of select="$locale//message[@id='ToChangePassword']/@text"/>:</label>
+						<label for="regoldpassword"><xsl:value-of select="$locale//message[@id='OldPassword']/@text"/>:<input type="text" id="regoldpassword"/></label>
+						<label for="regpassword"><xsl:value-of select="$locale//message[@id='NewPassword']/@text"/>:<input type="text" id="regpassword"/></label>
 
 						<div id="regnotice"></div>
-						<input type="submit" value="Сохранить"/>
+						<input type="submit" value="{$locale//message[@id='Save']/@text}"/>
 					</form>
 				</div>
 				<xsl:call-template name="copyright"/>

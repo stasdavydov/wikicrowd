@@ -20,6 +20,23 @@ if (file_exists(CORE.'config.xml')) {
 	define('VERSION', $dom->documentElement->getAttribute('version'));
 }
 
+// load locale
+if(! defined('LOCALE'))
+	define('LOCALE', 'ru');
+if (file_exists(CORE.'xml/locale/'.LOCALE.'.xml')) {
+	$dom = new DOMDocument();
+	$dom->load(CORE.'xml/locale/'.LOCALE.'.xml');
+	$messages = $dom->getElementsByTagName('message');
+	for($i = 0; $i < $messages->length; $i++) {
+		$message = $messages->item($i);
+		define('locale\\'.$message->getAttribute('id'), $message->getAttribute('text'));
+	}
+}
+
+function getMessage($id) {
+	return str_replace('\\n', "\n", constant('locale\\'.$id));
+}
+
 function plugins_mtime($filePattern) {
 	$d = opendir(PLUGINS);
 	$mtime = 0;
@@ -84,6 +101,7 @@ function transformDOM($dom, $xslFile, $params) {
 	$xsldoc->load($xslFile);
 	$xslproc = new XSLTProcessor();
 	$xslproc->setParameter('', 'VERSION', VERSION);
+	$xslproc->setParameter('', 'LOCALE', LOCALE);
 	foreach($params as $param=>$value)
 		$xslproc->setParameter('', $param, $value);
 	$xslproc->importStyleSheet($xsldoc);
@@ -98,6 +116,7 @@ function transformXML2DOM($xmlFile, $xslFile, $params) {
 	$xsldoc->load($xslFile);
 	$xslproc = new XSLTProcessor();
 	$xslproc->setParameter('', 'VERSION', VERSION);
+	$xslproc->setParameter('', 'LOCALE', LOCALE);
 	foreach($params as $param=>$value)
 		$xslproc->setParameter('', $param, $value);
 	$xslproc->importStyleSheet($xsldoc);
@@ -186,7 +205,7 @@ function doLogin($person, $remember = false) {
 }
 
 function warn($msg) {
-?><warn><?=iconv('windows-1251', 'utf-8', $msg)?></warn><?
+?><warn><?=$msg?></warn><?
 		
 	ob_end_flush();
 	exit;
@@ -195,14 +214,14 @@ function warn($msg) {
 function internal($msg) {
 	if (supportEmail != NULL)
 		@mail (supportEmail, 
-			'=?Windows-1251?b?'.base64_encode('['.title.'] ¬нутренн€€ ошибка').'?=', 
+			'=?UTF-8?b?'.base64_encode('['.title.'] '.getMessage('InternalError')).'?=', 
 			chunk_split(base64_encode(
-			"ѕроизошла внутренн€€ ошибка:\n$msg\n\n".
+			getMessage('InternalErrorOccured')."\n$msg\n\n".
 			'$_SERVER: '.print_r($_SERVER, true)."\n")), 
 			"From: ".title." <".supportEmail.">\n".
-			"Content-Type: text/plain;\r\n\tcharset=windows-1251\n".
+			"Content-Type: text/plain;\r\n\tcharset=UTF-8\n".
 			"Content-Transfer-Encoding: base64\n");
 
-	warn('¬нутренн€€ ошибка: '.$msg);
+	warn(getMessage('InternalError').': '.$msg);
 }
 ?>
