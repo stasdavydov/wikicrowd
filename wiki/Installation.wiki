@@ -1,5 +1,5 @@
 #summary How to install WikiCrowd
-#labels Phase-Deploy
+#labels Phase-Deploy,Featured
 
 At first, [http://code.google.com/p/wikicrowd/downloads/list download the latest version of WikiCrowd].
 
