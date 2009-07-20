@@ -156,3 +156,32 @@ function dump(o) {
 		msg += v + "=" + o[v] + (count++ % columns ? "\t\t" : "\n");
 	alert(msg);
 }
+
+function getTextTimeDifference(ts) {
+	var months = new Array(Locale.monJan, Locale.monFeb, Locale.monMar, Locale.monApr, Locale.monMay, 
+		Locale.monJun, Locale.monJul, Locale.monAug, Locale.monSep, Locale.monOct, Locale.monNov, Locale.monDec);
+
+	var diff = new Date().getTime()/1000 - ts;
+	var minutes = diff/60;
+	var hours = minutes/60;
+	var days = hours/24;
+	if (diff <= 60) {
+		return Locale.lessMinute + " " + Locale.back;
+	} else if (diff > 60 && diff < 3600) {
+		return Locale.getMinutesText(parseInt(minutes)) + " " + Locale.back;
+	} else if (diff >= 3600 && diff < 3600 * 24)  {
+		return Locale.getHoursText(parseInt(hours)) + " " + 
+			Locale.getMinutesText(parseInt(diff%3600/60)) + " " + Locale.back;
+	} else if (diff >= 3600 * 24 && diff < 3600 * 24 * 10) {
+		return Locale.getDaysText(parseInt(days)) + " " + 
+			Locale.getHoursText(parseInt(diff/3600%24)) + " " + 
+			Locale.getMinutesText(parseInt(diff%3600/60)) + " " + Locale.back;
+	} else {
+		var date = new Date();
+		date.setTime(ts * 1000);
+		return date.getDate() + ' ' + 
+			months[date.getMonth()] + ' ' +
+			date.getFullYear() + ' ' +
+			date.getHours() + ':' + date.getMinutes();
+	}
+}

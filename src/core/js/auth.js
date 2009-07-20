@@ -8,22 +8,22 @@ function auth() {
 	var remember = $('remember');
 
 	if (login.value.match(/^\s*$/)) {
-		showError(authNotice, 'Логин не может быть пустым.');
+		showError(authNotice, Locale.LoginCannotBeEmpty);
 		login.focus();
 		return false;
 	} else if (! login.value.match(/^[a-zA-Z0-9]+$/)) {
-		showError(authNotice, 'В логине могут быть только латинские буквы (a-z, A-Z) и арабские цифры (0-9).');
+		showError(authNotice, Locale.LoginRule);
 		login.focus();
 		return false;
 	}
 
 	if (password.value.match(/^\s*$/)) {
-		showError(authNotice, 'Пароль не может быть пустым.');
+		showError(authNotice, Locale.PasswordCannotBeEmptyWOAlert);
 		password.focus();
 		return false;
 	}
 
-	showProgress(authNotice, 'Идет проверка...');
+	showProgress(authNotice, Locale.Checking);
 
 	if (window.ActiveXObject) xmlHttp_auth = new ActiveXObject("Microsoft.XMLHTTP");
 	else if (window.XMLHttpRequest) xmlHttp_auth = new XMLHttpRequest();
@@ -38,7 +38,7 @@ function auth() {
 		xmlHttp_auth.send(null);
 	} catch (e) {
 		showError(authNotice, 
-			'Вероятно что-то с сетью. Попробуйте повторить чуть позже. (' + e + ')'); 
+			Locale.SomethingWithNetwork + ' (' + e + ')'); 
 	}
 	return false;
 }
@@ -49,19 +49,19 @@ function handleAuth() {
 			var logged = xml.getElementsByTagName('logged');
 			var warn = xml.getElementsByTagName('warn');
 			if (logged.length == 1) {
-				showNotice(authNotice, 'Проверка прошла успешно! Подождите, пожалуйста, несколько секунд, пока страница загрузится.');
+				showNotice(authNotice, Locale.CheckIsComplete);
 				location.href = www + '?ts=' + new Date().getTime();
 			} else if (warn.length > 0) {
 				showError(authNotice, warn[0].firstChild.nodeValue);
 			} else {
-				showError(authNotice, 'Какие-то проблемы на сервере. RAW output: ' + xmlHttp_auth.responseText);
+				showError(authNotice, Locale.SomethingWithServer + ' RAW output: ' + xmlHttp_auth.responseText);
 			}
 		} else if (xmlHttp_auth && xmlHttp_auth.readyState == 4 && xmlHttp_auth.status != 200) {
-		 	showError(authNotice, 'Какие-то проблемы на сервере. Код возврата: ' + xmlHttp_auth.status);
+		 	showError(authNotice, Locale.SomethingWithServer + 'Code: ' + xmlHttp_auth.status);
 		}
 	} catch(e) {
 		showError(authNotice, 
-			'Вероятно что-то с сетью. Попробуйте повторить чуть позже. (' + e + ')'); 
+			Locale.SomethingWithNetwork + ' (' + e + ')'); 
 	}
 }
 
@@ -75,32 +75,24 @@ function register() {
 	var email = $('email');
 	var info = $('info');
 
-	if (checkEmptyField(login, regNotice, 'Логин не может быть пустым')) return false;
+	if (checkEmptyField(login, regNotice, Locale.LoginCannotBeEmpty)) return false;
 	else if (! login.value.match(/^(\w|\d)+$/)) {
-		showError(regNotice, 
-			'Логин может содержать только латинские буквы (a-z, A-Z) или арабские цифры (0-9).');
+		showError(regNotice, Locale.LoginRule);
 		login.select();
 		login.focus();
 		return false;
 	}
-	if (checkEmptyField(password, regNotice, 
-		'Пароль не может быть пустым. Если не задать пароль, кто угодно сможет выдать себя за вас.')) return false;
-	if (checkEmptyField(name, regNotice, 
-		'Нам бы очень хотелось знать, как Вас зовут. Укажите, пожалуйста, Ваше имя.')) return false;
-	if (checkEmptyField(email, regNotice, 
-		'E-mail нужен для того, чтобы точно убедиться, что Вы - это Вы. ' +
-		'Еще он нужен, чтобы получить письмом пароль, если вдруг Вы его забыли. ' +
-		'А еще нам очень хочется иметь возможность связаться с Вами, если что (никакого СПАМа!). ' +
-		'Укажите, пожалуйста, Ваш e-mail.')) return false;
+	if (checkEmptyField(password, regNotice, Locale.PasswordCannotBeEmpty)) return false;
+	if (checkEmptyField(name, regNotice, Locale.NameIsRequired)) return false;
+	if (checkEmptyField(email, regNotice, Locale.EmailCannotBeEmpty)) return false;
 	else if (! checkEmail(email.value)) {
-		showError(regNotice, 
-			'В Вашем e-mail ошибка, проверьте, пожалуйста. Хочется чего-то вроде email@server.com');
+		showError(regNotice, Locale.EmailIsWrong);
 		email.focus();
 		return false;
 	}
-	if (checkEmptyField(info, regNotice, 'Нам бы очень хотелось знать чуть больше о Вас.')) return false;
+//	if (checkEmptyField(info, regNotice, 'Нам бы очень хотелось знать чуть больше о Вас.')) return false;
 
-	showProgress(regNotice, 'Идет регистрация...');
+	showProgress(regNotice, Locale.Registring);
 
 	if (window.ActiveXObject) xmlHttp_reg = new ActiveXObject("Microsoft.XMLHTTP");
 	else if (window.XMLHttpRequest) xmlHttp_reg = new XMLHttpRequest();
@@ -117,8 +109,7 @@ function register() {
 			"&email=" + encodeURIComponent(email.value) +
 			"&info=" + encodeURIComponent(info.value));
 	} catch (e) {
-		showError(regNotice, 
-			'Вероятно что-то с сетью. Попробуйте повторить чуть позже. (' + e + ')'); 
+		showError(regNotice, Locale.SomethingWithNetwork + ' (' + e + ')'); 
 	}
 	return false;
 }
@@ -129,21 +120,17 @@ function handleRegister() {
 			var registered = xml.getElementsByTagName('registered');
 			var warn = xml.getElementsByTagName('warn');
 			if (registered.length == 1) {
-				showNotice(regNotice, 
-					'Регистрация прошла успешно! На указанный Вами e-mail было отправлено письмо ' +
-					'со ссылкой, перейдя по которой, Вы активируете Вашу учетную запись.');
+				showNotice(regNotice, Locale.RegistrationSuccess);
 			} else if (warn.length > 0) {
 				showError(regNotice, warn[0].firstChild.nodeValue);
 			} else {
-				showError(regNotice, 'Какие-то проблемы на сервере. RAW output: ' + 
-					xmlHttp_reg.responseText);
+				showError(regNotice, Locale.SomethingWithServer + ' RAW output: ' + xmlHttp_reg.responseText);
 			}
 		} else if (xmlHttp_reg && xmlHttp_reg.readyState == 4 && xmlHttp_reg.status != 200) {
-	 		showError(regNotice, 'Какие-то проблемы на сервере. Код возврата: ' + xmlHttp_reg.status);
+	 		showError(regNotice, Locale.SomethingWithServer + ' Code: ' + xmlHttp_reg.status);
 		}
 	} catch(e) {
-		showError(regNotice, 
-			'Вероятно что-то с сетью. Попробуйте повторить чуть позже. (' + e + ')'); 
+		showError(regNotice, Locale.SomethingWithNetwork + ' (' + e + ')'); 
 	}
 }
 
@@ -153,11 +140,9 @@ function forget() {
 	foretNotice = $('forgetnotice');
 	var email = $('forgetemail');
 
-	if (checkEmptyField(email, foretNotice, 
-		'Если Вы не укажете Ваш e-mail, мы не сможем прислать Вам пароль.')) return false;
+	if (checkEmptyField(email, foretNotice, Locale.EmailIsEmpty)) return false;
 	else if (! checkEmail(email.value)) {
-		showError(foretNotice, 
-			'В Вашем e-mail ошибка, проверьте, пожалуйста. Хочется чего-то вроде email@server.com');
+		showError(foretNotice, Locale.EmailIsWrong);
 		email.focus();
 		return false;
 	}
@@ -170,11 +155,10 @@ function forget() {
 		"&email=" + email.value +
 		"&ts=" + new Date().getTime(), true);
 	try {
-		showProgress(foretNotice, 'Отправляем...');
+		showProgress(foretNotice, Locale.Sending);
 		xmlHttml_forget.send(null);
 	} catch (e) {
-		showError(foretNotice, 
-			'Вероятно что-то с сетью. Попробуйте повторить чуть позже. (' + e + ')'); 
+		showError(foretNotice, Locale.SomethingWithNetwork + ' (' + e + ')'); 
 	}
 	return false;
 }
@@ -185,20 +169,17 @@ function handleForget() {
 			var sent = xml.getElementsByTagName('sent');
 			var warn = xml.getElementsByTagName('warn');
 			if (sent.length == 1) {
-				showNotice(foretNotice, 
-					'Мы отправили Вам письмо с новым паролем.');
+				showNotice(foretNotice, Locale.NewPasswrodSent);
 			} else if (warn.length > 0) {
 				showError(foretNotice, warn[0].firstChild.nodeValue);
 			} else {
-				showError(foretNotice, 'Какие-то проблемы на сервере. RAW output: ' + 
-					xmlHttml_forget.responseText);
+				showError(foretNotice, Locale.SomethingWithServer + ' RAW output: ' + xmlHttml_forget.responseText);
 			}
 		} else if (xmlHttml_forget && xmlHttml_forget.readyState == 4 && xmlHttml_forget.status != 200) {
-	 		showError(foretNotice, 'Какие-то проблемы на сервере. Код возврата: ' + xmlHttml_forget.status);
+	 		showError(foretNotice, Locale.SomethingWithServer + ' Code: ' + xmlHttml_forget.status);
 		}
 	} catch(e) {
-		showError(foretNotice, 
-			'Вероятно что-то с сетью. Попробуйте повторить чуть позже. (' + e + ')'); 
+		showError(foretNotice, Locale.SomethingWithNetwork + ' (' + e + ')'); 
 	}
 }
 
@@ -213,7 +194,7 @@ function logout() {
 	try {
 		xmlHttp_logout.send(null);
 	} catch (e) {
-		alert('Вероятно что-то с сетью. Попробуйте повторить чуть позже. (' + e + ')'); 
+		showError(foretNotice, Locale.SomethingWithNetwork + ' (' + e + ')'); 
 	}
 }
 function handleLogout() {
@@ -223,21 +204,18 @@ function handleLogout() {
 			var warn = xml.getElementsByTagName('warn');
 			var loggedout = xml.getElementsByTagName('loggedout');
 			if (warn.length > 0) {
-				alert('Возникли сложности. ' +
-					'Наша служба поддержки уже получила уведомление и постарается исправить проблему ' +
-					'как можно скорее. (' + warn[0].firstChild.nodeValue);
+				alert(Locale.SomethingHappen + ' ' + Locale.SupportIsNotified + ' (' + 
+					warn[0].firstChild.nodeValue);
 			} else if (loggedout.length > 0) {
 				location.href = www + '?ts=' + new Date().getTime();
 			} else {
-			 	alert('Возникли сложности. ' +
-			 		'Какие-то проблемы на сервере. RAW output: ' + xmlHttp_logout.responseText);
+			 	alert(Locale.SomethingHappen + ' ' + Locale.SomethingWithServer + ' RAW output: ' + xmlHttp_logout.responseText);
 			}
 		} else if (xmlHttp_logout && xmlHttp_logout.readyState == 4 && xmlHttp_logout.status != 200) {
-	 		alert('Возникли сложности. ' +
-	 			'Какие-то проблемы на сервере. Код возврата: ' + xmlHttp_logout.status);
+	 		alert(Locale.SomethingHappen + ' ' + Locale.SomethingWithServer + ' Code: ' + xmlHttp_logout.status);
 		}
 	} catch(e) {
-		alert('Вероятно что-то с сетью. Попробуйте повторить чуть позже. (' + e + ')'); 
+		alert(Locale.SomethingWithNetwork + ' (' + e + ')'); 
 	}
 }
 

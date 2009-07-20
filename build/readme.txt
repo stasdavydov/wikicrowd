@@ -9,6 +9,7 @@ CONTENTS:
  II. INSTALLATION
 III. RELEASE NOTES
  IV. SUPPORT & CONTACTS
+  V. LICENSE
 
 I. SYSTEM REQUIREMENTS: 
      PHP 5.2 or higher with DOM, XSL and iconv 
@@ -36,6 +37,11 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
+  0.0.7 - Localization (Russian and English languages impleented).
+          E-mail change confirmation re-implemented to prevent account blocking.
+          Improve installation with checking of newwer version of WikiCrowd.
+          Bugfix.
+
   0.0.6 - Initial public version.
 
 IV. SUPPORT & CONTACTS
@@ -43,3 +49,7 @@ IV. SUPPORT & CONTACTS
   Stas Davydov <davidovsv@yandex.ru> or check
   the WikiCrowd FAQ for help on 
   http://code.google.com/p/wikicrowd/
+
+V. LICENSE
+  WikiCrowd is under LGPL. http://www.gnu.org/licenses/lgpl.html
+

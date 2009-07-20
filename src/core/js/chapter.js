@@ -44,7 +44,7 @@ var BlockController = {
 
 					var control = createElement('div', 
 						{id: 'control' + params.id, className: 'control'},	
-						[document.createTextNode('Изменить')]);
+						[document.createTextNode(Locale.Change)]);
 					BlockController.initBlockEvents(control);
 					div.insertBefore(control, div.firstChild);
 				}
@@ -73,7 +73,7 @@ var BlockController = {
 
 		var control = createElement('div', 
 			{id: 'control' + id, className: 'control'},	
-			[document.createTextNode('Изменить')]);
+			[document.createTextNode(Locale.Change)]);
 		BlockController.initBlockEvents(control);
 		container.insertBefore(control, container.firstChild);
 
@@ -185,7 +185,7 @@ var BlockPlugin = function(type) {
 				container.insertBefore(form, $('block' + id));
 
 				// append plugin dependent form content
-				showProgress($('formloader' + id), 'Загрузка формы для редактирования');
+				showProgress($('formloader' + id), Locale.EditFormLoading);
 
 				new Ajax(www + 'ajax.php?do=edit&id=' + id + '&rev=' + rev + '&ts=' + new Date().getTime(), {
 					method: 'GET', successful: function(ajax) {
@@ -197,8 +197,8 @@ var BlockPlugin = function(type) {
 						appendChildren(form, 
 							[createElement('br'), 
 					 		createElement('div', {id: 'error' + id, className: 'error'}), 
-					 		createElement('input', {id: 'submit' + id, type: 'submit', value: 'Сохранить'}), 
-					 		createElement('input', {id: 'cancel' + id, type: 'reset', value: 'Отменить'})]);
+					 		createElement('input', {id: 'submit' + id, type: 'submit', value: Locale.Save}), 
+					 		createElement('input', {id: 'cancel' + id, type: 'reset', value: Locale.Cancel})]);
 						$('cancel' + id).onclick = function () {
 							cancelEditing(id);
 							ajax.params.plugin.authError = false;
@@ -226,7 +226,7 @@ var BlockPlugin = function(type) {
 			for(var name in formData)
 				postData += '&' + name + '=' + formData[name];
 
-			showProgress($('error' + id), 'Сохраняем... ');
+			showProgress($('error' + id), Locale.Saving);
 			new Ajax(www+"ajax.php?do=save&ts=" + new Date().getTime(), {
 				method: 'POST', postData: postData, 
 				successful: this.saved, failed: this.saveFailed, crashed: this.crashed,
@@ -249,32 +249,29 @@ var BlockPlugin = function(type) {
 			} else if (conflict.length > 0) {
 				conflict = conflict[0];
 				showErrorExt($('error' + id), 
-					'Произошел конфликт версий.', 
-					'Пока вы редактировали этот текст, ' + 
-					getTextTimeDifference(conflict.getAttribute('created-ts')) + ' ' +
-					'<a href="' + www + 'person/' + conflict.getAttribute('author') + '">' + 
-					conflict.getAttribute('author') + 
-					'</a> успел сохранить новую версию: <br/><br/>' +
+					Locale.getMessage('VersionConflict', 
+						getTextTimeDifference(conflict.getAttribute('created-ts')),
+                        www + 'person/' + conflict.getAttribute('author'),
+                        conflict.getAttribute('author')) + ': <br/><br/>' +
 					'<div id="conflict"></div>');
 				var div = $('error' + id).getElementsByTagName('div');
 				div[div.length-1].innerHTML = conflict.firstChild.nodeValue;
 
-				$('submit' + id).value = 'Перезаписать';
+				$('submit' + id).value = Locale.Overwrite;
 				$('form' + id).insertBefore(
 					createElement('input', {type: 'hidden', id: 'overwrite'}), 
 					$('form' + id).firstChild);
 			} else if (auth.length > 0) {
 				auth = auth[0];
 				showErrorExt($('error' + id), 
-					'Мы вас не узнаем. Вероятно, время сессии истекло. ', 
+					Locale.SessionExpired + ' ', 
 					(auth.firstChild ? auth.firstChild.nodeValue + '<br/>': '') + 
-					'Укажите Ваш логин и пароль для доступа к сайту и сохраните текст еще раз.<br/>' +
-					'<label for="login">Логин: <input type="text" id="login" value="' + 
+					Locale.SpecifyLoginAndPassword + '<br/>' +
+					'<label for="login">' + Locale.LoginAsLogin + ': <input type="text" id="login" value="' + 
 					auth.getAttribute('login') + '"/></label> ' +
-					'<label for="password">Пароль: <input type="password" id="password" value="' +
+					'<label for="password">' + Locale.Password + ': <input type="password" id="password" value="' +
 					auth.getAttribute('password') + '"/></label><br/>' +
-					'Если Вы забыли Ваш логин или пароль, их всегда <a href="' + www + 
-					'auth/">можно восстановить</a>.');
+					Locale.getMessage('IfYouForgetShort', www + 'auth/'));
 				ajax.params.plugin.authError = true;
 			} else if (saved.length > 0 || inserted.length > 0){
 				var container = BlockController.getContainerById(id);
@@ -305,18 +302,17 @@ var BlockPlugin = function(type) {
 		
 				FadeEffect.start();
 			} else {
-				showError($('error' + id), 'Какие-то проблемы на сервере. RAW output: ' + 
+				showError($('error' + id), Locale.SomethingWithServer + ' RAW output: ' + 
 					ajax.responseText());
 			}
 
 		},
 		saveFailed: function(ajax) {
-			showError($('error' + ajax.params.id), 'Не могу сохранить изменения :(. Код ошибки: ' + 
-				ajax.status());
+			showError($('error' + ajax.params.id), Locale.getMessage('CannotSaveChanges', ajax.status()));
 		},
 
 		crashed: function(ajax, e) {
-			alert('Кажется, проблемы с сетью. Попробуйте повторить чуть позже. (' + e + ')');
+			alert(Locale.SomethingWithNetwork + ' (' + e + ')');
 		}
 	});
 };
@@ -378,15 +374,13 @@ function changesLoaded(ajax) {
 	var xml = ajax.responseXML();
 	var warn = xml.getElementsByTagName('warn');
 	if (warn.length > 0) {
-		showLoadChangesError(
-			'Наша служба поддержки уже получила уведомление и постарается исправить проблему ' +
-			'как можно скорее. (' + warn[0].firstChild.nodeValue);
+		showLoadChangesError(Locale.SupportIsNotified + ' (' + warn[0].firstChild.nodeValue);
 	} else {
 		var id = ajax.params.id;
 
 		$('loadchanges' + id).innerHTML = "*";
 		setCl($('loadchanges' + id), 'changes serv opened');
-		$('loadchanges' + id).setAttribute('title', 'Закрыть список изменений');
+		$('loadchanges' + id).setAttribute('title', Locale.CloseList);
 		$('loadchanges' + id).setAttribute('href', 'javascript:closeChanges(\'' + id + '\')');
 
 		var div = createElement('div');
@@ -400,31 +394,31 @@ function changesLoaded(ajax) {
 }
 
 function loadChangesFailed (ajax) {
- 	showLoadChangesError('Какие-то проблемы на сервере. Код возврата: ' + ajax.status());
+ 	showLoadChangesError(Locale.SomethingWithServer + 'Code: ' + ajax.status());
 }
 
 function loadChangesCrashed(ajax, e) {
-	alert('Кажется, проблемы с сетью. Попробуйте повторить чуть позже. (' + e + ')');
+	alert(Locale.SomethingWithNetwork + ' (' + e + ')');
 }
 
 function createChangesSign(blockId) {
 	$('block' + blockId).parentNode.appendChild(createElement('a', 
 		{className: 'changes serv', id: 'loadchanges' + blockId, 
 			href: "javascript:loadChanges('" + blockId + "')",
-			title: "Посмотреть список изменений"},
+			title: Locale.ViewChangeList},
 		[document.createTextNode("*")]));
 }
 
 function showLoadChangesError(msg) {
 	$('loadchanges' + id).innerHTML = "*";
-	alert('К сожалению, не могу получить список изменений данного фрагмента. ' + msg);
+	alert(Locale.CannotGetChangeList + ' ' + msg);
 }
 
 function closeChanges(id) {
 	setCl($('loadchanges' + id), 'changes serv');
 	$('changes' + id).parentNode.removeChild($('changes' + id));
 	$('loadchanges' + id).setAttribute('href', "javascript:loadChanges('" + id + "')");
-	$('loadchanges' + id).setAttribute('title', 'Посмотреть список изменений');
+	$('loadchanges' + id).setAttribute('title', Locale.ViewChangeList);
 }
 
 var lastCheck = parseInt(new Date().getTime() / 1000);
@@ -492,7 +486,7 @@ var initBlockEvents = function(div) {
 var createControl = function(id) {
 	var control = createElement('div', 
 		{id: 'control' + id, className: 'control'},	
-		[document.createTextNode('Изменить')]);
+		[document.createTextNode(Locale.Change)]);
 	initBlockEvents(control);
 	return control;
 };
