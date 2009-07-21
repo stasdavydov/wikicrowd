@@ -39,7 +39,7 @@ II. INSTALLATION:
 III. RELEASE NOTES:
   0.0.7 - Localization (Russian and English languages impleented).
           E-mail change confirmation re-implemented to prevent account blocking.
-          Improve installation with checking of newwer version of WikiCrowd.
+          Improve installation with checking of newer version of WikiCrowd.
           Bugfix.
 
   0.0.6 - Initial public version.
