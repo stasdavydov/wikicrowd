@@ -15,21 +15,13 @@
 
 	<xsl:template match="/">
 var Locale = {
-<xsl:apply-templates select="//message[not(@id = 'getMinutesText' or @id = 'getHoursText' or @id = 'getDaysText')]"/>
+<xsl:apply-templates select="//message"/>
+<xsl:apply-templates select="//function"/>
 	getMessage: function(id) {
 		var text = this[id];
 		for(var i = 1; i <xsl:text disable-output-escaping="yes">&lt;</xsl:text> arguments.length; i++)
 			text = text.replace('%' + i, arguments[i]);
 		return text;
-	},
-	getMinutesText: function(minutes) {
-		<xsl:value-of select="//message[@id = 'getMinutesText']/text()" disable-output-escaping="yes"/>
-	},
-	getHoursText: function(hours) {
-		<xsl:value-of select="//message[@id = 'getHoursText']/text()" disable-output-escaping="yes"/>
-	},
-	getDaysText: function(days) {
-		<xsl:value-of select="//message[@id = 'getDaysText']/text()" disable-output-escaping="yes"/>
 	}
 };
 	</xsl:template>
@@ -40,6 +32,12 @@ var Locale = {
 	<xsl:with-param name="search">'</xsl:with-param>
 	<xsl:with-param name="replace">\'</xsl:with-param>
 	</xsl:call-template>',
+</xsl:template>
+
+	<xsl:template match="function">
+<xsl:value-of select="@id"/>: function(<xsl:value-of select="@params"/>) {
+<xsl:value-of select="text()" disable-output-escaping="yes"/>
+},
 </xsl:template>
 
 </xsl:stylesheet>

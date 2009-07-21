@@ -38,9 +38,6 @@ Support team"/>
 <message id="EmailIsWrong" text="There is an error in your e-mail. Wants something like email@server.com"/>
 <message id="EnterLoginAndPassword" text="You should enter login and password to access this page."/>
 <message id="ForgotPassword" text="Forget password"/>
-<message id="getMinutesText"><![CDATA[return minutes + " minute" + (minutes > 1	? "s" : "");]]></message>
-<message id="getHoursText"><![CDATA[return hours + " hour" + (hours > 1 ? "s" : "");]]></message>
-<message id="getDaysText"><![CDATA[return days + " day" + (days > 1 ? "s" : "");]]></message>
 <message id='IDisEmpty' text='ID is empty.'/>
 <message id='IDisNotSet' text='ID is not set.'/>
 <message id='IfYourForgetPassword' text="If you forget your login or password, please enter e-mail you used on registration. We'll send a new password via e-mail."/>
@@ -170,4 +167,8 @@ Support team"/>
 <message id="YourEmailField" text="Your e-mail"/>
 <message id="YourInformation" text="Information about you (published)"/>
 <message id="YourName" text="Your name"/>
+
+<function id="getMinutesText" params="minutes"><![CDATA[return minutes + " minute" + (minutes > 1	? "s" : "");]]></function>
+<function id="getHoursText" params="hours"><![CDATA[return hours + " hour" + (hours > 1 ? "s" : "");]]></function>
+<function id="getDaysText" params="days"><![CDATA[return days + " day" + (days > 1 ? "s" : "");]]></function>
 </locale>
