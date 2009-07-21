@@ -70,7 +70,7 @@ ins ins { background: #FFC; text-decoration: none; }
 .error { color: #C00; }
 .notice { color: #060; }
 
-p.copyright { clear: both; }
+p.copyright { clear: both; background: url('../img/favicon.gif') no-repeat left top; padding-left: 40px; }
 
 .menu { background: #EEE; height: 1.25em; padding: 0.25em 0.15em 0.15em 1em; position: relative; 
 border-bottom: 1px solid #CCC; color: #CCC; font-size: 90%; }
