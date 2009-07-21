@@ -10,6 +10,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="RU">
 <head><title><?=getMessage('RestrictedAccess')?> | <?=title?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<link rel="shortcut icon" href="<?=www?>core/img/favicon.gif" />
 <link rel="stylesheet" type="text/css" href="<?=www?>core/css/main.css"/>
 <script type="text/javascript">var www = '<?=www?>';</script>
 <script type="text/javascript" src="<?=www?>core/js/base.js" charset="windows-1251">//<!--"--></script>

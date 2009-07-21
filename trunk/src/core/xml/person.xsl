@@ -33,6 +33,7 @@
 		<html xml:lang="ru" lang="RU">
 			<head><title><xsl:value-of select="/person/@name"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
 				<link rel="stylesheet" type="text/css" href="{$config//property[@name='www']/@value}core/css/main.css"/>
 				<style type="text/css">
 h1 { margin: 0.25em 0 0.5em 0.65em; }
