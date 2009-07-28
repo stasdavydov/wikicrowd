@@ -14,17 +14,25 @@
 
 	ob_start('ob_gzhandler');
 
-	$params = array('MODE'=>'view');
+	$person = getSessionPerson();
+	if (isGuest($person) && ! personCanView($person)) {
+		include HOME.'auth.php';
+		exit;
+	}
+
+	$params = array('MODE'=>'restricted');
 	$xsl = CORE.'xml/person.xsl';
 	if($person = getSessionPerson()) {
-		if ($person->getAttribute('uid') == $uid)
+		if ($person->getAttribute('uid') == $uid && !isGuest($person))
 			$params['MODE'] = 'edit';
+		else if (personCanView($person))
+			$params['MODE'] = 'view';
 
 		$params['UID'] = $person->getAttribute('uid');
 		$params['NAME'] = $person->getAttribute('name');
 	} 
 
-	echo transformXML($personFile, $xsl, $params, XSL_MTIME);
+	echo transformXML($personFile, $xsl, $params, PROJECT_MTIME);
 
 	ob_end_flush();
 ?>

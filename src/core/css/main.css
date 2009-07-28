@@ -34,8 +34,6 @@ form { font-weight: normal; color: #666; font-size: 110%;}
 form input { font-weight: normal; margin: 0.15em 0.15em 0.15em 0; padding: 0.25em;}
 form textarea { margin: 0; width: 99%;  }
 
-.copyright { margin: 3em 0 2em 1.25em; font-size: 75%; }
-
 .part { position: relative; width: 100%; border: 1px solid #FFF; z-index: 1;}
 
 .part.over { border: 1px solid #CCC; z-index: 2; cursor: pointer;}
@@ -70,10 +68,12 @@ ins ins { background: #FFC; text-decoration: none; }
 .error { color: #C00; }
 .notice { color: #060; }
 
-p.copyright { clear: both; background: url('../img/favicon.gif') no-repeat left top; padding-left: 40px; }
+p.copyright { clear: both; background: #EEE url('../img/favicon.gif') no-repeat 10px 1em; 
+padding: 1em 1em 1em 55px; clear:both; margin: 3em 0 0 0; 
+font-size: 75%; width: 25em; border: 1px solid #DDD; border-left: none; }
 
 .menu { background: #EEE; height: 1.25em; padding: 0.25em 0.15em 0.15em 1em; position: relative; 
-border-bottom: 1px solid #CCC; color: #CCC; font-size: 90%; }
+border-bottom: 1px solid #DDD; color: #CCC; font-size: 90%; }
 .menu a { color: #999; border: none; margin: 0 0.25em 0 0.25em; }
 .menu a:hover { color: #C00; }
 .menu div.person { position: absolute; right: 0.25em; top: 0.25em; }
@@ -92,3 +92,4 @@ border: 1px solid #FFF; font-size: 300%; margin: 0 1px 0 0; }
 .help .content { display: none; border: 1px solid #CCC; padding: 0.5em; }
 .help .content ul { margin: 0 0 1em 2em; }
 
+code { background: #FFC; }

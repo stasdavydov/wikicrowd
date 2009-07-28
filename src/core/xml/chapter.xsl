@@ -58,6 +58,10 @@
 							</xsl:for-each>                                              
 						</xsl:when>
 
+						<xsl:when test="$MODE = 'restricted'">
+							<p><xsl:value-of select="$locale//message[@id='YouHaveNoPermissions']/@text"/></p>
+						</xsl:when>
+
 						<xsl:otherwise>
 							<xsl:for-each select="/chapter/block[not(@deleted)]">
 								<div class="part" id="{@id}:{@type}:{@rev}">

@@ -47,13 +47,13 @@ function plugins_mtime($filePattern) {
 	return $mtime;
 }
 
-define('XSL_MTIME', max(plugins_mtime('/node.xsl'), 
+define('PROJECT_MTIME', max(plugins_mtime('/node.xsl'), 
 	@filemtime(IMPORT_XSL_FILE), 
 	filemtime(CORE.'xml/core.xsl'),
 	filemtime(HOME.'mb_diff.php')));
 
 // check import.xsl for plugins XSL files
-if (! file_exists(IMPORT_XSL_FILE) || filemtime(IMPORT_XSL_FILE) < XSL_MTIME) {
+if (! file_exists(IMPORT_XSL_FILE) || filemtime(IMPORT_XSL_FILE) < PROJECT_MTIME) {
 	$f = fopen(IMPORT_XSL_FILE, 'w');
 	fwrite($f, '<?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns="http://www.w3.org/1999/xhtml" exclude-result-prefixes="">
@@ -89,7 +89,8 @@ function mergePluginFiles($into, $filePart) {
 mergePluginFiles(CORE.'js/plugins.js', '/node.js');
 mergePluginFiles(CORE.'css/plugins.css', '/node.css');
 
-require_once PLUGINS.'block.php';
+require_once CORE.'block.php';
+require_once CORE.'person.php';
 
 define ('DEBUG', false);
 if (DEBUG) {
@@ -176,32 +177,6 @@ function enterCriticalSection($f) {
 
 function exitCriticalSection($f) {
 	flock($f, LOCK_UN);
-}
-
-function getSessionPerson() {
-	if (array_key_exists('uid', $_COOKIE)) {
-		$uid = split('-', $_COOKIE['uid']);
-		if (count($uid) == 2) {
-			$person = loadPerson($uid[0]);
-			if ($person && md5($person->getAttribute('password')) == $uid[1])
-				return $person;
-		}
-	}
-	return NULL;
-}
-
-function loadPerson($uid, $sandbox = false) {
-	$personFile = PERSONS.($sandbox ? 'sandbox/' : '').$uid.'.xml';
-	if (! file_exists($personFile))
-		return NULL;
-	$dom = new DOMDocument();
-	$dom->load($personFile);
-	return $dom->documentElement;
-}
-
-function doLogin($person, $remember = false) {
-    setcookie('uid', $person->getAttribute('uid').'-'.md5($person->getAttribute('password')),
-    	$remember ? strtotime('+180 days') : 0, '/');
 }
 
 function warn($msg) {
