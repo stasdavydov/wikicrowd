@@ -4,7 +4,7 @@
     if(preg_match('/^(\d+)\.(\d+)\.(\d+)$/', $version, $matches)) {
     	$version = $matches[1].'.'.$matches[2].'.'.($matches[3] + 1);
     	echo "Build $version\n";
-    	file_put_contents('version.txt', $version);
+//    	file_put_contents('version.txt', $version);
 	}
 
 	// create zip version
@@ -16,15 +16,14 @@
 	function addRecursive($zip, $path, $zipPath) {
 		$d = opendir($path);
 		while($f = readdir($d)) {
-			if ($f != "." && $f != "..") {
-				if (preg_match('/\.svn/', $f))
-					continue;
+			if (preg_match('/^(\.|\.{2}|\.svn)$/', $f))
+				continue;
 
-				if (is_dir($path.$f)) {
-					$zip->addEmptyDir($zipPath.$f);
-					addRecursive($zip, $path.$f.'/', $zipPath.$f.'/');
-				} else
-					$zip->addFile($path.$f, $zipPath.$f);
+			if (is_dir($path.$f)) {
+				$zip->addEmptyDir($zipPath.$f);
+				addRecursive($zip, $path.$f.'/', $zipPath.$f.'/');
+			} else {
+				$zip->addFile($path.$f, $zipPath.$f);
 			}
 		}
 		closedir($d);
@@ -40,13 +39,14 @@
 			'confirm.php',
 			'core.php',
 			'mb_diff.php',
-			'person.php') as $file)
+			'user.php') as $file)
 			$zip->addFile(HOME.$file, $file);
 
 		addRecursive($zip, CACHE, 'cache/');
 		addRecursive($zip, CHAPTERS, 'chapters/');
 		addRecursive($zip, CORE, 'core/');
 		addRecursive($zip, PERSONS, 'persons/');
+		addRecursive($zip, HOME.'../build/migrate/', 'migrate/');
 
 		$zip->close();
 
@@ -76,6 +76,11 @@
 				echo "\n";
 
 				$line = str_replace('%locales%', $options, $line);
+			}
+
+			if (preg_match('/%embed\(([^)]+)\)%/', $line, $matchs)) {
+				echo "Embed {$matchs[1]}\n";
+				$line = '?>'.file_get_contents($matchs[1]).'<?';
 			}
 
 			fwrite($install, $line);

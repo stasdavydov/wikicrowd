@@ -17,7 +17,7 @@
 	if ($person = loadPerson($login, true)) {
 		rename("persons/sandbox/$login.xml", "persons/$login.xml");
 		$msg = "<a href='".www."person/$login'>".getMessage('YourAccout')."</a> ".getMessage('SuccessfullyActivated'). 
-			getMessage('WelcomeToWiki')." &laquo;<a href='".www."'>".title."</a>&raquo;!";
+			' '.getMessage('WelcomeToWiki')." <a href='".www."'>".title."</a>!";
 		doLogin($person);
 	} else if ($person = loadPerson($login)) {
 		if ($person->hasAttribute('newemail')) {

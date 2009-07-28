@@ -1,5 +1,7 @@
 <?
 	require_once 'core.php';
+	require_once 'core/person.php';
+
 //	require_once 'diff.php';
 
 	ob_start('ob_gzhandler');
@@ -32,25 +34,6 @@
 		setAuthorRequiredData($change, $author, time());
 		$dom->documentElement->appendChild($change);
 		$dom->save($changesFile);
-	}
-
-	function createPerson($login, $password, $name, $email, $info) {
-		$dom = new DOMDocument('1.0', 'UTF-8');
-		$dom->appendChild($dom->implementation->createDocumentType(
-			'person', 'WikiCrowd', '../core/xml/wikicrowd.dtd'));
-
-		$person = $dom->createElement('person');
-		$person->setAttribute('uid', $login);
-		$person->setAttribute('password', md5($password));
-		$person->setAttribute('name', $name);
-		$person->setAttribute('email', $email);
-		$person->setAttribute('created-ts', time());
-		$person->setAttribute('created-date', date('d/m/Y H:i'));
-		$inf = $dom->createElement('info');
-		$inf->appendChild($dom->createCDATASection($info));
-		$person->appendChild($inf);
-		$dom->appendChild($person);
-		return $dom;
 	}
 
 	if(! array_key_exists('do', $_REQUEST)) {
@@ -193,8 +176,9 @@
 		}
 
 		// 1. create person's file in sandbox
-		$dom = createPerson($login, $password, $name, $email, $info);
-		$dom->save("persons/sandbox/$login.xml");
+		$person = createPerson($login, $password, $name, $email, $info, 
+			newUserCanEdit, newUserCanView, false);
+		$person->save("persons/sandbox/$login.xml");
 
 		// 2. send confirmation e-mail 
 		@mail ($email, 

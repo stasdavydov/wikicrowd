@@ -134,7 +134,7 @@
 <message id="SomethingWithNetwork" text="Вероятно что-то с сетью. Попробуйте повторить чуть позже."/>
 <message id="SomethingWithServer" text="Какие-то проблемы на сервере."/>
 <message id="SpecifyLoginAndPassword" text="Укажите Ваш логин и пароль для доступа к сайту и сохраните текст еще раз."/>
-<message id="SuccessfullyActivated" text="успешно активирована"/>
+<message id="SuccessfullyActivated" text="успешно активирована."/>
 <message id="SupportIsNotified" text="Наша служба поддержки уже получила уведомление и постарается исправить проблему как можно скорее."/>
 <message id="TextIsNotSet" text="Текст не задан."/>
 <message id="ThereAreNoAccounts" text="Не найдено ни одной учетной записи с указанным Вами e-mail."/>
@@ -149,21 +149,23 @@
 <h2>Wiki-синтаксис</h2>
 <p><strong>Ссылки:</strong> в любом месте текста:</p>
 <ul>
-	<li>@page "Название страницы"&nbsp;&mdash; ссылка на страницу в wiki.</li>
-	<li>@page[URL] "Название ссылки"&nbsp;&mdash; ссылка на внешний URL.</li>
+	<li><code>@page "Название страницы"</code>&nbsp;&mdash; ссылка на страницу в wiki.</li>
+	<li><code>@page[Название страницы] "текст ссылки"</code>&nbsp;&mdash; ссылка на страницу в wiki с заданным текстом.</li>
+	<li><code>@page[URL] "текст ссылки"</code>&nbsp;&mdash; ссылка на внешний URL.</li>
 </ul>
 <p><strong>Префиксы типов блоков:</strong> использовать в начале строки<br/>перед текстом, чтобы изменить тип блока:</p>
 <ul>
-	<li>@title&nbsp;&mdash; заголовок;</li>
-	<li>@par&nbsp;&mdash; просто текст;</li>
-	<li>@listitem&nbsp;&mdash; список;</li>
-	<li>@footnote&nbsp;&mdash; сноска;</li>
-	<li>@quote&nbsp;&mdash; цитата.</li>
+	<li><code>@title</code>&nbsp;&mdash; заголовок;</li>
+	<li><code>@par</code>&nbsp;&mdash; просто текст;</li>
+	<li><code>@listitem</code>&nbsp;&mdash; список;</li>
+	<li><code>@footnote</code>&nbsp;&mdash; сноска;</li>
+	<li><code>@quote</code>&nbsp;&mdash; цитата.</li>
 </ul>]]>
 </message>
 <message id="WikiHelpTip" text="Краткая справка по wiki-синтаксису"/>
 <message id="WrongBlockType" text="Недопустимый тип блока"/>
 <message id="WrongOldPassword" text="Вы неправильно указали Ваш старый пароль."/>
+<message id="YouHaveNoPermissions" text="У вас нет доступа к этой странице."/>
 <message id="YourAccout" text="Ваша учетная запись"/>
 <message id="YourLogin" text="Логин"/>
 <message id="YourEmail" text="Ваш e-mail (для связи, на сайте не публикуется)"/>

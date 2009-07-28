@@ -13,7 +13,7 @@
 
 	$xsl = CORE.'xml/locale.js.xsl';
 
-	echo transformXML($localeFile, $xsl, array(), XSL_MTIME);
+	echo transformXML($localeFile, $xsl, array(), PROJECT_MTIME);
 
 	ob_end_flush();
 ?>

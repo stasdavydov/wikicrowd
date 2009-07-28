@@ -1,9 +1,11 @@
 <?
-	ob_start('ob_gzhandler');
+	if (ob_get_level() == 0)
+		ob_start('ob_gzhandler');
 	
 	require_once 'core.php';
-
-    if (! ($person = getSessionPerson())) {
+	
+	$person = getSessionPerson();
+    if (isGuest($person)) {
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -18,6 +20,7 @@
 <script type="text/javascript" src="<?=www?>core/js/auth.js" charset="windows-1251">//<!--"--></script>
 <style type="text/css">
 body { margin: 0 0 0 1em; }
+p.copyright { margin-left: -1.25em; }
 h2 { margin: 0 0 0.5em 0; }
 
 .form { width: 46%; margin: 1em 0 1em 0; padding: 1%; }
@@ -32,6 +35,8 @@ h2 { margin: 0 0 0.5em 0; }
 .floatright { float: right; margin-right: 2%;}
 .form label input.inline { width: auto; margin: 0 0 0.2em 0.15em; }
 .menu { margin-left: -1em; }
+
+#regpassword { color: #DDD; }
 </style>
 </head>
 <body>
@@ -85,5 +90,6 @@ License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
 		header('Location: '.www.'?ts='.time());
 		exit;
 	}
-	ob_end_flush();
+	if (ob_get_level() == 1)
+		ob_end_flush();
 ?>

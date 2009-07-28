@@ -23,8 +23,11 @@
 			<xsl:when test="$MODE = 'edit'">
 				<xsl:apply-templates mode="edit"/>
 			</xsl:when>
-			<xsl:otherwise>
+			<xsl:when test="$MODE = 'view'">
 				<xsl:apply-templates mode="view"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates mode="restricted"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
@@ -60,11 +63,6 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 						<input type="hidden" id="originalemail" value="{/person/@email}"/>
 						<label for="name"><xsl:value-of select="$locale//message[@id='YourName']/@text"/>: <input type="text" id="name" value="{/person/@name}"/></label>
 						<label for="email"><xsl:value-of select="$locale//message[@id='YourEmail']/@text"/>: <input type="text" id="email" value="{/person/@email}"/></label>
-<!--						<label for="notify" class="cb">Присылать уведомления об ответах на форуме <input type="checkbox" class="inline" id="notify">
-							<xsl:if test="/person/@notify = 'true'">
-								<xsl:attribute name="checked">checked</xsl:attribute>
-							</xsl:if>
-						</input></label>-->
 						<label for="info"><xsl:value-of select="$locale//message[@id='YourInformation']/@text"/>: <textarea id="info" rows="7" cols="60"><xsl:value-of select="/person/info"/></textarea></label>
 						<label><br/><xsl:value-of select="$locale//message[@id='ToChangePassword']/@text"/>:</label>
 						<label for="regoldpassword"><xsl:value-of select="$locale//message[@id='OldPassword']/@text"/>:<input type="text" id="regoldpassword"/></label>
@@ -83,6 +81,7 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 		<html xml:lang="ru" lang="RU">
 			<head><title><xsl:value-of select="/person/@name"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
 				<script type="text/javascript">var www = '<xsl:value-of select="$config//property[@name='www']/@value"/>';</script>
 				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/base.js">//<!--"--></script>
 				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/auth.js">//<!--"--></script>
@@ -98,6 +97,23 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 						<xsl:with-param name="text"><xsl:value-of select="info"/></xsl:with-param>
 					</xsl:call-template>
 				</div>
+				<xsl:call-template name="copyright"/>
+			</body>
+		</html>	
+	</xsl:template>
+
+	<xsl:template match="person" mode="restricted">
+		<html xml:lang="ru" lang="RU">
+			<head><title><xsl:value-of select="/person/@name"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
+				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
+				<link rel="stylesheet" type="text/css" href="{$config//property[@name='www']/@value}core/css/main.css"/>
+				<style type="text/css">h1 { margin: 0.25em 0 0.5em 0.65em; } p { margin: 0 0 0 1em; }</style>
+			</head>
+			<body>
+				<xsl:call-template name="menu"/>
+				<h1><xsl:value-of select="/person/@name"/> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
+				<p><xsl:value-of select="$locale//message[@id='YouHaveNoPermissions']/@text"/></p>
 				<xsl:call-template name="copyright"/>
 			</body>
 		</html>	

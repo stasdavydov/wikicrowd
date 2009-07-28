@@ -3,17 +3,22 @@
 
 	require_once 'core.php';
 
+	$mode = array_key_exists('view', $_GET) ? 'view' : 'edit';
+
+	$person = getSessionPerson();
+	if (!personCan($person, $mode) && isGuest($person)) {
+		include 'auth.php';
+		exit;
+	}
+
 	$chapter = new chapter(false);
 
 	$xslFile = CORE.'xml/chapter.xsl';
 
-	$person = getSessionPerson();
-
-	$params = array('MODE'=>($person == NULL || array_key_exists('view', $_GET) ? 'view' : 'edit'));
-	if($person) {
-		$params['UID'] = $person->getAttribute('uid');
-		$params['NAME'] = $person->getAttribute('name');
-	}
+	$params = array(
+		'MODE'=>personCan($person, $mode) ? $mode : 'restricted',
+		'UID'=>$person->getAttribute('uid'),
+		'NAME'=>$person->getAttribute('name'));
 
 	echo $chapter->transform($xslFile, $params);
 

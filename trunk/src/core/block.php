@@ -24,6 +24,7 @@ class chapter {
 	}
 
 	private function getTitle() { return $this->dom->documentElement->getAttribute('title'); }
+	public function getAuthor() { return $this->dom->documentElement->getAttribute('author'); }
 
 	static private function getChapterFileName($chapterName) {
 		return makeFileName(fileNamePartEncode(trim($chapterName)).'.xml');
@@ -47,7 +48,14 @@ class chapter {
 
 		enterCriticalSection($LOCKFILE);
 
+		$person = getSessionPerson();
 		if (! file_exists($this->chapterFile)) {
+
+			if (! personCanEdit($person)) {
+	  			header('HTTP/1.0 404 Not Found');
+		   		exit;
+			}
+
 			$this->dom->appendChild($this->dom->implementation->createDocumentType(
 				'chapter', 'WikiCrowd', '../core/xml/wikicrowd.dtd'));
 			$this->dom->appendChild($this->dom->createElement('chapter'));
@@ -55,7 +63,7 @@ class chapter {
 
 			blockfactory::loadPlugin('par');
 			$par = new par($this);
-			$par->create('system', 'type you text here');
+			$par->create($person->getAttribute('uid'), 'type you text here');
 			$this->appendBlock($par);
 			
 			$this->dom->save($this->chapterFile);
@@ -170,7 +178,7 @@ class chapter {
 
 	public function edit($id, $rev) {
 		echo transformXML($this->chapterFile, CORE.'xml/form.xsl', array('ID' => $id, 'REV' => $rev), 
-			XSL_MTIME);
+			PROJECT_MTIME);
 	}
 
 	private function getBlock($id) {
@@ -246,7 +254,7 @@ class chapter {
 
 			$dom->save($chapterChangesFile);
 		}
-		echo transformXML($chapterChangesFile, CORE.'xml/changes.xsl', array('ID'=>$id), XSL_MTIME);
+		echo transformXML($chapterChangesFile, CORE.'xml/changes.xsl', array('ID'=>$id), PROJECT_MTIME);
 	}
 
 	public function appendBlock($block, $afterBlock = NULL) {
@@ -260,7 +268,7 @@ class chapter {
 	}
 
 	public function transform($xslFile, $params) {
-		echo transformXML($this->chapterFile, $xslFile, $params, XSL_MTIME);
+		echo transformXML($this->chapterFile, $xslFile, $params, PROJECT_MTIME);
 	}
 }
 
