@@ -1,5 +1,6 @@
 #summary List of projects used WikiCrowd engine
 
 =List of WikiCrowd projects=
+ * [http://stasdavydov.com/wiki/ WikiCrowd demo site].
  * [http://wikinomika.ru/ Викиномика].
  * [http://stasdavydov.com/freedombook/ Книга о свободе].
