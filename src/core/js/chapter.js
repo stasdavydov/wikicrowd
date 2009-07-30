@@ -145,9 +145,24 @@ var cancelEditing = function(id) {
 };
 
 var approximateTextareaRows = function(textarea) {
-	var approxRows = Math.floor(textarea.value.length / 60);
-	if (approxRows != textarea.getAttribute('rows'))
-		textarea.setAttribute('rows', approxRows);
+	var rows = 0;
+	var pos = 0;
+	var cols = Math.ceil(textarea.getAttribute('cols') / 0.75);
+
+	while (pos != -1) {
+		var nextPos = textarea.value.indexOf('\n', pos + 1);
+		if (nextPos == -1) {
+			rows += Math.ceil((textarea.value.length - pos)/cols);
+			break;
+		} else if (nextPos - pos < 60)
+			rows += 1;
+		else 
+			rows += (1 + Math.ceil((nextPos - pos)/cols));
+		pos = nextPos;
+	}
+	if (rows != textarea.getAttribute('rows')) {
+		textarea.setAttribute('rows', rows);
+	}
 }
 
 var BlockPlugin = function(type) {
@@ -327,6 +342,7 @@ var TextBlockPlugin = function(type) {
 
 			var text = ajax.responseXML().getElementsByTagName('text')[0].firstChild;
 			var text = text ? text.nodeValue : '';
+			var input;
 
 			appendChildren(form, 
 				[input = createElement('textarea', 
@@ -334,9 +350,7 @@ var TextBlockPlugin = function(type) {
 					[document.createTextNode(text)])]);
 			approximateTextareaRows(input);
 			input.onkeypress = function() {
-				var approxRows = Math.floor(input.value.length / 60);
-				if (approxRows != input.getAttribute('rows'))
-					input.setAttribute('rows', approxRows);
+				approximateTextareaRows(input);
 			};
 			this.input = input;
 		},
