@@ -66,7 +66,7 @@ function handleSavePerson() {
 			}
 		} else if (xmlHttp_savePerson && xmlHttp_savePerson.readyState == 4 && xmlHttp_savePerson.status != 200) {
 	 		showError(myNotice, Locale.SomethingHappen + ' ' +
-	 			SomethingWithServer + ' Code: ' + xmlHttp_savePerson.status);
+	 			Locale.SomethingWithServer + ' Code: ' + xmlHttp_savePerson.status);
 		}
 	} catch(e) {
 		showError(myNotice, Locale.SomethingWithNetwork + ' (' + e + ')'); 

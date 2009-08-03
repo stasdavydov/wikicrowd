@@ -2,9 +2,8 @@
 <xsl:stylesheet version="1.0"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:str="http://exslt.org/strings"
-	exclude-result-prefixes=""
-	extension-element-prefixes="str">
+	xmlns:php="http://php.net/xsl"
+	exclude-result-prefixes="">
 	<xsl:output 
 		method="xml" 
 		version="1.0" 
@@ -20,7 +19,6 @@
 	<xsl:param name="LOCALE"/>
 
 	<xsl:include href="import.xsl"/>
-	<xsl:include href="../lib/exslt/str/functions/replace/str.replace.xsl"/>
 
 	<xsl:variable name="config" select="document('../config.xml')"/>
 	<xsl:variable name="locale" select="document(concat('locale/', $LOCALE, '.xml'))/locale"/>
@@ -145,11 +143,6 @@ License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
 		<xsl:call-template name="wiki">
 			<xsl:with-param name="text"><xsl:value-of select="text()"/></xsl:with-param>
 		</xsl:call-template>
-	</xsl:template>
-
-	<xsl:template name="url-encode">
-		<xsl:param name="text"/>
-		<xsl:value-of select="str:replace($text, ' ', '%20')"/>
 	</xsl:template>
 </xsl:stylesheet>
 
