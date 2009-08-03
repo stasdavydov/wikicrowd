@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="windows-1251" standalone="yes"?>
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:str="http://exslt.org/strings"
-	extension-element-prefixes="str"
+	xmlns:php="http://php.net/xsl"
 	exclude-result-prefixes="">
 	<xsl:output 
 		method="text" 
@@ -29,11 +28,8 @@ var Locale = {
 	</xsl:template>
 
 	<xsl:template match="message">
-<xsl:value-of select="@id"/>: '<xsl:call-template name="str:replace">
-	<xsl:with-param name="string" select="@text"/>
-	<xsl:with-param name="search">'</xsl:with-param>
-	<xsl:with-param name="replace">\'</xsl:with-param>
-	</xsl:call-template>',
+		<xsl:variable name="ap">'</xsl:variable>
+<xsl:value-of select="@id"/>: '<xsl:value-of select="php:functionString('str_replace', $ap, concat('\', $ap), @text)"/>',
 </xsl:template>
 
 	<xsl:template match="function">

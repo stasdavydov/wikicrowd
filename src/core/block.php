@@ -8,18 +8,23 @@ class chapter {
 
 	static private function getChapterName($fromReferer = false) {
 		$chapter = NULL;
+		
 		if ($fromReferer) {
 			$myaddress = $_SERVER['SERVER_NAME'].www;
 			if (($pos = strpos($_SERVER['HTTP_REFERER'], $myaddress)) !== FALSE) {
 				$chapter = substr($_SERVER['HTTP_REFERER'], $pos + strlen($myaddress));
-				if (($pos = strpos($chapter, '?')) !== FALSE)
-					$chapter = substr($chapter, 0, $pos);
-				if (($pos = strpos($chapter, '#')) !== FALSE)
-					$chapter = substr($chapter, 0, $pos);
 			}
-			$chapter = rawurldecode($chapter);
-		} else 
-			$chapter = trim($_GET['chapter']);
+		} else  {
+			$chapter = substr($_SERVER['REQUEST_URI'], strlen(www));
+		}
+
+		if (($pos = strpos($chapter, '?')) !== FALSE)
+			$chapter = substr($chapter, 0, $pos);
+		if (($pos = strpos($chapter, '#')) !== FALSE)
+			$chapter = substr($chapter, 0, $pos);
+
+		$chapter = trim(rawurldecode($chapter));
+
 		return $chapter;
 	}
 

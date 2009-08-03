@@ -101,6 +101,7 @@ function transformDOM($dom, $xslFile, $params) {
 	$xsldoc = new DOMDocument();
 	$xsldoc->load($xslFile);
 	$xslproc = new XSLTProcessor();
+	$xslproc->registerPHPFunctions();
 	$xslproc->setParameter('', 'VERSION', VERSION);
 	$xslproc->setParameter('', 'LOCALE', LOCALE);
 	foreach($params as $param=>$value)
@@ -116,6 +117,7 @@ function transformXML2DOM($xmlFile, $xslFile, $params) {
 	$xsldoc = new DOMDocument();
 	$xsldoc->load($xslFile);
 	$xslproc = new XSLTProcessor();
+	$xslproc->registerPHPFunctions();
 	$xslproc->setParameter('', 'VERSION', VERSION);
 	$xslproc->setParameter('', 'LOCALE', LOCALE);
 	foreach($params as $param=>$value)

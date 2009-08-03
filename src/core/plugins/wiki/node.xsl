@@ -2,6 +2,7 @@
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:php="http://php.net/xsl"
 	exclude-result-prefixes="">
 	<xsl:output 
 		method="xml" 
@@ -37,14 +38,11 @@
 							<xsl:when test="contains($uri, 'http://')">
 								<xsl:value-of select="$uri"/>
 							</xsl:when>
-							<xsl:otherwise><xsl:call-template name="url-encode">
-								<xsl:with-param name="text" select="$uri"/></xsl:call-template></xsl:otherwise>
+							<xsl:otherwise><xsl:value-of select="php:function('rawurlencode', $uri)"/></xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="$config//property[@name='www']/@value"/><xsl:call-template name="url-encode">
-							<xsl:with-param name="text"><xsl:value-of select="$name"/></xsl:with-param>
-							</xsl:call-template>
+						<xsl:value-of select="$config//property[@name='www']/@value"/><xsl:value-of select="php:function('rawurlencode', $uri)"/>
 					</xsl:otherwise>
 				</xsl:choose></xsl:attribute><xsl:value-of select="$name"/></a>
 				<xsl:call-template name="wiki">
