@@ -38,6 +38,7 @@ II. INSTALLATION:
 
 III. RELEASE NOTES:
   0.0.9 - List of all changes.
+          RSS channel for changes log.
           Bugfix.
 
   0.0.8 - New positive logo :)

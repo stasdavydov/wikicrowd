@@ -9,6 +9,7 @@ RewriteRule ^auth/?$ auth.php [L,QSA]
 RewriteRule ^check/([a-zA-Z0-9]+)-([a-f0-9]{32})/$ confirm.php?login=$1&hash=$2 [L,QSA]
 RewriteRule ^person/([a-zA-Z0-9]+)$ user.php?uid=$1 [L,QSA]
 RewriteRule ^allchanges/?$ changes.php [L]
+RewriteRule ^allchanges/rss/?$ rss.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

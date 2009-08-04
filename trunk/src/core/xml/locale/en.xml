@@ -124,6 +124,7 @@ Support team"/>
 <message id="RestrictedArea" text="Restricted area"/>
 <message id="RevIsEmpty" text="Rev is empty."/>
 <message id="RevIsNotSet" text="Rev is not specified."/>
+<message id="RSSDescription" text="Latest changes from wiki"/>
 <message id="Save" text="Save"/>
 <message id="Saving" text="Saving..."/>
 <message id="Send" text="Send"/>

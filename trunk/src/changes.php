@@ -4,8 +4,6 @@
 	require_once 'core.php';
 
 	$person = getSessionPerson();
-
-	$person = getSessionPerson();
 	if (isGuest($person) && ! personCanView($person)) {
 		include HOME.'auth.php';
 		exit;
