@@ -127,6 +127,7 @@
 <message id="RestrictedArea" text="Закрытая часть сайта"/>
 <message id="RevIsEmpty" text="Rev пуст."/>
 <message id="RevIsNotSet" text="Rev не указан."/>
+<message id="RSSDescription" text="Последние изменения wiki"/>
 <message id="Save" text="Сохранить"/>
 <message id="Saving" text="Сохраняем..."/>
 <message id="Send" text="Выслать"/>

@@ -23,6 +23,7 @@
 			<head><title><xsl:value-of select="$locale//message[@id='AllChanges']/@text"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
+				<link rel="alternate" type="application/rss+xml" title="RSS" href="{$config//property[@name='www']/@value}allchanges/rss/"/>
 				<script type="text/javascript">var www = '<xsl:value-of select="$config//property[@name='www']/@value"/>';</script>
 				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/base.js">//<!--"--></script>
 				<script type="text/javascript" charset="utf-8" src="{$config//property[@name='www']/@value}core/js/locale.js">//<!--"--></script>
@@ -32,7 +33,7 @@
 				<style type="text/css">h1 { margin: 0.25em 0 0.5em 0.65em; } 
 ul { margin: 0 0 0.15em 0; list-style-type: none; padding: 0.15em 0.15em 0.15em 0.25em; }
 ul li { display: block; margin: 0 0 0.75em 0; }
-.chapterlink { margin: 0 0 0.15em 0; }
+h2 { margin: 0 0 0.15em 0; }
 </style>
 			</head>
 			<body>
