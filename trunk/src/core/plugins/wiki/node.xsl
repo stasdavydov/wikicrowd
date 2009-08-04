@@ -38,7 +38,10 @@
 							<xsl:when test="contains($uri, 'http://')">
 								<xsl:value-of select="$uri"/>
 							</xsl:when>
-							<xsl:otherwise><xsl:value-of select="php:function('rawurlencode', $uri)"/></xsl:otherwise>
+							<xsl:otherwise>
+								<xsl:value-of select="php:function('rawurlencode', $uri)"/>
+								<xsl:if test="$MODE = 'view'">?view</xsl:if>
+							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
