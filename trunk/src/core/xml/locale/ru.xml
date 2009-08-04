@@ -5,6 +5,7 @@
 <message id="AccountIsNotActiveYet" text="Ваша учетная запись еще не активирована."/>
 <message id="AccountIsNotFound" text="Нет такого человека"/>
 <message id="ActionIsNotSet" text="Действие не определено."/>
+<message id="AllChanges" text="Журнал"/>
 <message id='AllFieldsRequired' text='Все поля обязательны.'/>
 <message id="AlreadyActivated" text="уже активирована."/>
 <message id="back" text="назад"/>
@@ -94,6 +95,7 @@
 <message id="NewPasswordOldPassword" text="Если Вы хотите задать новый пароль, пожалуйста, укажите Ваш старый пароль. Это нужно для дополнительной проверки, что Вы - это Вы."/>
 <message id="NewPasswrodOnSite" text="Новый пароль на сайте"/>
 <message id="NewPasswrodSent" text="Мы отправили Вам письмо с новым паролем."/>
+<message id="NoChanges" text="Изменений еще не было."/>
 <message id="NothingIsChanged" text="Такое впечатление, что ничего не изменилось."/>
 <message id="NotRegisteredYet" text="Если Вы еще не регистрировались на нашем сайте, можно сделать это прямо сейчас."/>
 <message id="OldPassword" text="Старый пароль"/>

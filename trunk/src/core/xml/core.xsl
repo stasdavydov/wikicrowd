@@ -3,7 +3,8 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:php="http://php.net/xsl"
-	exclude-result-prefixes="">
+	exclude-result-prefixes=""
+	extension-element-prefixes="php">
 	<xsl:output 
 		method="xml" 
 		version="1.0" 
@@ -29,23 +30,51 @@ License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
 	</xsl:template>
 
 	<xsl:template name="menu">
+		<xsl:param name="page"/>
 		<div class="menu">
-			<xsl:if test="count(/chapter) > 0 and $MODE = 'view'">
-				<a href="?"><xsl:value-of select="$locale//message[@id='edit']/@text"/></a>
-			</xsl:if>
-			<xsl:if test="count(/chapter) > 0 and $MODE = 'edit'">
-				<a href="?view"><xsl:value-of select="$locale//message[@id='view']/@text"/></a>
-			</xsl:if>
-			<div class="person">
+			<div class="leftside">
 				<xsl:choose>
-					<xsl:when test="count(/person[@uid=$UID]) = 0 and not($UID = 'guest')"><a class="person" href="{$config//property[@name='www']/@value}person/{$UID}"><xsl:value-of select="$NAME"/></a></xsl:when>
+					<xsl:when test="count(/chapter) > 0 and $MODE = 'view'">
+						<a href="?"><xsl:value-of select="$locale//message[@id='edit']/@text"/></a>
+					</xsl:when>
+					<xsl:when test="count(/chapter) > 0 and $MODE = 'edit'">
+						<a href="?view"><xsl:value-of select="$locale//message[@id='view']/@text"/></a>
+					</xsl:when>
+				</xsl:choose>
+			</div>
+			<div class="rightside">
+				<xsl:choose>
+					<xsl:when test="count(/person[@uid=$UID]) = 0 and not($UID = 'guest')">
+						<a class="person" href="{$config//property[@name='www']/@value}person/{$UID}"><xsl:value-of select="$NAME"/></a>
+					</xsl:when>
 					<xsl:when test="count(/person[@uid=$UID]) = 1 and not($UID = 'guest')">
 						<span class="person"><xsl:value-of select="$NAME"/></span>
 					</xsl:when>
-				</xsl:choose> <xsl:choose>
-					<xsl:when test="not($UID = 'guest')"> | <a href="javascript:logout()"><xsl:value-of select="$locale//message[@id='Logout']/@text"/></a></xsl:when>
-					<xsl:when test="$UID = 'guest'"><a href="{$config//property[@name='www']/@value}auth/"><xsl:value-of select="$locale//message[@id='Login']/@text"/></a></xsl:when>
-				</xsl:choose> | <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$locale//message[@id='ToHome']/@text"/></a>
+				</xsl:choose>
+				<xsl:choose>
+					<xsl:when test="not($UID = 'guest')">
+						<a href="javascript:logout()"><xsl:value-of select="$locale//message[@id='Logout']/@text"/></a>
+					</xsl:when>
+					<xsl:when test="$UID = 'guest'">
+						<a href="{$config//property[@name='www']/@value}auth/"><xsl:value-of select="$locale//message[@id='Login']/@text"/></a>
+					</xsl:when>
+				</xsl:choose>
+				<xsl:choose>
+					<xsl:when test="$page = 'allchanges'">
+						<span class="selected"><xsl:value-of select="$locale//message[@id='AllChanges']/@text"/></span>
+					</xsl:when>
+					<xsl:otherwise>
+						<a href="{$config//property[@name='www']/@value}allchanges/"><xsl:value-of select="$locale//message[@id='AllChanges']/@text"/></a>
+					</xsl:otherwise>
+				</xsl:choose>
+				<xsl:choose>
+					<xsl:when test="$page = 'home'">
+						<span class="selected"><xsl:value-of select="$locale//message[@id='ToHome']/@text"/></span>
+					</xsl:when>
+					<xsl:otherwise>
+						<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$locale//message[@id='ToHome']/@text"/></a>
+					</xsl:otherwise>
+				</xsl:choose>
 			</div>
 		</div>
 	</xsl:template>

@@ -72,14 +72,18 @@ p.copyright { clear: both; background: #EEE url('../img/favicon.gif') no-repeat 
 padding: 1em 1em 1em 55px; clear:both; margin: 3em 0 0 0; 
 font-size: 75%; width: 25em; border: 1px solid #DDD; border-left: none; }
 
-.menu { background: #EEE; height: 1.25em; padding: 0.25em 0.15em 0.15em 1em; position: relative; 
+.menu { background: #EEE; height: 1.5em; position: relative; 
 border-bottom: 1px solid #DDD; color: #CCC; font-size: 90%; }
-.menu a { color: #999; border: none; margin: 0 0.25em 0 0.25em; }
+.menu .leftside { position: absolute; left: 0; top: 0.25em; bottom: 1px;}
+.menu .rightside { position: absolute; right: 1px; top: 0.25em; bottom: 1px; }
+.menu a { color: #999; border:none; border-right: 1px solid transparent; border-left: 1px solid transparent; }
+.menu span { color: #000; background-color: #FFF; 
+border-right: 1px solid #CCC; border-left: 1px solid #CCC; }
+.menu a, .menu span { padding: 0.25em 0.5em 0.25em 0.5em; margin: -0.25em 0 0 0; float: left; display: block; }
 .menu a:hover { color: #C00; }
-.menu div.person { position: absolute; right: 0.25em; top: 0.25em; }
-.menu div.person .person { background: url('../img/person.png') no-repeat 1px 0px; padding: 0 0 0 16px; }
-.menu div.person a.person:hover { background: url('../img/person-hover.png') no-repeat 1px 0px; }
-.menu div.person span.person { padding-right: 0.3em; }
+.menu a.person { background: url('../img/person.png') no-repeat 1px 3px; padding-left: 16px; }
+.menu a.person:hover { background: url('../img/person-hover.png') no-repeat 1px 3px; }
+.menu span.person { background: #FFF url('../img/person.png') no-repeat 1px 3px; padding-left: 16px; }
 
 .inline { display: inline !important;}
 
@@ -87,7 +91,7 @@ border-bottom: 1px solid #DDD; color: #CCC; font-size: 90%; }
 
 .help { float: right; margin: -1px 1px 0 0; width: 40%; }
 .help a { border-bottom-style: none; color: #CCC; display: block; float: right; padding: 0 0.25em 0 0.25em;
-border: 1px solid #FFF; font-size: 300%; margin: 0 1px 0 0; }
+border: 1px solid #FFF; font-size: 300%; margin: 2px 1px 0 0; }
 .help a:hover, .help a:active { color: #C00;  }
 .help .content { display: none; border: 1px solid #CCC; padding: 0.5em; }
 .help .content ul { margin: 0 0 1em 2em; }
