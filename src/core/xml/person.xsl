@@ -33,7 +33,7 @@
 	</xsl:template>
 
 	<xsl:template match="person" mode="edit">
-		<html xml:lang="ru" lang="RU">
+		<html xml:lang="{$LOCALE}">
 			<head><title><xsl:value-of select="/person/@name"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
@@ -78,7 +78,7 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 	</xsl:template>
 
 	<xsl:template match="person" mode="view">
-		<html xml:lang="ru" lang="RU">
+		<html xml:lang="{$LOCALE}">
 			<head><title><xsl:value-of select="/person/@name"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
@@ -103,7 +103,7 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 	</xsl:template>
 
 	<xsl:template match="person" mode="restricted">
-		<html xml:lang="ru" lang="RU">
+		<html xml:lang="{$LOCALE}">
 			<head><title><xsl:value-of select="/person/@name"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />

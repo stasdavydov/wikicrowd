@@ -2,8 +2,6 @@
 	require_once 'core.php';
 	require_once 'core/person.php';
 
-//	require_once 'diff.php';
-
 	ob_start('ob_gzhandler');
 
 	header('Content-type: text/xml');
@@ -15,25 +13,6 @@
 		htmlspecialchars($password, ENT_COMPAT, 'utf-8')?>"><?=$msg?></auth><?
 		ob_end_flush();
 		exit;
-	}
-
-	function logChange($book, $id, $author) {
-		$dom = new DOMDocument();
-		$changesFile = CORE.'core/changes.xml';
-		if (! file_exists($changesFile)) {
-			$dom = new DOMDocument('1.0', 'utf-8');
-			$dom->appendChild($dom->implementation->createDocumentType(
-				'changes', 'WikiCrowd', 'xml/wikicrowd.dtd'));
-			$dom->appendChild($dom->createElement('changes'));
-		} else
-			$dom->load($changesFile);
-
-		$change = $dom->createElement('change');
-		$change->setAttribute('chapter', $book);
-		$change->setAttribute('id', $id);
-		setAuthorRequiredData($change, $author, time());
-		$dom->documentElement->appendChild($change);
-		$dom->save($changesFile);
 	}
 
 	if(! array_key_exists('do', $_REQUEST)) {
@@ -178,7 +157,7 @@
 		// 1. create person's file in sandbox
 		$person = createPerson($login, $password, $name, $email, $info, 
 			newUserCanEdit, newUserCanView, false);
-		$person->save("persons/sandbox/$login.xml");
+		$person->save(HOME."persons/sandbox/$login.xml");
 
 		// 2. send confirmation e-mail 
 		@mail ($email, 

@@ -37,6 +37,9 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
+  0.0.9 - List of all changes.
+          Bugfix.
+
   0.0.8 - New positive logo :)
           Changed format of localization data.
           Access rights customization.

@@ -49,6 +49,7 @@ body { margin: 0 0 0 1em; }
 </style>
 </head>
 <body>
+<div class="menu"><div class="rightside"><a href="<?=www?>allchanges/"><?=getMessage('AllChanges')?></a><a href="<?=www?>"><?=getMessage('ToHome')?></a></div></div>
 <h1><?=getMessage('AccoutActivation')?> &raquo; <a href="<?=www?>"><?=title?></a></h1>
 <?
 	echo $msg;

@@ -19,7 +19,7 @@
 	<xsl:include href="core.xsl"/>
 
 	<xsl:template match="/">
-		<html xml:lang="ru" lang="RU">
+		<html xml:lang="{$LOCALE}">
 			<head><title><xsl:value-of select="/chapter/@title"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
@@ -38,7 +38,13 @@
 				</xsl:if>
 			</head>
 			<body class="{$MODE}">
-				<xsl:call-template name="menu"/>
+				<xsl:call-template name="menu">
+					<xsl:with-param name="page">
+						<xsl:if test="$config//property[@name='homePage']/@value = /chapter/@title">
+							<xsl:text>home</xsl:text>
+						</xsl:if>
+					</xsl:with-param>
+				</xsl:call-template>
 				<xsl:if test="$MODE = 'edit'">
 					<div class="help"><a href="javascript:help()" title="{$locale//message[@id='WikiHelpTip']/@text}">?</a>
 						<div class="content" id="help-content">

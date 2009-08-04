@@ -5,6 +5,7 @@
 <message id="AccountIsNotActiveYet" text="Your account is not activated yet."/>
 <message id="AccountIsNotFound" text="There is no such person"/>
 <message id="ActionIsNotSet" text="Action is not defined."/>
+<message id="AllChanges" text="Changes"/>
 <message id='AllFieldsRequired' text='All fields are required.'/>
 <message id="AlreadyActivated" text="already activated."/>
 <message id="back" text="ago"/>
@@ -92,6 +93,7 @@ Support team"/>
 <message id="NewPasswordOldPassword" text="If you want to change your password, please specify the old one. It's an additional check that you is you."/>
 <message id="NewPasswrodOnSite" text="New password on the site"/>
 <message id="NewPasswrodSent" text="We sent you an e-mail with new password."/>
+<message id="NoChanges" text="No changes yet."/>
 <message id="NothingIsChanged" text="It seems that nothing is changed."/>
 <message id="NotRegisteredYet" text="If you'd not registered on the site you can do it right now."/>
 <message id="OldPassword" text="Old password"/>

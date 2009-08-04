@@ -40,7 +40,7 @@ h2 { margin: 0 0 0.5em 0; }
 </style>
 </head>
 <body>
-<div class="menu"><div class="person"><a href="<?=www?>"><?=getMessage('ToHome')?></a></div></div>
+<div class="menu"><div class="rightside"><span><?=getMessage('Login')?></span><a href="<?=www?>allchanges/"><?=getMessage('AllChanges')?></a><a href="<?=www?>"><?=getMessage('ToHome')?></a></div></div>
 <h1><?=getMessage('RestrictedArea')?> &raquo; <a href="<?=www?>"><?=title?></a></h1>
 
 <div class="form floatright odd">

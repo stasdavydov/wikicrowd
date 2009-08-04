@@ -5,6 +5,7 @@ class chapter {
 	private $chapterFile;
     private $dom;
     private $response;	// track of changes on update
+    private $allChanges;// track all changes
 
 	static private function getChapterName($fromReferer = false) {
 		$chapter = NULL;
@@ -29,7 +30,6 @@ class chapter {
 	}
 
 	private function getTitle() { return $this->dom->documentElement->getAttribute('title'); }
-	public function getAuthor() { return $this->dom->documentElement->getAttribute('author'); }
 
 	static private function getChapterFileName($chapterName) {
 		return makeFileName(fileNamePartEncode(trim($chapterName)).'.xml');
@@ -106,24 +106,32 @@ class chapter {
 		return $this->dom->getElementsByTagName($name);
 	}
 
+	private function createChange($block) {
+		$change = $this->allChanges->createElement('change');
+		$change->setAttribute('chapter', $this->getTitle());
+
+		if($block->rev > 0) {
+//		    if (DEBUG)
+//		    	fb(get_class_methods($block), 'block');
+			$block->changes($change, true);
+		} else {
+			$new = new previous($block);
+			$imported = $this->allChanges->importNode($new->element, true);
+			$change->appendChild($imported);
+		}
+
+		$this->allChanges->documentElement->appendChild($change);
+	}
+
 	private function createEvent($name, $block) {
 		$event = $this->response->createElement($name);
 		$imported = $this->response->importNode($block->element, true);
 		foreach($imported->childNodes as $child) {
-//			if (DEBUG) {
-//				fb($child->nodeType, 'chapter::createEvent() node type');
-//				fb($child->nodeName, 'chapter::createEvent() node name');
-//			}
 			if ($child->nodeType != XML_ELEMENT_NODE 
 				|| $child->nodeName != 'previous')
 			$event->appendChild($child->cloneNode(true));
 		}
 		foreach($imported->attributes as $name=>$node) {
-//			if (DEBUG) {
-//				fb($name, 'chapter::createEvent() copy attribute name');
-//				fb($node->value, 'chapter::createEvent() copy attribute value');
-//			}
-
 			$event->setAttribute($name, $node->value);
 		}
 		$this->response->documentElement->appendChild($event);
@@ -135,6 +143,9 @@ class chapter {
 //	    	fb($block->id, 'chapter::fireBlockUpdated');
 		if ($this->response) 
 			$this->createEvent('updated', $block);
+
+		if ($this->allChanges)
+			$this->createChange($block);
 	}
 
 	private function fireBlockInserted($block) {
@@ -147,6 +158,9 @@ class chapter {
 			if ($block->element->nextSibling)
 				$event->setAttribute('next-block-id', $block->element->nextSibling->getAttribute('id'));
 		}
+
+		if ($this->allChanges)
+			$this->createChange($block);
 	}
 
 	private function fireConflict($block, $data) {
@@ -201,6 +215,12 @@ class chapter {
 		$this->response = new DOMDocument('1.0', 'utf-8');
 		$this->response->appendChild($this->response->createElement('response'));
 
+		$this->allChanges = new DOMDocument('1.0', 'utf-8');
+		if(file_exists(CORE.'changes.xml'))
+			$this->allChanges->load(CORE.'changes.xml');
+		else
+			$this->allChanges->appendChild($this->allChanges->createElement('changes'));
+
 		// load data
 		if (! array_key_exists('id', $data))
 			internal(getMessage('IDisNotSet'));
@@ -235,6 +255,9 @@ class chapter {
 			}
 			// save new version
 			$this->dom->save($this->chapterFile);
+
+			// save changes log
+			$this->allChanges->save(CORE.'changes.xml');
 		}
 		$this->respond();
 	}
@@ -255,7 +278,7 @@ class chapter {
 			if (! ($block = $this->getBlock($id)))
 				internal(sprintf(getMessage('ElementWithIDNotFound'), $id));
 		
-			$block->chnages($changes);
+			$block->changes($changes);
 
 			$dom->save($chapterChangesFile);
 		}
@@ -422,7 +445,7 @@ abstract class block extends versioned {
 		}
 	}
 
-	public function chnages($changes) {
+	public function changes($changes, $last = FALSE) {
 		$previousNodes = $this->element->getElementsByTagName('previous');
 		if ($previousNodes->length > 0) {
 
@@ -432,17 +455,22 @@ abstract class block extends versioned {
 			$revisions[$new->element->getAttribute('rev')] = 
 				$changes->ownerDocument->importNode($new->element, true);
 
-			foreach($previousNodes as $old)
+			foreach($previousNodes as $old) {
 				$revisions[$old->getAttribute('rev')] = 
 					$changes->ownerDocument->importNode($old, true);
+			}
 
 			for($rev = $this->rev; $rev > 0; $rev--) {
 				$new = $revisions[$rev];
 				$old = $revisions[$rev-1];
 				$this->diffRevisions($new, $old);
 				$changes->appendChild($new);
+
+				if ($last)
+					break;
 			}
-			$changes->appendChild($revisions[0]);
+			if (! $last)
+				$changes->appendChild($revisions[0]);
 		}
 	}
 
