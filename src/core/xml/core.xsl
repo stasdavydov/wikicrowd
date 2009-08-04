@@ -173,5 +173,11 @@ License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
 			<xsl:with-param name="text"><xsl:value-of select="text()"/></xsl:with-param>
 		</xsl:call-template>
 	</xsl:template>
+
+	<xsl:template name="time">
+		<xsl:param name="ts"/>
+		<xsl:param name="date"/>
+		<span class="time:{$ts}"><xsl:value-of select="$date"/></span>
+	</xsl:template>
 </xsl:stylesheet>
 

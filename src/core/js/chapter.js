@@ -404,6 +404,8 @@ function changesLoaded(ajax) {
 
 		ul.style.zIndex = maxZ++;
 		$('loadchanges' + id).style.zIndex = maxZ++;
+
+		updateTime();
 	}
 }
 

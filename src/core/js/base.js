@@ -185,3 +185,21 @@ function getTextTimeDifference(ts) {
 			date.getHours() + ':' + date.getMinutes();
 	}
 }
+
+function updateTime() {
+	var spans = document.getElementsByTagName('span');
+	for(var i = 0; i < spans.length; i++) {
+		var span = spans.item(i);
+		if (getCl(span).indexOf('time:') != -1) {
+			span.innerHTML = getTextTimeDifference(getCl(span).substr('time:'.length));
+			setCl(span, '');
+		}
+	}
+}
+
+var oldWindowOnload = window.onload;
+window.onload = function() {
+	if(oldWindowOnload)
+		oldWindowOnload();
+	updateTime();
+};
