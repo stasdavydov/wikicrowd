@@ -20,7 +20,10 @@
 				<li>
 					<xsl:apply-templates select="." mode="diff"/>
 					<div class="info serv">
-						<a href="{$config//property[@name='www']/@value}person/{@author}"><xsl:value-of select="@author"/></a>: <span id="time{$ID}_{position()}"><xsl:value-of select="@created-date"/><script type="text/javascript">$('time<xsl:value-of select="$ID"/>_<xsl:value-of select="position()"/>').innerHTML=getTextTimeDifference(<xsl:value-of select="@created-ts"/>);</script></span>
+						<a href="{$config//property[@name='www']/@value}person/{@author}"><xsl:value-of select="@author"/></a>: <xsl:call-template name="time">
+							<xsl:with-param name="ts" select="@created-ts"/>
+							<xsl:with-param name="date" select="@created-date"/>
+						</xsl:call-template>
 						<xsl:if test="position() = 1"> (<xsl:value-of select="$locale//message[@id='LastVersion']/@text"/>)</xsl:if>
 						<xsl:if test="position() = last()"> (<xsl:value-of select="$locale//message[@id='Original']/@text"/>)</xsl:if>
 					</div>

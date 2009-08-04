@@ -69,7 +69,10 @@ ul li { display: block; margin: 0 0 0.75em 0; }
 			</a></h2>
 			<xsl:apply-templates select="previous" mode="diff"/>
 			<div class="info serv">
-				<a href="{$config//property[@name='www']/@value}person/{child::previous/@author}"><xsl:value-of select="child::previous/@author"/></a>: <span id="time_{child::previous/@id}_{position()}"><xsl:value-of select="child::previous/@created-date"/><script type="text/javascript">$('time_<xsl:value-of select="child::previous/@id"/>_<xsl:value-of select="position()"/>').innerHTML=getTextTimeDifference(<xsl:value-of select="child::previous/@created-ts"/>);</script></span>
+				<a href="{$config//property[@name='www']/@value}person/{child::previous/@author}"><xsl:value-of select="child::previous/@author"/></a>: <xsl:call-template name="time">
+					<xsl:with-param name="ts" select="child::previous/@created-ts"/>
+					<xsl:with-param name="date" select="child::previous/@created-date"/>
+				</xsl:call-template>
 			</div>
 		</li>
 	</xsl:template>

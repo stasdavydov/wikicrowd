@@ -201,4 +201,5 @@ function internal($msg) {
 
 	warn(getMessage('InternalError').': '.$msg);
 }
+
 ?>
