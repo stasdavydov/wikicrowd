@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <locale language="English">
+<message id="AccessRights" text="New user rights"/>
 <message id="AccoutActivation" text="Account activation"/>
 <message id="AccountIsNotActive" text="Your account is not activated yet. Please click on link from confirmation message to activate your account."/>
 <message id="AccountIsNotActiveYet" text="Your account is not activated yet."/>
 <message id="AccountIsNotFound" text="There is no such person"/>
 <message id="ActionIsNotSet" text="Action is not defined."/>
+<message id="Admin" text="Admin"/>
 <message id="AllChanges" text="Changes"/>
 <message id='AllFieldsRequired' text='All fields are required.'/>
 <message id="AlreadyActivated" text="already activated."/>
+<message id="AnyoneCanRegister" text="Anyone can register"/>
 <message id="back" text="ago"/>
 <message id="Cancel" text="Cancel"/>
+<message id="CanEdit" text="Can Edit"/>
+<message id="CanRead" text="Can Read"/>
 <message id="CannotGetChangeList" text="Sorry, I cannot get list of changes for this fragment."/>
 <message id="CannotSaveChanges" text="Cannot save changes :(. Error code: %1"/>
 <message id="Change" text="Edit"/>
@@ -17,6 +22,7 @@
 <message id="Checking" text="Checking..."/>
 <message id="CheckIsComplete" text="Check is successful. Please wait a few seconds while page will load."/>
 <message id="CloseList" text="Close list"/>
+<message id="Configure" text="Configure"/>
 <message id="edit" text="Edit"/>
 <message id="EditFormLoading" text="Editing form is loading..."/>
 <message id="Enter" text="Login/Signup"/>
@@ -39,6 +45,7 @@ Support team"/>
 <message id="EmailIsWrong" text="There is an error in your e-mail. Wants something like email@server.com"/>
 <message id="EnterLoginAndPassword" text="You should enter login and password to access this page."/>
 <message id="ForgotPassword" text="Forget password"/>
+<message id="GuestNotAdmin" text="Guest cannot be admin."/>
 <message id='IDisEmpty' text='ID is empty.'/>
 <message id='IDisNotSet' text='ID is not set.'/>
 <message id='IfYourForgetPassword' text="If you forget your login or password, please enter e-mail you used on registration. We'll send a new password via e-mail."/>
@@ -46,6 +53,10 @@ Support team"/>
 <message id='InfoIsNotSet' text='Information is not specified.'/>
 <message id='InternalError' text='Internal error'/>
 <message id='InternalErrorOccured' text='Internal error occured:'/>
+<message id="HomePage" text="Home page name"/>
+<message id="HomePageIsRequired" text="Home page is required."/>
+<message id="Language" text="Language"/>
+<message id="LanguageForUI" text="language for user interface."/>
 <message id="LastCheckDateIsNotSet" text="Date of the last request is not specified."/>
 <message id="LastVersion" text="last revision"/>
 <message id="lessMinute" text="less than minute"/>
@@ -93,6 +104,10 @@ Support team"/>
 <message id="NewPasswordOldPassword" text="If you want to change your password, please specify the old one. It's an additional check that you is you."/>
 <message id="NewPasswrodOnSite" text="New password on the site"/>
 <message id="NewPasswrodSent" text="We sent you an e-mail with new password."/>
+<message id="NewUserCanEdit" text="New user can edit"/>
+<message id="NewUserCanView" text="New user can read"/>
+<message id="NewVersionAvailable" text="&lt;a href='%s'&gt;New version of WikiCrowd&lt;/a&gt; is available."/>
+<message id="NoAdminExist" text="There is no admin. Please choose one."/>
 <message id="NoChanges" text="No changes yet."/>
 <message id="NothingIsChanged" text="It seems that nothing is changed."/>
 <message id="NotRegisteredYet" text="If you'd not registered on the site you can do it right now."/>
@@ -126,6 +141,7 @@ Support team"/>
 <message id="RevIsNotSet" text="Rev is not specified."/>
 <message id="RSSDescription" text="Latest changes from wiki"/>
 <message id="Save" text="Save"/>
+<message id="Saved" text="Saved."/>
 <message id="Saving" text="Saving..."/>
 <message id="Send" text="Send"/>
 <message id="Sending" text="Sending..."/>
@@ -136,11 +152,20 @@ Support team"/>
 <message id="SpecifyLoginAndPassword" text="Please specify your login and password to relogin and save again."/>
 <message id="SuccessfullyActivated" text="successfuly activated."/>
 <message id="SupportIsNotified" text="Our support team is already got the notification and will fix the issue as soon as possible."/>
+<message id="SupportsEmail" text="Support's e-mail"/>
+<message id="SupportsEmailLookWrong" text="Support's e-mail looks wrong."/>
 <message id="TextIsNotSet" text="Text is not specified."/>
+<message id="Title" text="Title of wiki site"/>
+<message id="TitleIsNotSet" text="'title' property is not set"/>
+<message id="TitleIsRequired" text="Title is required."/>
 <message id="ThereAreNoAccounts" text="There are no accounts with e-mail specified."/>
 <message id="ToChangePassword" text="To change you password please enter the old and a new one"/>
 <message id="ToHome" text="Home"/>
 <message id="ToManyElementsWithID" text="To many elements with ID"/>
+<message id="Update" text="Update"/>
+<message id="Use" text="Use"/>
+<message id="User" text="User"/>
+<message id="UserRights" text="Registered user's rights"/>
 <message id="VersionConflict" text="Version conflict occured. %1 &lt;a href='%2'&gt;%3&lt;/a&gt; saved new version of content you're editing"/>
 <message id="view" text="View"/>
 <message id="ViewChangeList" text="View change list"/>

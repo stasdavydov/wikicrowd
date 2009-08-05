@@ -22,15 +22,15 @@
 
 	$params = array('MODE'=>'restricted');
 	$xsl = CORE.'xml/person.xsl';
-	if($person = getSessionPerson()) {
-		if ($person->getAttribute('uid') == $uid && !isGuest($person))
-			$params['MODE'] = 'edit';
-		else if (personCanView($person))
-			$params['MODE'] = 'view';
 
-		$params['UID'] = $person->getAttribute('uid');
-		$params['NAME'] = $person->getAttribute('name');
-	} 
+	if ($person->getAttribute('uid') == $uid && !isGuest($person))
+		$params['MODE'] = 'edit';
+	else if (personCanView($person))
+		$params['MODE'] = 'view';
+
+	$params['UID'] = $person->getAttribute('uid');
+	$params['NAME'] = $person->getAttribute('name');
+	$params['ADMIN'] = isAdmin($person);
 
 	echo transformXML($personFile, $xsl, $params, PROJECT_MTIME);
 

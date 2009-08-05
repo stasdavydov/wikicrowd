@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="windows-1251"?>
 <locale language="Русский">
+<message id="AccessRights" text="Права доступа для нового пользователя"/>
 <message id="AccoutActivation" text="Активация учетной записи"/>
 <message id="AccountIsNotActive" text="Ваша учетная запись еще не активирована. Пожалуйста, кликните на ссылку из письма с подтверждением, чтобы активировать Вашу учетную запись."/>
 <message id="AccountIsNotActiveYet" text="Ваша учетная запись еще не активирована."/>
 <message id="AccountIsNotFound" text="Нет такого человека"/>
 <message id="ActionIsNotSet" text="Действие не определено."/>
+<message id="Admin" text="Администратор"/>
 <message id="AllChanges" text="Журнал"/>
 <message id='AllFieldsRequired' text='Все поля обязательны.'/>
 <message id="AlreadyActivated" text="уже активирована."/>
+<message id="AnyoneCanRegister" text="Любой может зарегистрироваться"/>
 <message id="back" text="назад"/>
 <message id="Cancel" text="Отменить"/>
+<message id="CanEdit" text="Может редактировать"/>
+<message id="CanRead" text="Может читать"/>
 <message id="CannotGetChangeList" text="К сожалению, не могу получить список изменений данного фрагмента."/>
 <message id="CannotSaveChanges" text="Не могу сохранить изменения :(. Код ошибки: %1"/>
 <message id="Change" text="Изменить"/>
@@ -17,6 +22,7 @@
 <message id="Checking" text="Идет проверка..."/>
 <message id="CheckIsComplete" text="Проверка прошла успешно! Подождите, пожалуйста, несколько секунд, пока страница загрузится."/>
 <message id="CloseList" text="Закрыть список"/>
+<message id="Configure" text="Конфигурация"/>
 <message id="edit" text="Редактировать"/>
 <message id="EditFormLoading" text="Загрузка формы для редактирования..."/>
 <message id="ElementWithIDNotFound" text="Элемент с ID %s не найден."/>
@@ -41,6 +47,7 @@
 <message id="Enter" text="Вход"/>
 <message id="EnterLoginAndPassword" text="Для доступа к этой странице Вам необходимо ввести логин и пароль."/>
 <message id="ForgotPassword" text="Вспомнить пароль"/>
+<message id="GuestNotAdmin" text="Гость не может быть администратором."/>
 <message id='IDisEmpty' text='ID пуст.'/>
 <message id='IDisNotSet' text='ID не указан.'/>
 <message id='IfYourForgetPassword' text='Если Вы забыли пароль или логин, укажите e-mail, который Вы использовали при регистрации на этом сайте. Мы вышлем Вам новый пароль письмом на указанный адрес.'/>
@@ -48,6 +55,10 @@
 <message id='InfoIsNotSet' text='Информация не указана.'/>
 <message id='InternalError' text='Внутренняя ошибка'/>
 <message id='InternalErrorOccured' text='Произошла внутренняя ошибка:'/>
+<message id="HomePage" text="Имя домашней страницы"/>
+<message id="HomePageIsRequired" text="Имя домашней страницы не задано."/>
+<message id="Language" text="Язык"/>
+<message id="LanguageForUI" text="язык интерфейса."/>
 <message id="LastCheckDateIsNotSet" text="Дата последнего запроса не указана."/>
 <message id="LastVersion" text="последняя версия"/>
 <message id="lessMinute" text="меньше минуты"/>
@@ -95,6 +106,10 @@
 <message id="NewPasswordOldPassword" text="Если Вы хотите задать новый пароль, пожалуйста, укажите Ваш старый пароль. Это нужно для дополнительной проверки, что Вы - это Вы."/>
 <message id="NewPasswrodOnSite" text="Новый пароль на сайте"/>
 <message id="NewPasswrodSent" text="Мы отправили Вам письмо с новым паролем."/>
+<message id="NewUserCanEdit" text="Новый пользователь может редактировать"/>
+<message id="NewUserCanView" text="Новый пользователь может читать"/>
+<message id="NewVersionAvailable" text="Появилась &lt;a href='%s'&gt;новая версия WikiCrowd&lt;/a&gt;."/>
+<message id="NoAdminExist" text="На сайте не осталось админов, пожалуйста, выберите хотя бы одного."/>
 <message id="NoChanges" text="Изменений еще не было."/>
 <message id="NothingIsChanged" text="Такое впечатление, что ничего не изменилось."/>
 <message id="NotRegisteredYet" text="Если Вы еще не регистрировались на нашем сайте, можно сделать это прямо сейчас."/>
@@ -129,6 +144,7 @@
 <message id="RevIsNotSet" text="Rev не указан."/>
 <message id="RSSDescription" text="Последние изменения wiki"/>
 <message id="Save" text="Сохранить"/>
+<message id="Saved" text="Сохранено."/>
 <message id="Saving" text="Сохраняем..."/>
 <message id="Send" text="Выслать"/>
 <message id="Sending" text="Отправляем..."/>
@@ -139,11 +155,20 @@
 <message id="SpecifyLoginAndPassword" text="Укажите Ваш логин и пароль для доступа к сайту и сохраните текст еще раз."/>
 <message id="SuccessfullyActivated" text="успешно активирована."/>
 <message id="SupportIsNotified" text="Наша служба поддержки уже получила уведомление и постарается исправить проблему как можно скорее."/>
+<message id="SupportsEmail" text="E-mail службы поддержки"/>
+<message id="SupportsEmailLookWrong" text="E-mail службы поддержки выглядит странно."/>
 <message id="TextIsNotSet" text="Текст не задан."/>
 <message id="ThereAreNoAccounts" text="Не найдено ни одной учетной записи с указанным Вами e-mail."/>
+<message id="Title" text="Название wiki сайта"/>
+<message id="TitleIsNotSet" text="Свойство 'title' не задано."/>
+<message id="TitleIsRequired" text="Название wiki сайта не задано."/>
 <message id="ToChangePassword" text="Чтобы изменить пароль, введите Ваш старый и новый пароли"/>
 <message id="ToHome" text="Домой"/>
 <message id="ToManyElementsWithID" text="Слишком много элементов с ID"/>
+<message id="Update" text="Обновить"/>
+<message id="UserRights" text="Права зарегистрированных пользователей"/>
+<message id="Use" text="Использовать"/>
+<message id="User" text="Пользователь"/>
 <message id="VersionConflict" text="Произошел конфликт версий. Пока вы редактировали этот текст %1 &lt;a href='%2'&gt;%3&lt;/a&gt; успел сохранить новую версию"/>
 <message id="view" text="Посмотреть"/>
 <message id="ViewChangeList" text="Посмотреть список изменений"/>

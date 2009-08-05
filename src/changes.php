@@ -11,7 +11,8 @@
 
 	$params = array(
 		'UID'=>$person->getAttribute('uid'),
-		'NAME'=>$person->getAttribute('name'));
+		'NAME'=>$person->getAttribute('name'),
+		'ADMIN'=>isAdmin($person));
 
 	echo transformXML(CORE.'changes.xml', CORE.'xml/allchanges.xsl', $params, PROJECT_MTIME);
 
