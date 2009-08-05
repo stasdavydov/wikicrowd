@@ -190,7 +190,7 @@ function updateTime() {
 	var spans = document.getElementsByTagName('span');
 	for(var i = 0; i < spans.length; i++) {
 		var span = spans.item(i);
-		if (getCl(span).indexOf('time:') != -1) {
+		if (getCl(span) != null && getCl(span).indexOf('time:') != -1) {
 			span.innerHTML = getTextTimeDifference(getCl(span).substr('time:'.length));
 			setCl(span, '');
 		}

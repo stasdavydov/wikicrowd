@@ -13,6 +13,9 @@
 		omit-xml-declaration="yes"
 		cdata-section-elements=""/>
 
+	<xsl:param name="ADMIN"/>
+	<xsl:param name="CANEDIT"/>
+	<xsl:param name="CANVIEW"/>
 	<xsl:param name="UID"/>
 	<xsl:param name="MODE"/>
 	<xsl:param name="NAME"/>
@@ -34,10 +37,10 @@ License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
 		<div class="menu">
 			<div class="leftside">
 				<xsl:choose>
-					<xsl:when test="count(/chapter) > 0 and $MODE = 'view'">
+					<xsl:when test="count(/chapter) > 0 and $MODE = 'view' and $CANEDIT = '1'">
 						<a href="?"><xsl:value-of select="$locale//message[@id='edit']/@text"/></a>
 					</xsl:when>
-					<xsl:when test="count(/chapter) > 0 and $MODE = 'edit'">
+					<xsl:when test="count(/chapter) > 0 and $MODE = 'edit' and $CANVIEW = '1'">
 						<a href="?view"><xsl:value-of select="$locale//message[@id='view']/@text"/></a>
 					</xsl:when>
 				</xsl:choose>
@@ -59,6 +62,9 @@ License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
 						<a href="{$config//property[@name='www']/@value}auth/"><xsl:value-of select="$locale//message[@id='Login']/@text"/></a>
 					</xsl:when>
 				</xsl:choose>
+				<xsl:if test="$ADMIN = '1'">
+					<a href="{$config//property[@name='www']/@value}configure/"><xsl:value-of select="$locale//message[@id='Configure']/@text"/></a>
+				</xsl:if>
 				<xsl:choose>
 					<xsl:when test="$page = 'allchanges'">
 						<span class="selected"><xsl:value-of select="$locale//message[@id='AllChanges']/@text"/></span>

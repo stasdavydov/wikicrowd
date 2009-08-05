@@ -92,7 +92,7 @@ mergePluginFiles(CORE.'css/plugins.css', '/node.css');
 require_once CORE.'block.php';
 require_once CORE.'person.php';
 
-define ('DEBUG', false);
+define ('DEBUG', true);
 if (DEBUG) {
 	require_once(CORE.'firephp/fb.php');
 }
@@ -200,6 +200,41 @@ function internal($msg) {
 			"Content-Transfer-Encoding: base64\n");
 
 	warn(getMessage('InternalError').': '.$msg);
+}
+
+function menu($current = '') {
+	$person = getSessionPerson();
+?><div class="menu"><div class="rightside"><?
+	
+	if ($current == "auth") {
+?><span><?=getMessage('Login')?></span><?
+	} else {
+?><a class="person" href="<?=www?>person/<?=$person->getAttribute('uid')?>"><?=$person->getAttribute('name')?></a><a href="javascript:logout()"><?=getMessage('Logout')?></a><?
+	}
+
+	if ($current == "configure") {
+?><span><?=getMessage('Configure')?></span><?
+	} else if(isAdmin($person)) {
+?><a href="<?=www?>configure/"><?=getMessage('Configure')?></a><?
+	}
+
+?><a href="<?=www?>allchanges/"><?=getMessage('AllChanges')?></a><a href="<?=
+	www?>"><?=getMessage('ToHome')?></a></div></div>
+<?
+}
+
+function setProperty($dom, $name, $value) {
+	$xpath = new DOMXPath($dom);
+	$property = $xpath->query("//property[@name = '$name']");
+
+	if ($property->length == 0) {
+		$property = $dom->createElement('property');
+		$dom->documentElement->appendChild($property);
+	} else
+		$property = $property->item(0);
+
+	$property->setAttribute('name', $name);
+	$property->setAttribute('value', $value);
 }
 
 ?>

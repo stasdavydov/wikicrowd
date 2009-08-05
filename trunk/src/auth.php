@@ -9,7 +9,7 @@
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="RU">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LOCALE?>">
 <head><title><?=getMessage('RestrictedAccess')?> | <?=title?></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <link rel="shortcut icon" href="<?=www?>core/img/favicon.gif" />
@@ -40,9 +40,10 @@ h2 { margin: 0 0 0.5em 0; }
 </style>
 </head>
 <body>
-<div class="menu"><div class="rightside"><span><?=getMessage('Login')?></span><a href="<?=www?>allchanges/"><?=getMessage('AllChanges')?></a><a href="<?=www?>"><?=getMessage('ToHome')?></a></div></div>
-<h1><?=getMessage('RestrictedArea')?> &raquo; <a href="<?=www?>"><?=title?></a></h1>
+<?
+	menu('auth');
 
+?><h1><?=getMessage('RestrictedArea')?> &raquo; <a href="<?=www?>"><?=title?></a></h1>
 <div class="form floatright odd">
 <h2><?=getMessage('Registration')?></h2>
 <p><?=getMessage('NotRegisteredYet')?></p>
