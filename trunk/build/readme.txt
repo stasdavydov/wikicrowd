@@ -12,8 +12,7 @@ III. RELEASE NOTES
   V. LICENSE
 
 I. SYSTEM REQUIREMENTS: 
-     PHP 5.2 or higher with DOM, XSL and iconv 
-     support.
+  PHP 5.2 or higher with DOM, XSL and iconv support.
   
 
 II. INSTALLATION:
@@ -60,6 +59,9 @@ IV. SUPPORT & CONTACTS
   Stas Davydov <davidovsv@yandex.ru> or check
   the WikiCrowd FAQ for help on 
   http://code.google.com/p/wikicrowd/
+
+  Submit feature requests and bugs to
+  http://code.google.com/p/wikicrowd/issues/list
 
 V. LICENSE
   WikiCrowd is under LGPL. http://www.gnu.org/licenses/lgpl.html

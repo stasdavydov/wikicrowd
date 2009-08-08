@@ -23,6 +23,7 @@
 <message id="CheckIsComplete" text="Проверка прошла успешно! Подождите, пожалуйста, несколько секунд, пока страница загрузится."/>
 <message id="CloseList" text="Закрыть список"/>
 <message id="Configure" text="Конфигурация"/>
+<message id="Download" text="Скачать"/>
 <message id="edit" text="Редактировать"/>
 <message id="EditFormLoading" text="Загрузка формы для редактирования..."/>
 <message id="ElementWithIDNotFound" text="Элемент с ID %s не найден."/>
@@ -108,7 +109,7 @@
 <message id="NewPasswrodSent" text="Мы отправили Вам письмо с новым паролем."/>
 <message id="NewUserCanEdit" text="Новый пользователь может редактировать"/>
 <message id="NewUserCanView" text="Новый пользователь может читать"/>
-<message id="NewVersionAvailable" text="Появилась &lt;a href='%s'&gt;новая версия WikiCrowd&lt;/a&gt;."/>
+<message id="NewVersionAvailable" text="Появилась новая версия: &lt;a href='%s'&gt;WikiCrowd %s&lt;/a&gt;."/>
 <message id="NoAdminExist" text="На сайте не осталось админов, пожалуйста, выберите хотя бы одного."/>
 <message id="NoChanges" text="Изменений еще не было."/>
 <message id="NothingIsChanged" text="Такое впечатление, что ничего не изменилось."/>
@@ -165,7 +166,6 @@
 <message id="ToChangePassword" text="Чтобы изменить пароль, введите Ваш старый и новый пароли"/>
 <message id="ToHome" text="Домой"/>
 <message id="ToManyElementsWithID" text="Слишком много элементов с ID"/>
-<message id="Update" text="Обновить"/>
 <message id="UserRights" text="Права зарегистрированных пользователей"/>
 <message id="Use" text="Использовать"/>
 <message id="User" text="Пользователь"/>
