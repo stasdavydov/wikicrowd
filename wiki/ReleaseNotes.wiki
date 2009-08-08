@@ -1,3 +1,6 @@
+== 0.0.10 ==
+ * Bugfix of installation script and configuration panel.
+
 == 0.0.9 ==
  * List of all changes.
  * RSS channel for changes log.
