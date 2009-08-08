@@ -13,7 +13,7 @@
 	function checkNewerVersion() {
 		global $version;
 		$svnVersion = @file_get_contents('http://wikicrowd.googlecode.com/svn/trunk/build/version.txt');
-		if(preg_match('/\d\.\d\.\d/', $svnVersion) && strcmp($svnVersion, VERSION) > 0) {
+		if(preg_match('/\d\.\d\.\d/', $svnVersion) && version_compare($svnVersion, VERSION) > 0) {
 			$url = "http://wikicrowd.googlecode.com/files/wikicrowd-$svnVersion.zip";
 
 ?><form method="post" action=""><p class="update"><?=sprintf(getMessage('NewVersionAvailable'), $url, $svnVersion)?>
