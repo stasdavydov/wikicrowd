@@ -173,7 +173,7 @@
 			closedir($dir);
 
 			// remove old fake account 'system'
-			unlink(getcwd().'/persons/system.xml');
+			@unlink(getcwd().'/persons/system.xml');
 
 			// create guest account
 			$guest = createPerson('guest', md5(time()), 'Guest', 'noreply', 'Guest account', 
