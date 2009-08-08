@@ -68,14 +68,34 @@
 	function checkNewerVersion() {
 		global $version;
 		$svnVersion = @file_get_contents('http://wikicrowd.googlecode.com/svn/trunk/build/version.txt');
-		if(preg_match('/\d\.\d\.\d/', $svnVersion) && strcmp($svnVersion, $version) > 0) {
-?><p class="update">New version of <a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> is available for download: <a href="http://wikicrowd.googlecode.com/files/wikicrowd-<?=$svnVersion?>.zip">wikicrowd-<?=$svnVersion?>.zip</a>.</p>
+		if(preg_match('/\d\.\d\.\d/', $svnVersion) && version_compare($svnVersion, $version) > 0) {
+?><form method="post" action="">
+<input type="hidden" name="update" value="<?=$svnVersion?>"/>
+<p class="update">New version is available: <a href="http://wikicrowd.googlecode.com/files/wikicrowd-<?=$svnVersion?>.zip">WikiCrowd <?=$svnVersion?></a>.
+<input type="submit" style="float:none;display:inline;margin:0;" value="Download"/></p>
+</form>
 <?php
 		}
 	}
 
 	// %embed(../src/core/person.php)%
-	
+
+
+	if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') == 0 
+		&& array_key_exists('update', $_POST)) {
+		// update
+		$url = "http://wikicrowd.googlecode.com/files/wikicrowd-{$_POST['update']}.zip";
+		file_put_contents(__DIR__.'/tmp.zip', file_get_contents($url));
+		$zip = new ZipArchive();
+		$zip->open(__DIR__.'/tmp.zip');
+		$zip->extractTo(__DIR__, '/install.php');
+		$zip->close();
+		unlink(__DIR__.'/tmp.zip');
+
+		header('Location: install.php?ts='.time());
+		exit;
+	}
+
 	if ($update) {
 		if (! file_exists(__DIR__.'/tmp'))
 			mkdir(__DIR__.'/tmp');

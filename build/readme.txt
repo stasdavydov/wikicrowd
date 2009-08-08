@@ -36,23 +36,25 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
-  0.0.9 - List of all changes.
+  0.0.10  Bugfix of installation script and configuration panel.
+
+  0.0.9   List of all changes.
           RSS channel for changes log.
           Usable wiki configuration for administrators.
           Bugfix.
 
-  0.0.8 - New positive logo :)
+  0.0.8   New positive logo :)
           Changed format of localization data.
           Access rights customization.
           Anonymous editing.
           Detect previous installation and update it.
 
-  0.0.7 - Localization (Russian and English languages impleented).
+  0.0.7   Localization (Russian and English languages impleented).
           E-mail change confirmation re-implemented to prevent account blocking.
           Improve installation with checking of newer version of WikiCrowd.
           Bugfix.
 
-  0.0.6 - Initial public version.
+  0.0.6   Initial public version.
 
 IV. SUPPORT & CONTACTS
   If you have any questions, feel free to ask me
