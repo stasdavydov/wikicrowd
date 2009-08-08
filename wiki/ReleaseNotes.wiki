@@ -1,5 +1,5 @@
 == 0.0.11 ==
-Bugfix: @page[Internal link] doesn't work (issue #11).
+Bugfix: @page`[Internal link`] doesn't work (issue #11).
 
 == 0.0.10 ==
 Bugfix of installation script and configuration panel.
