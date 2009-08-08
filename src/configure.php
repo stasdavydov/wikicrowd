@@ -13,13 +13,30 @@
 	function checkNewerVersion() {
 		global $version;
 		$svnVersion = @file_get_contents('http://wikicrowd.googlecode.com/svn/trunk/build/version.txt');
-		$url = "http://wikicrowd.googlecode.com/files/wikicrowd-$svnVersion.zip";
 		if(preg_match('/\d\.\d\.\d/', $svnVersion) && strcmp($svnVersion, VERSION) > 0) {
-?><p class="update"><?=sprintf(getMessage('NewVersionAvailable'), $url)?><form method="post" action="">
+			$url = "http://wikicrowd.googlecode.com/files/wikicrowd-$svnVersion.zip";
+
+?><form method="post" action=""><p class="update"><?=sprintf(getMessage('NewVersionAvailable'), $url, $svnVersion)?>
 <input type="hidden" name="update" value="<?=$svnVersion?>"/>
-<input type="submit" value="<?=getMessage('Update')?>"/></form></p>
+<input type="submit" value="<?=getMessage('Download')?>"/></p></form>
 <?php
+
 		}
+	}
+
+	if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') == 0 
+		&& array_key_exists('update', $_POST)) {
+		// update
+		$url = "http://wikicrowd.googlecode.com/files/wikicrowd-{$_POST['update']}.zip";
+		file_put_contents(HOME.'tmp.zip', file_get_contents($url));
+		$zip = new ZipArchive();
+		$zip->open(HOME.'tmp.zip');
+		$zip->extractTo(HOME, 'install.php');
+		$zip->close();
+		unlink(HOME.'tmp.zip');
+
+		header('Location: '.www.'install.php');
+		exit;
 	}
 
 	$errors = array();
@@ -35,29 +52,59 @@
 
 	$users = array();
 
-	if (strcasecmp($_SERVER['REQUEST_METHOD'], 'get') == 0) {
-		$dir = opendir(PERSONS);
-		while($f = readdir($dir)) {
-			if (preg_match('/^([^.]+)\.xml$/', $f, $matchs)) {
-				$user = loadPerson($matchs[1]);
-				$uid = $user->getAttribute('uid');
-				$users[$uid]['admin'] = isAdmin($user);
-				$users[$uid]['canEdit'] = personCanEdit($user);
-				$users[$uid]['canView'] = personCanView($user);
-
-				$users[$uid]['original_admin'] = $users[$uid]['admin'];
-				$users[$uid]['original_canEdit'] = $users[$uid]['canEdit'];
-				$users[$uid]['original_canView'] = $users[$uid]['canView'];
-			}
+	// build persons index
+	$personsIndex = CACHE.'persons-index.xml';
+	$personFilesTs = 0;
+	$dir = opendir(PERSONS);
+	while($f = readdir($dir)) {
+		if (preg_match('/^([^.]+)\.xml$/', $f, $matchs)) {
+			$uid = $matchs[1];
+			$fileName = $uid.'.xml';
+			$personFilesTs = max(filemtime(PERSONS.$fileName), $personFilesTs);
+			$users[$uid] = 0;
 		}
-		closedir($dir);
 	}
+	closedir($dir);
 
+	$usersDOM = new DOMDOcument('1.0', 'UTF-8');
+	if (! file_exists($personsIndex) || filemtime($personsIndex) < $personFilesTs) {
+		// rebuild
+		$usersDOM->appendChild($usersDOM->createElement('persons'));
+		foreach($users as $uid=>$x)
+			$usersDOM->documentElement->appendChild($usersDOM->importNode(loadPerson($uid), true));
+		$usersDOM->save($personsIndex);
+	} else
+		$usersDOM->load($personsIndex);
+		
 	$messages = array();
 
 	if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') == 0) {
 		$users = $_POST['user'];
 		
+		$persons = $usersDOM->getElementsByTagName('person');
+		$personsChanged = false;
+		for($i = 0; $i < $persons->length; $i++) {
+			$user = $persons->item($i);
+			$uid = $user->getAttribute('uid');
+
+			$admin = array_key_exists('admin', $users[$uid]) && $users[$uid]['admin'];
+			$canEdit = array_key_exists('canEdit', $users[$uid]) && $users[$uid]['canEdit'];
+			$canView = array_key_exists('canView', $users[$uid]) && $users[$uid]['canView'];
+
+			$changed = 
+				$admin != $user->getAttribute('admin')
+				|| 	$canEdit != $user->getAttribute('can-edit')
+				|| 	$canView != $user->getAttribute('can-view');
+			$personsChanged |= $changed;
+
+			if ($changed) {
+				$user->setAttribute('can-edit', $canEdit);
+				$user->setAttribute('can-view', $canView);
+				$user->setAttribute('admin', $admin);
+				$user->setAttribute('changed', '');
+			}
+		}
+
 		$title = stripslashes(trim($_POST['title']));
 		if($title == "")
 			$errors['title'] = getMessage('TitleIsRequired');
@@ -105,24 +152,23 @@
 			setProperty($dom, 'newUserCanView', $newUserCanView);
 			$dom->save(CORE.'config.xml');
 
-			foreach($users as $uid=>$property) {
-				$admin = array_key_exists('admin', $property) && $property['admin'];
-				$canEdit = array_key_exists('canEdit', $property) && $property['canEdit'];
-				$canView = array_key_exists('canView', $property) && $property['canView'];
+			if ($personsChanged) {
+				$xpath = new DOMXPath($usersDOM);
+				$persons = $xpath->query('//person[@changed]');
+				for($i = 0; $i < $persons->length; $i++) {
+					$user = $persons->item($i);
+					$user->removeAttribute('changed');
 
-				$changed = 
-						$admin != $property['original_admin']
-					|| 	$canEdit != $property['original_canEdit']
-					|| 	$canView != $property['original_canView'];
-
-				if ($changed) {
-					$user = loadPerson($uid);
-					$user->setAttribute('can-edit', $canEdit);
-					$user->setAttribute('can-view', $canView);
-					$user->setAttribute('admin', $admin);
-					$user->ownerDocument->save(PERSONS.$uid.'.xml');
+					$person = loadPerson($user->getAttribute('uid'));
+					$person->setAttribute('can-edit', $user->getAttribute('can-edit'));
+					$person->setAttribute('can-view', $user->getAttribute('can-view'));
+					$person->setAttribute('admin', $user->getAttribute('can-admin'));
+					$person->ownerDocument->save(PERSONS.$uid.'.xml');
 				}
+		
+				$usersDOM->save($personsIndex);
 			}
+
 			header('Location: '.www.'configure/?ts='.time());
 			exit;
 		}
@@ -140,7 +186,9 @@
 <style type="text/css">
 h1 { margin: 0.25em 0 0.5em 0.65em; }
 h2 { margin: 1em 0 0 0; }
-input { display: block; margin: 0.75em 0 0 0;}
+#chapter { padding-top: 1em !important;}
+.block { display: block; }
+input { margin: 0.75em 0 0 0;}
 input.hidden { display: none;}
 label { display: block; margin: 1em 0.25em 0 0;}
 form { color: #000; }
@@ -148,7 +196,7 @@ form { color: #000; }
 .error { padding: 1em; width: 31em; border: 1px solid #C00; background: #FDD; }
 .error li { margin-left: 1em; color: #C00;}
 .error li span { color: #000; }
-.update { border: 1px solid #0C0; background: #DFD; padding: 1em; width: 31em; }
+.update { border: 1px solid #0C0; background: #DFD; padding: 0.75em; width: 25em; }
 .info { border: 1px solid #CC0; background: #FFD; margin-top: 1em; padding: 1em; width: 36.8em; font-size:85%;}
 table { border-right: 1px solid #999; border-bottom: 1px solid #999; }
 td { text-align: center; border-left: 1px solid #999; padding: 0.25em;}
@@ -211,9 +259,9 @@ th.ne { border: none; border-bottom: 1px solid #999; }
 	closedir($dir);
 
 ?><form method="post" action="">
-<label for="title"><?=getMessage('Title')?>:</label> <input type="text" name="title" id="title" size="50" value="<?=$title?>"/>
-<label for="homePage"><?=getMessage('HomePage')?>:</label> <input type="text" name="homePage" id="homePage" size="50" value="<?=$homePage?>"/>
-<label class="optional" for="supportEmail"><nobr><?=getMessage('SupportsEmail')?>:</nobr><br/><small>(optional)</small></label> <input type="text" name="supportEmail" id="supportEmail" size="50" value="<?=$supportEmail?>"/>
+<label for="title"><?=getMessage('Title')?>:</label> <input class="block" type="text" name="title" id="title" size="50" value="<?=$title?>"/>
+<label for="homePage"><?=getMessage('HomePage')?>:</label> <input class="block" type="text" name="homePage" id="homePage" size="50" value="<?=$homePage?>"/>
+<label class="optional" for="supportEmail"><nobr><?=getMessage('SupportsEmail')?>:</nobr><br/><small>(optional)</small></label> <input class="block" type="text" name="supportEmail" id="supportEmail" size="50" value="<?=$supportEmail?>"/>
 <h2><?=getMessage('Language')?></h2>
 <label for="locale"><?=getMessage('Use')?> <select name="locale" id="locale"><?php
 	foreach($locales as $code=>$name) {
@@ -244,41 +292,9 @@ th.ne { border: none; border-bottom: 1px solid #999; }
 
 <h2><?=getMessage('UserRights')?></h2>
 <?
-	foreach($users as $uid=>$property) {
-?><input class="hidden" type="hidden" name="user[<?=$uid?>][uid]" value="<?=
-		$uid?>"/><input class="hidden" type="hidden" name="user[<?=$uid?>][original_admin]" value="<?=
-		$property['original_admin']?>"/><input class="hidden" type="hidden" name="user[<?=$uid?>][original_canEdit]" value="<?=
-		$property['original_canEdit']?>"/><input class="hidden" type="hidden" name="user[<?=$uid?>][original_canView]" value="<?=
-		$property['original_canView']?>"/><?
-	}
-?><table border="0" cellspacing="0" cellpadding="3">
-<thead><tr><th><?=getMessage('User')?></th><th><?=
-	getMessage('Admin')?></th><th><?=getMessage('CanEdit')?></th><th><?=getMessage('CanRead')?></th></tr>
-<tbody>
-<?
-	foreach($users as $uid=>$property) {
-?><tr><td class="right"><a href="<?=www?>person/<?=$uid?>"><?=$uid?></a></td>
-<td><input type="checkbox" name="user[<?=$uid?>][admin]"<?
-
-		if (array_key_exists('admin', $property) && $property['admin'] && $uid != "guest")
-			echo ' checked="checked"';
-		if ($uid == "guest") {
-			echo ' disabled="disabled"';
-			echo ' title="'.getMessage('GuestNotAdmin').'"';
-		}
-?> value="1"/></td><td><input type="checkbox" name="user[<?=$uid?>][canEdit]"<?
-		if (array_key_exists('canEdit', $property) && $property['canEdit'])
-			echo ' checked="checked"';
-?> value="1"/></td><td><input type="checkbox" name="user[<?=$uid?>][canView]"<?
-		if (array_key_exists('canView', $property) && $property['canView'])
-			echo ' checked="checked"';
-?> value="1"/></td></tr>
-<?
-	}
+	echo transformDOM($usersDOM, CORE.'xml/persons_index.xsl', array());
 	
-?></tbody>
-</table>
-<br/>
+?><br/>
 <input style="padding:0.25em;font-size:110%;" type="submit" value="<?=getMessage('Save')?>"/>
 </form>
 </div>

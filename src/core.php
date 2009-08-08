@@ -92,7 +92,7 @@ mergePluginFiles(CORE.'css/plugins.css', '/node.css');
 require_once CORE.'block.php';
 require_once CORE.'person.php';
 
-define ('DEBUG', true);
+define ('DEBUG', false);
 if (DEBUG) {
 	require_once(CORE.'firephp/fb.php');
 }

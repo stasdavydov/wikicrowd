@@ -23,6 +23,7 @@
 <message id="CheckIsComplete" text="Check is successful. Please wait a few seconds while page will load."/>
 <message id="CloseList" text="Close list"/>
 <message id="Configure" text="Configure"/>
+<message id="Download" text="Download"/>
 <message id="edit" text="Edit"/>
 <message id="EditFormLoading" text="Editing form is loading..."/>
 <message id="Enter" text="Login/Signup"/>
@@ -106,7 +107,7 @@ Support team"/>
 <message id="NewPasswrodSent" text="We sent you an e-mail with new password."/>
 <message id="NewUserCanEdit" text="New user can edit"/>
 <message id="NewUserCanView" text="New user can read"/>
-<message id="NewVersionAvailable" text="&lt;a href='%s'&gt;New version of WikiCrowd&lt;/a&gt; is available."/>
+<message id="NewVersionAvailable" text="New version is available: &lt;a href='%s'&gt;WikiCrowd %s&lt;/a&gt;."/>
 <message id="NoAdminExist" text="There is no admin. Please choose one."/>
 <message id="NoChanges" text="No changes yet."/>
 <message id="NothingIsChanged" text="It seems that nothing is changed."/>
@@ -162,7 +163,6 @@ Support team"/>
 <message id="ToChangePassword" text="To change you password please enter the old and a new one"/>
 <message id="ToHome" text="Home"/>
 <message id="ToManyElementsWithID" text="To many elements with ID"/>
-<message id="Update" text="Update"/>
 <message id="Use" text="Use"/>
 <message id="User" text="User"/>
 <message id="UserRights" text="Registered user's rights"/>
