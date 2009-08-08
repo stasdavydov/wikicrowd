@@ -36,6 +36,8 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
+  0.0.11  Bugfix: @page[Internal link] doesn't work (issue #11).
+
   0.0.10  Bugfix of installation script and configuration panel.
 
   0.0.9   List of all changes.
