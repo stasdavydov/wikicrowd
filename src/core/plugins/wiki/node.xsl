@@ -45,7 +45,7 @@
 						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="$config//property[@name='www']/@value"/><xsl:value-of select="php:function('rawurlencode', $uri)"/>
+						<xsl:value-of select="$config//property[@name='www']/@value"/><xsl:value-of select="php:function('rawurlencode', $name)"/>
 					</xsl:otherwise>
 				</xsl:choose></xsl:attribute><xsl:value-of select="$name"/></a>
 				<xsl:call-template name="wiki">
