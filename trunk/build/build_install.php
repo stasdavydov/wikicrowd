@@ -35,10 +35,13 @@
 			'.htaccess',
 			'ajax.php',
 			'auth.php',
+			'changes.php',
 			'chapter.php',
 			'confirm.php',
+			'configure.php',
 			'core.php',
 			'mb_diff.php',
+			'rss.php',
 			'user.php') as $file)
 			$zip->addFile(HOME.$file, $file);
 
