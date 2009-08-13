@@ -134,6 +134,7 @@ It seems that someone has used your e-mail on web site %s\n
 Please contact us if this issue will repeat.\n\n
 Best regards,\n
 Support team"/>
+<message id="RegistrationIsClosed" text="Registration is closed."/>
 <message id="RegistrationSuccess" text="Registration successful! We sent you a confirmation e-mail. Please click on link in the e-mail to confirm your account."/>
 <message id="RememberMe" text="Remember me"/>
 <message id="RestrictedAccess" text="Access to restricted page"/>
