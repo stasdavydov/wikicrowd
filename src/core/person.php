@@ -73,4 +73,32 @@ function doLogin($person, $remember = false) {
     	$remember ? strtotime('+180 days') : 0, '/');
 }
 
+function getPersonIndex() {
+	$users = array();
+
+	$personsIndex = CACHE.'persons-index.xml';
+	$personFilesTs = 0;
+	$dir = opendir(PERSONS);
+	while($f = readdir($dir)) {
+		if (preg_match('/^([^.]+)\.xml$/', $f, $matchs)) {
+			$uid = $matchs[1];
+			$fileName = $uid.'.xml';
+			$personFilesTs = max(filemtime(PERSONS.$fileName), $personFilesTs);
+			$users[$uid] = 0;
+		}
+	}
+	closedir($dir);
+
+	$usersDOM = new DOMDOcument('1.0', 'UTF-8');
+	if (! file_exists($personsIndex) || filemtime($personsIndex) < $personFilesTs) {
+		// rebuild
+		$usersDOM->appendChild($usersDOM->createElement('persons'));
+		foreach($users as $uid=>$x)
+			$usersDOM->documentElement->appendChild($usersDOM->importNode(loadPerson($uid), true));
+		$usersDOM->save($personsIndex);
+	} else
+		$usersDOM->load($personsIndex);
+
+	return array($users, $usersDOM);
+}
 ?>

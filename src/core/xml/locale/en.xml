@@ -45,6 +45,7 @@ Support team"/>
 <message id="EmailIsNotSet" text="E-mail is not specified."/>
 <message id="EmailIsWrong" text="There is an error in your e-mail. Wants something like email@server.com"/>
 <message id="EnterLoginAndPassword" text="You should enter login and password to access this page."/>
+<message id="FileIsNotSet" text="File is not set for media block."/>
 <message id="ForgotPassword" text="Forget password"/>
 <message id="GuestNotAdmin" text="Guest cannot be admin."/>
 <message id='IDisEmpty' text='ID is empty.'/>
@@ -121,6 +122,7 @@ Support team"/>
 <message id="PasswordCannotBeEmptyWOAlert" text="Password cannot be empty."/>
 <message id="PasswordIsNotSet" text="Password is not specified."/>
 <message id="PasswordIsWrong" text="Password is wrong."/>
+<message id="Persons" text="Persons"/>
 <message id="Register" text="Register"/>
 <message id="Registring" text="Registering..."/>
 <message id="Registration" text="Registration"/>
