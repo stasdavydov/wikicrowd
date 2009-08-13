@@ -112,6 +112,8 @@
 
 
 	} else if ($do == "register") {
+		if (! anyoneCanRegister)
+			warn(getMessage('RegistrationIsClosed'));
 
 		if (! array_key_exists('login', $_REQUEST))
 			internal(getMessage('LoginIsNotSet'));

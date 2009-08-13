@@ -44,6 +44,9 @@ h2 { margin: 0 0 0.5em 0; }
 	menu('auth');
 
 ?><h1><?=getMessage('RestrictedArea')?> &raquo; <a href="<?=www?>"><?=title?></a></h1>
+<?
+	if (anyoneCanRegister) {
+?>
 <div class="form floatright odd">
 <h2><?=getMessage('Registration')?></h2>
 <p><?=getMessage('NotRegisteredYet')?></p>
@@ -58,7 +61,9 @@ h2 { margin: 0 0 0.5em 0; }
 <input type="submit" value="<?=getMessage('Register')?>"/>
 </form>
 </div>
-
+<?
+	}
+?>
 <div class="form floatleft">
 <h2><?=getMessage('Enter')?></h2>
 <p><?=getMessage('EnterLoginAndPassword')?></p>
