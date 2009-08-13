@@ -50,32 +50,8 @@
 	$newUserCanEdit = newUserCanEdit;
 	$newUserCanView = newUserCanView;
 
-	$users = array();
+	list($users, $usersDOM) = getPersonIndex();
 
-	// build persons index
-	$personsIndex = CACHE.'persons-index.xml';
-	$personFilesTs = 0;
-	$dir = opendir(PERSONS);
-	while($f = readdir($dir)) {
-		if (preg_match('/^([^.]+)\.xml$/', $f, $matchs)) {
-			$uid = $matchs[1];
-			$fileName = $uid.'.xml';
-			$personFilesTs = max(filemtime(PERSONS.$fileName), $personFilesTs);
-			$users[$uid] = 0;
-		}
-	}
-	closedir($dir);
-
-	$usersDOM = new DOMDOcument('1.0', 'UTF-8');
-	if (! file_exists($personsIndex) || filemtime($personsIndex) < $personFilesTs) {
-		// rebuild
-		$usersDOM->appendChild($usersDOM->createElement('persons'));
-		foreach($users as $uid=>$x)
-			$usersDOM->documentElement->appendChild($usersDOM->importNode(loadPerson($uid), true));
-		$usersDOM->save($personsIndex);
-	} else
-		$usersDOM->load($personsIndex);
-		
 	$messages = array();
 
 	if (strcasecmp($_SERVER['REQUEST_METHOD'], 'post') == 0) {
@@ -177,7 +153,7 @@
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?=LOCALE?>">
-<head><title><?=getMessage('Configure')?> | <?=title?></title>
+<head><title><?=getMessage('Configure')?> &#0187; <?=title?></title>
 <link rel="shortcut icon" href="<?=www?>core/img/favicon.gif" />
 <link rel="stylesheet" type="text/css" href="<?=www?>core/css/main.css"/>
 <script type="text/javascript">var www = '<?=www?>';</script>

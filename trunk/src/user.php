@@ -5,19 +5,31 @@
   		header('HTTP/1.0 404 Not Found');
    		exit;
 	}
-	$uid = trim($_GET['uid']);
-	$personFile = PERSONS.$uid.'.xml';
-	if (!file_exists($personFile)) {
-  		header('HTTP/1.0 404 Not Found');
-   		exit;
-	}
-
 	ob_start('ob_gzhandler');
 
 	$person = getSessionPerson();
 	if (isGuest($person) && ! personCanView($person)) {
 		include HOME.'auth.php';
 		exit;
+	}
+
+	$uid = trim($_GET['uid']);
+	if ($uid == "") {
+		// list all persons	
+		getPersonIndex();
+		echo transformXML(CACHE.'persons-index.xml', CORE.'xml/persons.xsl', 
+			array('UID' => $person->getAttribute('uid'), 
+				'NAME' => $person->getAttribute('name'),
+				'ADMIN' => isAdmin($person)), PROJECT_MTIME);
+
+		ob_end_flush();
+		exit;
+	}
+
+	$personFile = PERSONS.$uid.'.xml';
+	if (!file_exists($personFile)) {
+  		header('HTTP/1.0 404 Not Found');
+   		exit;
 	}
 
 	$params = array('MODE'=>'restricted');

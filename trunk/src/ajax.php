@@ -65,8 +65,6 @@
 
 		$chapter->update($_REQUEST, $person->getAttribute('uid'));
 
-//		logChange($chapter, $id, $person->getAttribute('uid'));
-
 
 	} else if ($do == "loadchanges") {
 

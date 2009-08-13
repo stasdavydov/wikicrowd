@@ -34,7 +34,7 @@
 
 	<xsl:template match="person" mode="edit">
 		<html xml:lang="{$LOCALE}">
-			<head><title><xsl:value-of select="/person/@name"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
+			<head><title><xsl:value-of select="/person/@name"/> &#0187; <xsl:value-of select="$locale//message[@id='Persons']/@text"/> &#0187; <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
 				<link rel="alternate" type="application/rss+xml" title="RSS" href="{$config//property[@name='www']/@value}allchanges/rss/"/>
@@ -58,7 +58,7 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 			</head>
 			<body>
 				<xsl:call-template name="menu"/>
-				<h1><xsl:value-of select="/person/@name"/> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
+				<h1><xsl:value-of select="/person/@name"/> &#0187; <a href="{$config//property[@name='www']/@value}person/"><xsl:value-of select="$locale//message[@id='Persons']/@text"/></a> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
 				<div id="person" class="form">
 					<form method="get" action="" onsubmit="javascript:return savePerson()">
 						<input type="hidden" id="originalemail" value="{/person/@email}"/>
@@ -80,7 +80,7 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 
 	<xsl:template match="person" mode="view">
 		<html xml:lang="{$LOCALE}">
-			<head><title><xsl:value-of select="/person/@name"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
+			<head><title><xsl:value-of select="/person/@name"/> &#0187; <xsl:value-of select="$locale//message[@id='Persons']/@text"/> &#0187; <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
 				<link rel="alternate" type="application/rss+xml" title="RSS" href="{$config//property[@name='www']/@value}allchanges/rss/"/>
@@ -93,7 +93,7 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 			</head>
 			<body>
 				<xsl:call-template name="menu"/>
-				<h1><xsl:value-of select="/person/@name"/> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
+				<h1><xsl:value-of select="/person/@name"/> &#0187; <a href="{$config//property[@name='www']/@value}person/"><xsl:value-of select="$locale//message[@id='Persons']/@text"/></a> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
 				<div id="person">
 					<xsl:call-template name="textbr">
 						<xsl:with-param name="text"><xsl:value-of select="info"/></xsl:with-param>

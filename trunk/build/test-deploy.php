@@ -26,6 +26,6 @@
 		}
 	}
 
-	copydir('../src', '../../test', '/(\.svn|\.htaccess)/');
+	copydir('../src', '../../test', '/(\.svn|\.htaccess|changes\.xml)/');
 
 ?>

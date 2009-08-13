@@ -20,7 +20,7 @@
 
 	<xsl:template match="/">
 		<html xml:lang="{$LOCALE}">
-			<head><title><xsl:value-of select="$locale//message[@id='AllChanges']/@text"/> | <xsl:value-of select="$config//property[@name='title']/@value"/></title>
+			<head><title><xsl:value-of select="$locale//message[@id='AllChanges']/@text"/> &#0187; <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
 				<link rel="alternate" type="application/rss+xml" title="RSS" href="{$config//property[@name='www']/@value}allchanges/rss/"/>

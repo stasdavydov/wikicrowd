@@ -47,6 +47,7 @@
 <message id="EmailIsWrong" text="В Вашем e-mail ошибка, проверьте, пожалуйста. Хочется чего-то вроде email@server.com"/>
 <message id="Enter" text="Вход"/>
 <message id="EnterLoginAndPassword" text="Для доступа к этой странице Вам необходимо ввести логин и пароль."/>
+<message id="FileIsNotSet" text="Файл не задан для media-блока."/>
 <message id="ForgotPassword" text="Вспомнить пароль"/>
 <message id="GuestNotAdmin" text="Гость не может быть администратором."/>
 <message id='IDisEmpty' text='ID пуст.'/>
@@ -123,6 +124,7 @@
 <message id="PasswordCannotBeEmptyWOAlert" text="Пароль не может быть пустым."/>
 <message id="PasswordIsNotSet" text="Пароль не указан."/>
 <message id="PasswordIsWrong" text="Пароль, который Вы указали, неверный."/>
+<message id="Persons" text="Люди"/>
 <message id="Register" text="Зарегистрироваться"/>
 <message id="Registring" text="Идет регистрация..."/>
 <message id="Registration" text="Регистрация"/>
