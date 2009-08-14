@@ -35,7 +35,7 @@
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="concat(substring-before($text, ' /'),' ')"/>
 				</xsl:call-template>
-				<xsl:variable name="italic" select="substring-before(substring-after($text, ' /'),'/ ')"/>
+				<xsl:variable name="italic" select="substring-before(substring-after($text, ' /'),'/')"/>
 				<i>
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="$italic"/>
@@ -44,13 +44,13 @@
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="concat(' ',substring-after(substring-after($text,' /'),'/'))"/>
 				</xsl:call-template>				
-			</xsl:when>
+			</xsl:when>	
 			
 			<xsl:when test="contains($text,' _')">
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="concat(substring-before($text, ' _'),' ')"/>
 				</xsl:call-template>
-				<xsl:variable name="sub" select="substring-before(substring-after($text, ' _'),'_ ')"/>
+				<xsl:variable name="sub" select="substring-before(substring-after($text, ' _'),'_')"/>
 				<u>
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="$sub"/>
@@ -59,7 +59,7 @@
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="concat(' ',substring-after(substring-after($text,' _'),'_'))"/>
 				</xsl:call-template>				
-			</xsl:when>
+			</xsl:when>	
 		
 			<!-- @page "inner"
 				 @page[URL] "outer" -->
@@ -82,26 +82,25 @@
 							<xsl:when test="contains($uri, 'http://')">
 								<xsl:value-of select="$uri"/>
 							</xsl:when>
-							<xsl:otherwise><xsl:call-template name="url-encode">
-								<xsl:with-param name="text" select="$uri"/></xsl:call-template></xsl:otherwise>
+							<xsl:otherwise>
+								<xsl:value-of select="php:function('rawurlencode', $uri)"/>
+								<xsl:if test="$MODE = 'view'">?view</xsl:if>
+							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:when>
 					<xsl:otherwise>
-						<xsl:value-of select="$config//property[@name='www']/@value"/><xsl:call-template name="url-encode">
-							<xsl:with-param name="text"><xsl:value-of select="$name"/></xsl:with-param>
-							</xsl:call-template>
+						<xsl:value-of select="$config//property[@name='www']/@value"/><xsl:value-of select="php:function('rawurlencode', $name)"/>
 					</xsl:otherwise>
 				</xsl:choose></xsl:attribute><xsl:value-of select="$name"/></a>
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="substring-after(substring-after($second, '&quot;'), '&quot;')"/>
 				</xsl:call-template>
 			</xsl:when>
+			
 			<xsl:otherwise>
 			<xsl:value-of select="$text"/>
 			</xsl:otherwise>
-			
-
-
+	
 		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>
