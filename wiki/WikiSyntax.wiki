@@ -1,3 +1,3 @@
 = WikiCrowd wiki syntax =
 
-`*bold`* for *bold* text.
+`*`bold`*` for *bold* text.
