@@ -12,5 +12,7 @@
 
 == Links ==
 @page "Internal page name" for internal page link.
+
 @page`[`Internal page name`]` "Name of the link" for internal page link.
-@page`[`http:// started URL`]` "Name of the link" for link to an URL.
+
+@page`[`URL`]` "Name of the link" for link to an URL.
