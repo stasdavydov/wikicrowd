@@ -1,6 +1,7 @@
 #labels Phase-Design
 = WikiCrowd wiki syntax =
 
+== Text formatting ==
 `*`bold`*` for *bold* text.
 
 /italic/ for _italic_ text.
@@ -8,3 +9,8 @@
 `^`superscript`^` for^superscript^
 
 `_`subscript`_` for,,subscript,,
+
+== Links ==
+@page "Internal page name" for internal page link.
+@page`[`Internal page name`]` "Name of the link" for internal page link.
+@page`[`http:// started URL`]` "Name of the link" for link to an URL.
