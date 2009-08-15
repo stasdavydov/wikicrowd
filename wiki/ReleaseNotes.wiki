@@ -1,5 +1,5 @@
 == 0.0.12 ==
- * [Wiki syntax] support for bold, italic, subscript and superscript text: http://code.google.com/p/wikicrowd/issues/detail?id=9
+ * [WikiSyntax Wiki syntax] support for bold, italic, subscript and superscript text: http://code.google.com/p/wikicrowd/issues/detail?id=9
 
 = Released =
 
