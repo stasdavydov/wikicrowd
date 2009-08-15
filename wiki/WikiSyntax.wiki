@@ -1,3 +1,7 @@
+#labels Phase-Design
 = WikiCrowd wiki syntax =
 
 `*`bold`*` for *bold* text.
+/italic/ for _italic_ text.
+`^`superscript`^` for^superscript^
+`_`subscript`_` for,,subscript,,
