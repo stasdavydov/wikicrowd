@@ -37,11 +37,11 @@
 					<xsl:with-param name="text" select="concat(substring-before($text, ' /'),' ')"/>
 				</xsl:call-template>
 				<xsl:variable name="italic" select="substring-before(substring-after($text, ' /'),'/')"/>
-				<i>
+				<em>
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="$italic"/>
 				</xsl:call-template>	
-				</i>				
+				</em>				
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="concat(' ',substring-after(substring-after($text,' /'),'/'))"/>
 				</xsl:call-template>				
@@ -52,15 +52,30 @@
 					<xsl:with-param name="text" select="concat(substring-before($text, ' _'),' ')"/>
 				</xsl:call-template>
 				<xsl:variable name="sub" select="substring-before(substring-after($text, ' _'),'_')"/>
-				<u>
+				<sub>
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="$sub"/>
 				</xsl:call-template>	
-				</u>				
+				</sub>				
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="concat(' ',substring-after(substring-after($text,' _'),'_'))"/>
 				</xsl:call-template>				
-			</xsl:when>	
+			</xsl:when>
+
+			<xsl:when test="contains($text,' ^')">
+				<xsl:call-template name="wiki">
+					<xsl:with-param name="text" select="concat(substring-before($text, ' ^'),' ')"/>
+				</xsl:call-template>
+				<xsl:variable name="sup" select="substring-before(substring-after($text, ' ^'),'^')"/>
+				<sup>
+				<xsl:call-template name="wiki">
+					<xsl:with-param name="text" select="$sup"/>
+				</xsl:call-template>	
+				</sup>				
+				<xsl:call-template name="wiki">
+					<xsl:with-param name="text" select="concat(' ',substring-after(substring-after($text,' ^'),'^'))"/>
+				</xsl:call-template>				
+			</xsl:when>
 		
 			<!-- @page "inner"
 				 @page[URL] "outer" -->
