@@ -10,6 +10,16 @@ class TestWikiSyntax extends UnitTestCase {
 		$expected = '<strong>bold</strong>';
 	}
 
+	function testBoldItalic1() {
+		$str = '*/bold/*';
+		$expected = '<strong><em>bold</em></strong>';
+	}
+
+	function testBoldItalic2() {
+		$str = '*/bold*/';
+		$expected = '<strong>/bold</strong>/';
+	}
+
 	function testItalic1() {
 		$str = '/italic/';
 		$expected = '<em>italic</em>';
