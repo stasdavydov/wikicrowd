@@ -63,9 +63,12 @@
 			$user = $persons->item($i);
 			$uid = $user->getAttribute('uid');
 
-			$admin = array_key_exists('admin', $users[$uid]) && $users[$uid]['admin'];
-			$canEdit = array_key_exists('canEdit', $users[$uid]) && $users[$uid]['canEdit'];
-			$canView = array_key_exists('canView', $users[$uid]) && $users[$uid]['canView'];
+			$admin = is_array($users[$uid]) 
+				&& array_key_exists('admin', $users[$uid]) && $users[$uid]['admin'];
+			$canEdit = is_array($users[$uid]) 
+				&& array_key_exists('canEdit', $users[$uid]) && $users[$uid]['canEdit'];
+			$canView = is_array($users[$uid]) 
+				&& array_key_exists('canView', $users[$uid]) && $users[$uid]['canView'];
 
 			$changed = 
 				$admin != $user->getAttribute('admin')
@@ -90,7 +93,7 @@
 			$errors['homePage'] = getMessage('HomePageIsRequired');
 
 		$supportEmail = trim($_POST['supportEmail']);
-		if ($supportEmail != "" && !preg_match('/[\w\d._+]+@[\w\d.-]+\.[a-z]{2,4}$/i', $email))
+		if ($supportEmail != "" && !preg_match(EMAIL_REGEXP, $email))
 			$errors['supportEmail'] = getMessage('SupportsEmailLookWrong');
 
 		$anyoneCanRegister = array_key_exists('anyoneCanRegister', $_POST) ? $_POST['anyoneCanRegister'] : '';

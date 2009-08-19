@@ -140,7 +140,7 @@
 		$email = trim($_REQUEST['email']);
 		if ($email == "")
 			warn(getMessage('EmailCannotBeEmpty'));
-		else if (! preg_match('/[\w\d._+]+@[\w\d.-]+\.[a-z]{2,4}$/i', $email)) 
+		else if (! preg_match(EMAIL_REGEXP, $email)) 
 			warn(getMessage('EmailIsWrong'));
 
 		if (!array_key_exists('info', $_REQUEST))
@@ -212,7 +212,7 @@
 		$email = trim($_REQUEST['email']);
 		if ($email == "")
 			warn(getMessage('EmailCannotBeEmpty'));
-		else if (! preg_match('/[\w\d._+]+@[\w\d.-]+\.[a-z]{2,4}$/i', $email)) 
+		else if (! preg_match(EMAIL_REGEXP, $email)) 
 			warn(getMessage('EmailIsWrong'));
 
 		if (!array_key_exists('info', $_REQUEST))

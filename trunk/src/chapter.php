@@ -15,12 +15,13 @@
 		exit;
 	}
 
-	if (!personCan($person, $mode) && isGuest($person)) {
+	$chapter = new chapter(false);
+
+	if ((!personCan($person, $mode) && isGuest($person)) 
+		|| ! $chapter->exists()) {
 		include 'auth.php';
 		exit;
 	}
-
-	$chapter = new chapter(false);
 
 	$xslFile = CORE.'xml/chapter.xsl';
 
