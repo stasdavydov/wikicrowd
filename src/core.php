@@ -7,6 +7,7 @@ define('CHAPTERS', HOME.'chapters/');
 define('PLUGINS', CORE.'plugins/');
 $LOCKFILE = fopen(CACHE.'lock', 'w');
 define('IMPORT_XSL_FILE', CORE.'xml/import.xsl');
+define('EMAIL_REGEXP', '/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i');
 
 // load configuration
 if (file_exists(CORE.'config.xml')) {
@@ -49,8 +50,9 @@ function plugins_mtime($filePattern) {
 
 define('PROJECT_MTIME', max(plugins_mtime('/node.xsl'), 
 	@filemtime(IMPORT_XSL_FILE), 
-	filemtime(CORE.'xml/core.xsl'),
-	filemtime(HOME.'mb_diff.php')));
+	@filemtime(CORE.'xml/core.xsl'),
+	@filemtime(HOME.'mb_diff.php'),
+	@filemtime(CORE.'config.xml')));
 
 // check import.xsl for plugins XSL files
 if (! file_exists(IMPORT_XSL_FILE) || filemtime(IMPORT_XSL_FILE) < PROJECT_MTIME) {
@@ -89,7 +91,7 @@ function mergePluginFiles($into, $filePart) {
 mergePluginFiles(CORE.'js/plugins.js', '/node.js');
 mergePluginFiles(CORE.'css/plugins.css', '/node.css');
 
-require_once CORE.'block.php';
+require_once CORE.'chapter.php';
 require_once CORE.'person.php';
 
 define ('DEBUG', false);

@@ -210,7 +210,7 @@ fieldset input { display: inline; }
 			$errors['homePage'] = 'Home page is required';
 
 		$supportEmail = trim($_POST['supportEmail']);
-		if ($supportEmail != "" && !preg_match('/[\w\d._+]+@[\w\d.-]+\.[a-z]{2,4}$/i', $email))
+		if ($supportEmail != "" && !preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i', $email))
 			$errors['supportEmail'] = 'Support e-mail looks wrong';
 
 		$locale = $_POST['locale'];

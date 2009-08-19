@@ -36,6 +36,10 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
+  0.0.12  List of all registered users.
+		  Initial support of wiki syntax for bold, italic, 
+		  subscript and superscript text.
+
   0.0.11  Bugfix: @page[Internal link] doesn't work (issue #11).
 
   0.0.10  Bugfix of installation script and configuration panel.
