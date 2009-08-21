@@ -64,6 +64,10 @@
 		unlink(__FILE__);
 		unlinkRecursive(__DIR__.'/migrate');
 		unlinkRecursive(__DIR__.'/tmp');
+
+		unlink(__DIR__.'/core/css/plugins.css');
+		unlink(__DIR__.'/core/xml/import.xsl');
+		unlink(__DIR__.'/core/js/plugins.js');
 	}
 
 	function checkNewerVersion() {
