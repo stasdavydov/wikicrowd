@@ -179,7 +179,7 @@ abstract class block extends versioned {
 
 	abstract public function diffRevisions($new, $old);	// diff two versions of block value
 														// and save diff result to $new
-
+	abstract public function getNextBlockType();
 }
 
 require_once 'textblock.php';

@@ -75,6 +75,7 @@ abstract class textblock extends block {
 			$after = $this;
 
 			$type = $this->type;
+			$suggestedType = $this->getNextBlockType();
 
 			foreach($texts as $text) {
 				$text = trim($text);
@@ -89,6 +90,8 @@ abstract class textblock extends block {
 							$type = $command[1];
 							$text = trim(substr($text, strlen('@'.$command[1])));
 						}
+					} else if (!$first) {
+						$type = $after->getNextBlockType();
 					}
 
 					if ($first) {
@@ -156,6 +159,10 @@ abstract class textblock extends block {
 		if ($newText->firstChild)
 			$newText->removeChild($newText->firstChild);
 		$newText->appendChild($newText->ownerDocument->createTextNode($diff));
+	}
+
+	public function getNextBlockType() {
+		return 'par';
 	}
 }
 

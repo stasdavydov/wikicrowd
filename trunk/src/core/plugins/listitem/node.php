@@ -8,5 +8,9 @@ class listitem extends textblock {
 	public function create($author, $text) {
 		parent::create('listitem', $author, $text);
 	}
+
+	public function getNextBlockType() {
+		return $this->type;
+	}
 }
 ?>
