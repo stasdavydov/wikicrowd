@@ -13,7 +13,7 @@ hr { padding: 0; margin: 0 0 0 -1em; text-align: left; height: 5px;}
 .selected { background: #CCC; }
 
 h1 { margin: 0.25em 0 0.5em 0; }
-h2 { margin: 0 0 0.25em 0; }
+h2 { margin: 0.5em 0 0.25em 0; }
 h3 { margin: 0; }
 
 p { margin: 0 0 0.5em 0; }
@@ -97,3 +97,7 @@ border: 1px solid #FFF; font-size: 300%; margin: 2px 1px 0 0; }
 .help .content ul { margin: 0 0 1em 2em; }
 
 code { background: #FFC; }
+
+.breadcrump { font-size: 75%; margin: 0 0 0 0.65em; color: #666; }
+.breadcrump a { color: #666; }
+.breadcrump a:visited { color: #999; }

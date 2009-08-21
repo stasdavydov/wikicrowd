@@ -29,7 +29,13 @@
 
 	<xsl:template name="copyright">
 		<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<xsl:value-of select="$VERSION"/> by <a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
-License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
+			<xsl:choose>
+				<xsl:when test="$config//property[@name='license']/@value">
+					<xsl:value-of select="$config//property[@name='license']/@value" disable-output-escaping="yes"/>
+				</xsl:when>
+				<xsl:otherwise>License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</xsl:otherwise>
+			</xsl:choose>
+		</p>
 	</xsl:template>
 
 	<xsl:template name="menu">
@@ -184,6 +190,107 @@ License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
 		<xsl:param name="ts"/>
 		<xsl:param name="date"/>
 		<span class="time:{$ts}"><xsl:value-of select="$date"/></span>
+	</xsl:template>
+
+	<xsl:template name="chapter-title">
+		<xsl:param name="title"/>
+		<xsl:param name="islink">false</xsl:param>
+		<xsl:param name="linkprefix"/>
+		<xsl:param name="woLinks">false</xsl:param>
+		<xsl:choose>
+			<xsl:when test="contains($title, '/')">
+				<xsl:call-template name="chapter-title">
+					<xsl:with-param name="title" select="substring-after($title, '/')"/>
+					<xsl:with-param name="islink" select="$islink"/>
+					<xsl:with-param name="linkprefix" select="substring-before($title, '/')"/>
+					<xsl:with-param name="woLinks" select="$woLinks"/>
+				</xsl:call-template>
+				<xsl:text> &#0187; </xsl:text>
+				<xsl:call-template name="chapter-title">
+					<xsl:with-param name="title" select="substring-before($title, '/')"/>
+					<xsl:with-param name="islink">true</xsl:with-param>
+					<xsl:with-param name="linkprefix" select="concat($linkprefix, '/')"/>
+					<xsl:with-param name="woLinks" select="$woLinks"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+					<xsl:when test="$islink = 'true' and not($woLinks = 'true')">
+						<a>
+							<xsl:attribute name="href">
+								<xsl:value-of select="$config//property[@name='www']/@value"/>
+								<xsl:if test="not($linkprefix = '/')">
+									<xsl:value-of select="php:function('wikiUrlEncode', $linkprefix)"/>
+								</xsl:if>
+								<xsl:value-of select="php:function('wikiUrlEncode', substring-before($title, '/'))"/>
+								<xsl:value-of select="php:function('wikiUrlEncode', $title)"/>
+								<xsl:if test="$MODE = 'view' and $CANVIEW = '1'">?view</xsl:if>
+							</xsl:attribute>
+							<xsl:value-of select="$title"/>
+						</a>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$title"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="breadcrump">
+		<xsl:param name="title"/>
+		<xsl:param name="islink">false</xsl:param>
+		<xsl:param name="linkprefix"/>
+		<xsl:choose>
+			<xsl:when test="contains($title, '/')">
+				<xsl:call-template name="breadcrump">
+					<xsl:with-param name="title" select="substring-before($title, '/')"/>
+					<xsl:with-param name="islink">true</xsl:with-param>
+					<xsl:with-param name="linkprefix" select="concat($linkprefix, '/')"/>
+				</xsl:call-template>
+				<xsl:text> &#0187; </xsl:text>
+				<xsl:call-template name="breadcrump">
+					<xsl:with-param name="title" select="substring-after($title, '/')"/>
+					<xsl:with-param name="islink" select="$islink"/>
+					<xsl:with-param name="linkprefix" select="substring-before($title, '/')"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+					<xsl:when test="$islink = 'true'">
+						<a>
+							<xsl:attribute name="href">
+								<xsl:value-of select="$config//property[@name='www']/@value"/>
+								<xsl:if test="not($linkprefix = '/')">
+									<xsl:value-of select="php:function('wikiUrlEncode', $linkprefix)"/>
+								</xsl:if>
+								<xsl:value-of select="php:function('wikiUrlEncode', substring-before($title, '/'))"/>
+								<xsl:value-of select="php:function('wikiUrlEncode', $title)"/>
+								<xsl:if test="$MODE = 'view' and $CANVIEW = '1'">?view</xsl:if>
+							</xsl:attribute>
+							<xsl:value-of select="$title"/>
+						</a>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$title"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="chapter-exactly-title">
+		<xsl:param name="title"/>
+		<xsl:choose>
+			<xsl:when test="contains($title, '/')">
+				<xsl:call-template name="chapter-exactly-title">
+					<xsl:with-param name="title" select="substring-after($title, '/')"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$title"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 </xsl:stylesheet>
 

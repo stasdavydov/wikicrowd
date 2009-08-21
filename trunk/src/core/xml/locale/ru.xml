@@ -187,10 +187,20 @@
 <p><strong>Префиксы типов блоков:</strong> использовать в начале строки<br/>перед текстом, чтобы изменить тип блока:</p>
 <ul>
 	<li><code>@title</code>&nbsp;&mdash; заголовок;</li>
+	<li><code>@subtitle</code>&nbsp;&mdash;подзаголовок;</li>
+	<li><code>@subsubtitle</code>&nbsp;&mdash;под-подзаголовок;</li>
 	<li><code>@par</code>&nbsp;&mdash; просто текст;</li>
 	<li><code>@listitem</code>&nbsp;&mdash; список;</li>
 	<li><code>@footnote</code>&nbsp;&mdash; сноска;</li>
-	<li><code>@quote</code>&nbsp;&mdash; цитата.</li>
+	<li><code>@quote</code>&nbsp;&mdash; цитата;</li>
+	<li><code>@img url</code>&nbsp;&mdash; картинка по адресу url.</li>
+</ul>
+<p><strong>Дополнительная разметка:</strong> в любом месте текста:</p>
+<ul>
+	<li><code> *bold* </code>&nbsp;&mdash; <strong>жирный</strong>;</li>
+	<li><code> /italic/ </code>&nbsp;&mdash; <em>наклонный</em>;</li>
+	<li><code> ^superscript^ </code>&nbsp;&mdash; <sup>верхний</sup> индекс;</li>
+	<li><code> _subscript_ </code>&mdash;&nbsp; <sub>нижний</sub> индекс.</li>
 </ul>]]>
 </message>
 <message id="WikiHelpTip" text="Краткая справка по wiki-синтаксису"/>

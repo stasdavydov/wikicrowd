@@ -60,6 +60,9 @@
 			if (preg_match('/\%version\%/', $line))
 				$line = str_replace('%version%', $version, $line);
 
+			if (preg_match('/\%emailregexp\%/', $line))
+				$line = str_replace('%emailregexp%', EMAIL_REGEXP, $line);
+
 			if (preg_match('/\%locales\%/', $line)) {
 				echo 'Detect locales... ';
 				$options = '';

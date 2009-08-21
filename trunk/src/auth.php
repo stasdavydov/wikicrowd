@@ -88,7 +88,13 @@ h2 { margin: 0 0 0.5em 0; }
 
 <p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<?php echo VERSION; //?> by 
 <a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
-License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</p>
+<?
+	if(defined('license')) {
+		echo license;
+	} else {
+?>License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.<?
+	}
+?></p>
 </body>
 </html>
 <?

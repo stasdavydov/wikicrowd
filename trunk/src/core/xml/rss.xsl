@@ -46,9 +46,9 @@
 			<description><xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
 				<xsl:apply-templates select="previous" mode="diff"/>
 			<xsl:text disable-output-escaping="yes">]]&gt;</xsl:text></description>
-			<link><xsl:value-of select="$wwwHost"/><xsl:value-of select="php:function('rawurlencode', string(@chapter))"/>#block<xsl:value-of select="child::previous/@id"/></link>
+			<link><xsl:value-of select="$wwwHost"/><xsl:value-of select="php:function('wikiUrlEncode', string(@chapter))"/>#block<xsl:value-of select="child::previous/@id"/></link>
 			<author>noreply@wikicrowd.org (<xsl:value-of select="child::previous/@author"/>)</author>
-			<guid isPermaLink="false"><xsl:value-of select="$wwwHost"/><xsl:value-of select="php:function('rawurlencode', string(@chapter))"/>:<xsl:value-of select="child::previous/@id"/>:<xsl:value-of select="child::previous/@rev"/></guid>
+			<guid isPermaLink="false"><xsl:value-of select="$wwwHost"/><xsl:value-of select="php:function('wikiUrlEncode', string(@chapter))"/>:<xsl:value-of select="child::previous/@id"/>:<xsl:value-of select="child::previous/@rev"/></guid>
 			<pubDate><xsl:value-of select="php:function('gmdate', 'D, d M Y H:i:s', string(child::previous/@created-ts))"/> GMT</pubDate>
 		</item>
 	</xsl:template>
