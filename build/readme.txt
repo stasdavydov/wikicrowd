@@ -38,7 +38,11 @@ II. INSTALLATION:
 III. RELEASE NOTES:
   0.0.12  List of all registered users.
 		  Initial support of wiki syntax for bold, italic, 
-		  subscript and superscript text.
+		  subscript and superscript text (issue #9).
+		  Added config property for changing license.
+		  Page hierarchy implemented (issue #6).
+		  Handle @subtitle and @subsubtitle (issue #14).
+		  Simple image handling added with @img url (issue #15).
 
   0.0.11  Bugfix: @page[Internal link] doesn't work (issue #11).
 

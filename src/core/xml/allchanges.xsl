@@ -65,8 +65,10 @@ h2 { margin: 0 0 0.15em 0; }
 
 	<xsl:template match="change">
 		<li>
-			<h2><a class="chapterlink" href="{$config//property[@name='www']/@value}{php:function('rawurlencode', string(@chapter))}#block{child::previous/@id}">
-				<xsl:value-of select="@chapter"/>
+			<h2><a class="chapterlink" href="{$config//property[@name='www']/@value}{php:function('wikiUrlEncode', string(@chapter))}#block{child::previous/@id}">
+				<xsl:call-template name="chapter-exactly-title">
+					<xsl:with-param name="title" select="@chapter"/>
+				</xsl:call-template>
 			</a></h2>
 			<xsl:apply-templates select="previous" mode="diff"/>
 			<div class="info serv">

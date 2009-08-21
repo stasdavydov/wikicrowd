@@ -149,16 +149,20 @@ var approximateTextareaRows = function(textarea) {
 	var pos = 0;
 	var cols = Math.ceil(textarea.getAttribute('cols') / 0.75);
 
-	while (pos != -1) {
-		var nextPos = textarea.value.indexOf('\n', pos + 1);
-		if (nextPos == -1) {
-			rows += Math.ceil((textarea.value.length - pos)/cols);
-			break;
-		} else if (nextPos - pos < 60)
-			rows += 1;
-		else 
-			rows += (1 + Math.ceil((nextPos - pos)/cols));
-		pos = nextPos;
+	if (textarea.value.length > 1000)
+		rows = 20;
+	else {
+		while (pos != -1) {
+			var nextPos = textarea.value.indexOf('\n', pos + 1);
+			if (nextPos == -1) {
+				rows += Math.ceil((textarea.value.length - pos)/cols);
+				break;
+			} else if (nextPos - pos < 60)
+				rows += 1;
+			else 
+				rows += (1 + Math.ceil((nextPos - pos)/cols));
+			pos = nextPos;
+		}
 	}
 	if (rows != textarea.getAttribute('rows')) {
 		textarea.setAttribute('rows', rows);

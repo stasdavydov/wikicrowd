@@ -239,4 +239,10 @@ function setProperty($dom, $name, $value) {
 	$property->setAttribute('value', $value);
 }
 
+function wikiUrlEncode($str) {
+	$str = rawurlencode($str);
+	$backward = array('%2F'=>'/');
+	return strtr($str, $backward);
+}
+
 ?>

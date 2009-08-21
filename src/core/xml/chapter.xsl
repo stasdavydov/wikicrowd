@@ -20,7 +20,10 @@
 
 	<xsl:template match="/">
 		<html xml:lang="{$LOCALE}">
-			<head><title><xsl:value-of select="/chapter/@title"/> &#0187; <xsl:value-of select="$config//property[@name='title']/@value"/></title>
+			<head><title><xsl:call-template name="chapter-title">
+						<xsl:with-param name="title" select="/chapter/@title"/>
+						<xsl:with-param name="woLinks">true</xsl:with-param>
+					</xsl:call-template> &#0187; <xsl:value-of select="$config//property[@name='title']/@value"/></title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
 				<link rel="stylesheet" type="text/css" href="{$config//property[@name='www']/@value}core/css/main.css"/>
@@ -53,7 +56,16 @@
 						</div>
 					</div>
 				</xsl:if>
-				<h1><xsl:value-of select="/chapter/@title"/> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
+				<p class="breadcrump"> 
+					<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a> &#0187; <xsl:call-template name="breadcrump">
+						<xsl:with-param name="title" select="/chapter/@title"/>
+					</xsl:call-template>
+				</p>
+				<h1>
+					<xsl:call-template name="chapter-exactly-title">
+						<xsl:with-param name="title" select="/chapter/@title"/>
+					</xsl:call-template>
+				</h1>
 				<div id="chapter">
 					<xsl:choose>
 						<xsl:when test="$MODE = 'edit'">

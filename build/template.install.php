@@ -1,5 +1,6 @@
 <?php
 	$version = '%version%';
+	$email_regexp = '%emailregexp%';
 
 	$pathinfo = pathinfo($_SERVER['SCRIPT_FILENAME']);
 	$www = substr($_SERVER['REQUEST_URI'], 0, 
@@ -210,7 +211,7 @@ fieldset input { display: inline; }
 			$errors['homePage'] = 'Home page is required';
 
 		$supportEmail = trim($_POST['supportEmail']);
-		if ($supportEmail != "" && !preg_match('/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i', $email))
+		if ($supportEmail != "" && !preg_match($email_regexp, $supportEmail))
 			$errors['supportEmail'] = 'Support e-mail looks wrong';
 
 		$locale = $_POST['locale'];
@@ -228,7 +229,7 @@ fieldset input { display: inline; }
 		$email = trim($_POST['email']);
 		if ($email == "")
 			$errors['email'] = 'Your e-mail is required.';
-		else if (! preg_match('/[\w\d._+]+@[\w\d.-]+\.[a-z]{2,4}$/i', $email)) 
+		else if (! preg_match($email_regexp, $email)) 
 			$errors['email'] = 'Your e-mail looks wrong.';
 
 		$accessPlan = array_key_exists('plan', $_POST) ? $_POST['plan'] : count($accessPlans);
@@ -389,7 +390,7 @@ Please visit <a href="http://code.google.com/p/wikicrowd/">WikiCrowd home page</
 <label for="title">Title of wiki site:</label> <input type="text" name="title" id="title" size="50" value="<?=$title?>"/>
 <label for="homePage">Home page name:</label> <input type="text" name="homePage" id="homePage" size="50" value="<?=$homePage?>"/>
 <label class="optional" for="supportEmail"><nobr>Support's e-mail:</nobr><br/><small>(optional)</small></label> <input type="text" name="supportEmail" id="supportEmail" size="50" value="<?=$supportEmail?>"/>
-<label for="locale" style="border-top:1px dotted #CCC; padding-top: 0.5em;">Use <select name="locale" id="locale"><?php
+<label style="border-top:1px dotted #CCC; padding-top: 0.5em;">Use <select name="locale"><?php
 		array_walk($locales, create_function(
 			'$name, $code', 
 			'if ($code == "") continue;
