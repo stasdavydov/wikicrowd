@@ -11,6 +11,7 @@
 
 	header('Content-type: application/xml+rss');
 
+	echo "<?xml version='1.0' encoding='UTF-8'?>\n";
 	echo transformXML(CORE.'changes.xml', CORE.'xml/rss.xsl', 
 		array('wwwHost'=>'http://'.$_SERVER['SERVER_NAME'].www), PROJECT_MTIME);
 

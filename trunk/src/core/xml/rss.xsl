@@ -9,7 +9,7 @@
 		version="1.0" 
 		indent="no" 
 		encoding="utf-8"
-		omit-xml-declaration="yes"
+		omit-xml-declaration="no"
 		media-type="application/rss+xml"
 		cdata-section-elements=""/>
 
