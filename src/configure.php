@@ -141,8 +141,8 @@
 					$person = loadPerson($user->getAttribute('uid'));
 					$person->setAttribute('can-edit', $user->getAttribute('can-edit'));
 					$person->setAttribute('can-view', $user->getAttribute('can-view'));
-					$person->setAttribute('admin', $user->getAttribute('can-admin'));
-					$person->ownerDocument->save(PERSONS.$uid.'.xml');
+					$person->setAttribute('admin', $user->getAttribute('admin'));
+					$person->ownerDocument->save(PERSONS.$user->getAttribute('uid').'.xml');
 				}
 		
 				$usersDOM->save($personsIndex);
