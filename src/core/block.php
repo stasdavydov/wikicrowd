@@ -4,12 +4,6 @@ class blockfactory {
 		return PLUGINS.$type.'/node.php';
 	}
 
-	public static function loadPlugin($type) {
-		if (! (preg_match('/[\w\d_]+/', $type) 
-				&& include_once(blockfactory::getTypeClassFile($type))))
-			internal(getMessage('WrongBlockType').': @'.$type); 
-	}
-
 	public static function blockTypeExists($type) {
 		return preg_match('/[\w\d_]+/', $type) && file_exists(blockfactory::getTypeClassFile($type));
 	}

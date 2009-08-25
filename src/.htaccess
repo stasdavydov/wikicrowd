@@ -18,8 +18,8 @@ RewriteRule ^configure/$ configure.php [L]
 
 # protect ajax.php from robots
 RewriteCond %{HTTP_REFERER} ^$
-RewriteCond %{REQUEST_URI} !^/wiki/ajax.php$
-RewriteRule wiki/ajax.php - [F]
+RewriteCond %{REQUEST_URI} ajax\.php
+RewriteRule ajax\.php - [F]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

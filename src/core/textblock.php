@@ -106,7 +106,6 @@ abstract class textblock extends block {
 						}
 						$first = false;
 					} else {
-						blockfactory::loadPlugin($type);
 						$newblock = new $type($this->chapter);
 						$newblock->create($author, $text);
 

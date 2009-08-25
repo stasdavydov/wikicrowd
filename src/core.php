@@ -90,9 +90,11 @@ function mergePluginFiles($into, $filePart) {
 }
 mergePluginFiles(CORE.'js/plugins.js', '/node.js');
 mergePluginFiles(CORE.'css/plugins.css', '/node.css');
+mergePluginFiles(CORE.'plugins.php', '/node.php');
 
 require_once CORE.'chapter.php';
 require_once CORE.'person.php';
+require_once CORE.'plugins.php';
 
 define ('DEBUG', false);
 if (DEBUG) {
