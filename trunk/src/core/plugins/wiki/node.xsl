@@ -14,7 +14,7 @@
 
 	<xsl:template name="wiki">
 		<xsl:param name="text"/>
-		<xsl:value-of select="php:function('format_wiki', $text, $MODE)" disable-output-escaping="yes"/>
+		<xsl:value-of select="php:function('format_wiki', $text)" disable-output-escaping="yes"/>
 <!--
 		<xsl:choose>
 			<xsl:when test="contains($text,' *')">
