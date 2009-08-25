@@ -14,8 +14,8 @@
 
 	<xsl:template name="wiki">
 		<xsl:param name="text"/>
-
-<!--		<xsl:comment>wiki(<xsl:value-of select="$text"/>)</xsl:comment>-->
+		<xsl:value-of select="php:function('format_wiki', $text, $MODE)" disable-output-escaping="yes"/>
+<!--
 		<xsl:choose>
 			<xsl:when test="contains($text,' *')">
 				<xsl:call-template name="wiki">
@@ -77,9 +77,6 @@
 				</xsl:call-template>				
 			</xsl:when>
 		
-			<!-- @page "inner"
-				 @page[URL] "outer" -->
-			 
 			<xsl:when test="contains($text, '@page')">
 				<xsl:call-template name="wiki">
 					<xsl:with-param name="text" select="substring-before($text, '@page')"/>
@@ -119,5 +116,6 @@
 			</xsl:otherwise>
 	
 		</xsl:choose>
+-->
 	</xsl:template>
 </xsl:stylesheet>

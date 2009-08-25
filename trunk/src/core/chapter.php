@@ -65,7 +65,6 @@ class chapter {
 			$this->dom->appendChild($this->dom->createElement('chapter'));
 			$this->dom->documentElement->setAttribute('title', $chapterName);
 
-			blockfactory::loadPlugin('par');
 			$par = new par($this);
 			$par->create($person->getAttribute('uid'), 'type you text here');
 			$this->appendBlock($par);
@@ -202,7 +201,6 @@ class chapter {
 	private function getBlock($id) {
 		if ($element = $this->getElementById($id)) {
 			$type = $element->getAttribute('type');
-			blockfactory::loadPlugin($type);
 			$block = new $type($this);
 			$block->load($element);
 			return $block;
