@@ -12,11 +12,11 @@
 		cdata-section-elements=""/>
 
 	<xsl:template match="*[@type='footnote']" mode="wiki">
-		<p class="text footnote"><xsl:if test="@deleted"><xsl:attribute name="class">text footnote deleted</xsl:attribute></xsl:if><xsl:apply-templates select="text"/></p>
+		<p class="text footnote"><xsl:if test="@deleted"><xsl:attribute name="class">text footnote deleted</xsl:attribute></xsl:if><xsl:apply-templates select="text" mode="wiki"/></p>
 	</xsl:template>
 
 	<xsl:template match="*[@type='footnote']/text" mode="diff">
-		<xsl:value-of select="text()" disable-output-escaping="yes"/>
+		<xsl:apply-templates select="."/>
 	</xsl:template>
 
 	<xsl:template match="*[@type='footnote']" mode="form"><text><xsl:value-of select="text/text()"/></text></xsl:template>

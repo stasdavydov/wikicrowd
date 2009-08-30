@@ -32,12 +32,4 @@
 			<li><a class="serv" href="javascript:closeChanges('{$ID}')"><xsl:value-of select="$locale//message[@id='CloseList']/@text"/></a></li>
 		</ul>
 	</xsl:template>
-
-	<xsl:template match="del">
-		<del><xsl:value-of select="."/></del>
-	</xsl:template>
-
-	<xsl:template match="ins">
-		<ins><xsl:apply-templates/></ins>
-	</xsl:template>
 </xsl:stylesheet>

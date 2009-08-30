@@ -12,11 +12,11 @@
 		cdata-section-elements=""/>
 
 	<xsl:template match="*[@type='listitem']" mode="wiki">
-		<p class="text listitem"><xsl:if test="@deleted"><xsl:attribute name="class">text listitem deleted</xsl:attribute></xsl:if><xsl:apply-templates select="text"/></p>
+		<p class="text listitem"><xsl:if test="@deleted"><xsl:attribute name="class">text listitem deleted</xsl:attribute></xsl:if><xsl:apply-templates select="text" mode="wiki"/></p>
 	</xsl:template>
 
 	<xsl:template match="*[@type='listitem']/text" mode="diff">
-		<xsl:value-of select="text()" disable-output-escaping="yes"/>
+		<xsl:apply-templates select="."/>
 	</xsl:template>
 
 	<xsl:template match="*[@type='listitem']" mode="form"><text><xsl:value-of select="text/text()"/></text></xsl:template>

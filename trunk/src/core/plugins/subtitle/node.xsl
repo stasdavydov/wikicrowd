@@ -12,11 +12,11 @@
 		cdata-section-elements=""/>
 
 	<xsl:template match="*[@type='subtitle']" mode="wiki">
-		<h3 class="text"><xsl:if test="@deleted"><xsl:attribute name="class">text deleted</xsl:attribute></xsl:if><xsl:apply-templates select="text"/></h3>
+		<h3 class="text"><xsl:if test="@deleted"><xsl:attribute name="class">text deleted</xsl:attribute></xsl:if><xsl:apply-templates select="text" mode="wiki"/></h3>
 	</xsl:template>
 
 	<xsl:template match="*[@type='subtitle']/text" mode="diff">
-		<xsl:value-of select="text()" disable-output-escaping="yes"/>
+		<xsl:apply-templates select="."/>
 	</xsl:template>
 
 	<xsl:template match="*[@type='subtitle']" mode="form"><text><xsl:value-of select="text/text()"/></text></xsl:template>
