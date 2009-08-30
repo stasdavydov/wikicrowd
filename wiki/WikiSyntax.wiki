@@ -19,11 +19,19 @@
 
 == Content types ==
 `@title` for title.
+
 `@subtitle` for subtitle.
+
 `@subsubtitle` for sub-subtitle.
+
 `@par` for general paragraph.
+
 `@listitem` for list item.
+
 `@footnote` for footnote.
+
 `@quote` for quotation.
+
 `@img url` for an image.
+
 `@html ...` for any HTML code.
