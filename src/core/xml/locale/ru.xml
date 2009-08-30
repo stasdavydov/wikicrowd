@@ -195,13 +195,14 @@
 	<li><code>@footnote</code>&nbsp;&mdash; сноска;</li>
 	<li><code>@quote</code>&nbsp;&mdash; цитата;</li>
 	<li><code>@img url</code>&nbsp;&mdash; картинка по адресу url.</li>
+	<li><code>@html ...</code>&nbsp;&mdash; любой HTML-код.</li>
 </ul>
 <p><strong>Дополнительная разметка:</strong> в любом месте текста:</p>
 <ul>
-	<li><code> *bold* </code>&nbsp;&mdash; <strong>жирный</strong>;</li>
-	<li><code> /italic/ </code>&nbsp;&mdash; <em>наклонный</em>;</li>
-	<li><code> ^superscript^ </code>&nbsp;&mdash; <sup>верхний</sup> индекс;</li>
-	<li><code> _subscript_ </code>&mdash;&nbsp; <sub>нижний</sub> индекс.</li>
+	<li><code>*bold*</code>&nbsp;&mdash; <strong>жирный</strong>;</li>
+	<li><code>/italic/</code>&nbsp;&mdash; <em>наклонный</em>;</li>
+	<li><code>^superscript^</code>&nbsp;&mdash; <sup>верхний</sup> индекс;</li>
+	<li><code>_subscript_</code>&mdash;&nbsp; <sub>нижний</sub> индекс.</li>
 </ul>]]>
 </message>
 <message id="WikiHelpTip" text="Краткая справка по wiki-синтаксису"/>
