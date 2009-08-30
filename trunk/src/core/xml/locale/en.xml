@@ -192,13 +192,14 @@ Support team"/>
 	<li><code>@footnote</code>&mdash;footnote;</li>
 	<li><code>@quote</code>&mdash;quotation;</li>
 	<li><code>@img url</code>&mdash;image from url.</li>
+	<li><code>@html ...</code>&nbsp;any HTML code.</li>
 </ul>
 <p><strong>Additional layout:</strong> in any place of text:</p>
 <ul>
-	<li><code> *bold* </code>&mdash;for <strong>bold</strong>;</li>
-	<li><code> /italic/ </code>&mdash;for <em>italic</em>;</li>
-	<li><code> ^superscript^ </code>&mdash;for <sup>superscript</sup>;</li>
-	<li><code> _subscript_ </code>&mdash;for <sub>subscript</sub>.</li>
+	<li><code>*bold*</code>&mdash;for <strong>bold</strong>;</li>
+	<li><code>/italic/</code>&mdash;for <em>italic</em>;</li>
+	<li><code>^superscript^</code>&mdash;for <sup>superscript</sup>;</li>
+	<li><code>_subscript_</code>&mdash;for <sub>subscript</sub>.</li>
 </ul>]]>
 </message>
 <message id="WikiHelpTip" text="Wiki syntax short help "/>
