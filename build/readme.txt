@@ -36,6 +36,9 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
+  0.0.13  New content block type @html for embed HTML support.
+  		  Bugfix.
+
   0.0.12  List of all registered users.
 		  Initial support of wiki syntax for bold, italic, 
 		  subscript and superscript text (issue #9).
