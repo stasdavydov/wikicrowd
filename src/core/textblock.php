@@ -159,7 +159,7 @@ abstract class textblock extends block {
 		if ($old->getAttribute('type') != $new->getAttribute('type'))
 			mydom_appendChild($newText, 
 				mydom_appendText(
-					mydom_createElement($newText->ownerDocument, 'ins'), '@'.$new->getAttribute('type')));
+					mydom_createElement($newText->ownerDocument, 'ins'), '@'.$new->getAttribute('type').' '));
 
 		myUtf8::diff($newText, $oldUtf8, $newUtf8);
 		
