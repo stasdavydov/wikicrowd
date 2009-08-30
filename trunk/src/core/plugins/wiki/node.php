@@ -11,12 +11,16 @@ function replace_wiki_callback($matches) {
 		return '<a onclick="javascript:editOff()" href="'.
 			(preg_match('/^https?:\/\//i', $matches[1]) 
 				? $matches[1]
-				: www.wikiUrlEncode($matches[1])).'">'.$matches[1].'</a>';
+				: www.($matches[1] == "/"
+					? ''
+					: wikiUrlEncode($matches[1]))).'">'.$matches[1].'</a>';
 	} else if (count($matches) == 3) {
 	 	return '<a onclick="javascript:editOff()" href="'.
 			(preg_match('/^https?:\/\//i', $matches[1]) 
 				? $matches[1]
-				: www.wikiUrlEncode($matches[1])).'">'.$matches[2].'</a>';
+				: www.($matches[1] == "/"
+					? ''
+					: wikiUrlEncode($matches[1]))).'">'.$matches[2].'</a>';
 	} else
 		internal('Wrong matches: ', print_r($matches, true));
 }
