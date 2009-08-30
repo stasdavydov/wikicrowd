@@ -29,19 +29,23 @@
 					<xsl:if test="name() = 'block' and following-sibling::block[position()=1]">
 						<xsl:attribute name="next-block-id"><xsl:value-of select="following-sibling::block[position()=1]/@id"/></xsl:attribute>
 					</xsl:if>
-					<xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
+					
 					<xsl:choose>
 						<xsl:when test="$MODE = 'edit' and not(name() = 'conflict')">
+							<xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
 							<xsl:apply-templates select="." mode="wiki"/>
+							<xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
 						</xsl:when>
 						<xsl:when test="$MODE = 'view' and not(name() = 'conflict')">
+							<xsl:text disable-output-escaping="yes">&lt;![CDATA[</xsl:text>
 							<xsl:apply-templates select="." mode="view"/>
+							<xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
 						</xsl:when>
 						<xsl:otherwise>
 							<xsl:apply-templates select="." mode="diff"/>
 						</xsl:otherwise>
 					</xsl:choose>
-					<xsl:text disable-output-escaping="yes">]]&gt;</xsl:text>
+					
 				</xsl:element>
 			</xsl:for-each>
 		</response>

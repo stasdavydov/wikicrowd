@@ -6,10 +6,16 @@ require_once '../src/mb_diff.php';
 
 class TestMBDiff extends UnitTestCase {
 	function assertDiffEqual($expected, $str1, $str2) {
-		$str1 = myUtf8_encode(iconv('windows-1251', 'utf-8', $str1));
-		$str2 = myUtf8_encode(iconv('windows-1251', 'utf-8', $str2));
-	
-		$have = iconv('utf-8', 'windows-1251', myUtf8_decode(myUtf8_diff($str1, $str2)));
+		$str1 = new myUtf8(iconv('windows-1251', 'utf-8', $str1));
+		$str2 = new myUtf8(iconv('windows-1251', 'utf-8', $str2));
+
+		$dom = new DOMDocument();
+		$diff = $dom->createElement('diff');
+		$dom->appendChild($diff);
+		myUtf8::diff($diff, $str1, $str2);
+
+		$have = iconv('utf-8', 'windows-1251', $dom->saveXML($diff));
+		$have = substr($have, strlen('<diff>'), -strlen('</diff>'));
 
 		$this->assertEqual($expected, $have);
 

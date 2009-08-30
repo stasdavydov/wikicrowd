@@ -264,8 +264,8 @@ class chapter {
 			.makeFileName(chapter::getChapterFileName($this->getTitle())
 			.'.changes.'.$id.'.xml');
 
-		if (! (file_exists($chapterChangesFile) && filemtime($chapterChangesFile) >= 
-			max(filemtime($this->chapterFile), getlastmod(), filemtime(HOME.'mb_diff.php')))) {
+		if (! (file_exists($chapterChangesFile) 
+			&& filemtime($chapterChangesFile) > max(PROJECT_MTIME, filemtime($this->chapterFile)))) {
 
 			$dom = new DOMDocument('1.0', 'utf-8');
 			$changes = $dom->createElement('changes');

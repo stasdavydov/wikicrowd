@@ -131,9 +131,14 @@ abstract class textblock extends block {
 			while($textElement->firstChild)
 				$textElement->removeChild($textElement->firstChild);
 		}
+		$dom = new DOMDocument();
+		$root = $dom->createElement('x');
+
+		myUtf8::diff($root, new myUtf8(trim(stripslashes($data['text']))), new myUtf8($this->text));
+
 		$textElement->appendChild(
 			$conflict->ownerDocument->createTextNode(
-				diff(trim(stripslashes($data['text'])), $this->text)));
+				substr($dom->saveXML($root), strlen('<x>'), -strlen('</x>'))));
 	}
 
 	public function diffRevisions($new, $old) {
@@ -144,20 +149,23 @@ abstract class textblock extends block {
 //			fb($newText->firstChild, 'new first child');
 //			fb($oldText->firstChild, 'old first child');
 //		}
+        
+		$oldUtf8 = new myUtf8($oldText->firstChild ? $oldText->firstChild->nodeValue : '');
+		$newUtf8 = new myUtf8($newText->firstChild ? $newText->firstChild->nodeValue : '');
 
-		$diff = diff(
-			$oldText->firstChild ? $oldText->firstChild->nodeValue : '', 
-			$newText->firstChild ? $newText->firstChild->nodeValue : '');
+		if ($newText->firstChild)
+			$newText->removeChild($newText->firstChild);
+
 		if ($old->getAttribute('type') != $new->getAttribute('type'))
-			$diff = '<ins>@'.$new->getAttribute('type').'</ins> '.$diff;
+			mydom_appendChild($newText, 
+				mydom_appendText(
+					mydom_createElement($newText->ownerDocument, 'ins'), '@'.$new->getAttribute('type')));
+
+		myUtf8::diff($newText, $oldUtf8, $newUtf8);
 		
 //		if (DEBUG) {
 //			fb($diff, get_class($this).'::diffRevisions('.$new->getAttribute('rev').', '.$old->getAttribute('rev'));
 //		}
-
-		if ($newText->firstChild)
-			$newText->removeChild($newText->firstChild);
-		$newText->appendChild($newText->ownerDocument->createTextNode($diff));
 	}
 
 	public function getNextBlockType() {

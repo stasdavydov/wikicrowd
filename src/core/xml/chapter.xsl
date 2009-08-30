@@ -4,11 +4,11 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	exclude-result-prefixes="">
 	<xsl:output 
-		method="xml" 
+		method="html" 
 		version="1.0" 
 		indent="no" 
 		encoding="utf-8"
-		omit-xml-declaration="yes"
+		omit-xml-declaration="no"
 		doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN"
 		doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"
 		media-type="text/html"
@@ -20,10 +20,13 @@
 
 	<xsl:template match="/">
 		<html xml:lang="{$LOCALE}">
-			<head><title><xsl:call-template name="chapter-title">
+			<head>
+				<title>
+					<xsl:call-template name="chapter-title">
 						<xsl:with-param name="title" select="/chapter/@title"/>
 						<xsl:with-param name="woLinks">true</xsl:with-param>
-					</xsl:call-template> &#0187; <xsl:value-of select="$config//property[@name='title']/@value"/></title>
+					</xsl:call-template> | <xsl:value-of select="$config//property[@name='title']/@value"/>
+				</title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 				<link rel="shortcut icon" href="{$config//property[@name='www']/@value}core/img/favicon.gif" />
 				<link rel="stylesheet" type="text/css" href="{$config//property[@name='www']/@value}core/css/main.css"/>
@@ -56,17 +59,18 @@
 						</div>
 					</div>
 				</xsl:if>
-				<p class="breadcrump"> 
-					<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a> &#0187; <xsl:call-template name="breadcrump">
-						<xsl:with-param name="title" select="/chapter/@title"/>
-					</xsl:call-template>
-				</p>
 				<h1>
 					<xsl:call-template name="chapter-exactly-title">
 						<xsl:with-param name="title" select="/chapter/@title"/>
 					</xsl:call-template>
 				</h1>
 				<div id="chapter">
+					<p class="breadcrump"> 
+						<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a> &#0187; <xsl:call-template name="breadcrump">
+							<xsl:with-param name="title" select="/chapter/@title"/>
+						</xsl:call-template>
+					</p>
+
 					<xsl:choose>
 						<xsl:when test="$MODE = 'edit'">
 							<xsl:for-each select="/chapter/block">

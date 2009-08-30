@@ -12,6 +12,7 @@
 		omit-xml-declaration="yes"
 		cdata-section-elements=""/>
 
+	<!-- todo: set disable-output-escaping to 'no' when made format function to support DOM -->
 	<xsl:template name="wiki">
 		<xsl:param name="text"/>
 		<xsl:value-of select="php:function('format_wiki', $text)" disable-output-escaping="yes"/>

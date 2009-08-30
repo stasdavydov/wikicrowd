@@ -172,7 +172,8 @@
 <message id="UserRights" text="Права зарегистрированных пользователей"/>
 <message id="Use" text="Использовать"/>
 <message id="User" text="Пользователь"/>
-<message id="VersionConflict" text="Произошел конфликт версий. Пока вы редактировали этот текст %1 &lt;a href='%2'&gt;%3&lt;/a&gt; успел сохранить новую версию"/>
+<message id="VersionConflict" text="Произошел конфликт версий."/>
+<message id="VersionConflictBody" text="Пока вы редактировали этот текст, %1 &lt;a href='%2'&gt;%3&lt;/a&gt; успел сохранить новую версию"/>
 <message id="view" text="Посмотреть"/>
 <message id="ViewChangeList" text="Посмотреть список изменений"/>
 <message id="WelcomeToWiki" text="Добро пожаловать в wiki"/>

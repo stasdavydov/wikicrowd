@@ -98,6 +98,5 @@ border: 1px solid #FFF; font-size: 300%; margin: 2px 1px 0 0; }
 
 code { background: #FFC; }
 
-.breadcrump { font-size: 75%; margin: 0 0 0 0.65em; color: #666; }
-.breadcrump a { color: #666; }
-.breadcrump a:visited { color: #999; }
+.breadcrump { font-size: 75%; margin: 0 0 0 0.65em; color: #666; text-align:right;}
+.breadcrump a { text-decoration: underline; }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="windows-1251" standalone="yes"?>
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
 <xsl:stylesheet version="1.0"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:php="http://php.net/xsl"
@@ -29,7 +29,7 @@ var Locale = {
 
 	<xsl:template match="message">
 		<xsl:variable name="ap">'</xsl:variable>
-<xsl:value-of select="@id"/>: '<xsl:value-of select="php:functionString('str_replace', $ap, concat('\', $ap), @text)"/>',
+<xsl:value-of select="@id"/>: '<xsl:value-of select="php:functionString('jsStringReplace', @text)" disable-output-escaping="yes"/>',
 </xsl:template>
 
 	<xsl:template match="function">

@@ -16,7 +16,7 @@
 	</xsl:template>
 
 	<xsl:template match="*[@type='img']/text" mode="diff">
-		<xsl:value-of select="text()" disable-output-escaping="yes"/>
+		<xsl:apply-templates select="."/>
 	</xsl:template>
 
 	<xsl:template match="*[@type='img']" mode="form"><text><xsl:value-of select="text/text()"/></text></xsl:template>

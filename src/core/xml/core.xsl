@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet version="1.0"
-	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:php="http://php.net/xsl"
+	xmlns="http://www.w3.org/1999/xhtml"
 	exclude-result-prefixes=""
 	extension-element-prefixes="php">
 	<xsl:output 
@@ -180,7 +180,15 @@
 		</xsl:if>
 	</xsl:template>
 
-	<xsl:template match="text">
+	<xsl:template match="del">
+		<del><xsl:value-of select="."/></del>
+	</xsl:template>
+
+	<xsl:template match="ins">
+		<ins><xsl:value-of select="."/></ins>
+	</xsl:template>
+
+	<xsl:template match="text" mode="wiki">
 		<xsl:call-template name="wiki">
 			<xsl:with-param name="text"><xsl:value-of select="text()"/></xsl:with-param>
 		</xsl:call-template>
@@ -205,7 +213,7 @@
 					<xsl:with-param name="linkprefix" select="substring-before($title, '/')"/>
 					<xsl:with-param name="woLinks" select="$woLinks"/>
 				</xsl:call-template>
-				<xsl:text> &#0187; </xsl:text>
+				<xsl:text> | </xsl:text>
 				<xsl:call-template name="chapter-title">
 					<xsl:with-param name="title" select="substring-before($title, '/')"/>
 					<xsl:with-param name="islink">true</xsl:with-param>
@@ -252,7 +260,7 @@
 				<xsl:call-template name="breadcrump">
 					<xsl:with-param name="title" select="substring-after($title, '/')"/>
 					<xsl:with-param name="islink" select="$islink"/>
-					<xsl:with-param name="linkprefix" select="substring-before($title, '/')"/>
+					<xsl:with-param name="linkprefix" select="concat($linkprefix, '/', substring-before($title, '/'))"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise>
@@ -261,8 +269,8 @@
 						<a>
 							<xsl:attribute name="href">
 								<xsl:value-of select="$config//property[@name='www']/@value"/>
-								<xsl:if test="not($linkprefix = '/')">
-									<xsl:value-of select="php:function('wikiUrlEncode', $linkprefix)"/>
+								<xsl:if test="starts-with($linkprefix, '/')">
+									<xsl:value-of select="php:function('wikiUrlEncode', substring-after($linkprefix, '/'))"/>
 								</xsl:if>
 								<xsl:value-of select="php:function('wikiUrlEncode', substring-before($title, '/'))"/>
 								<xsl:value-of select="php:function('wikiUrlEncode', $title)"/>

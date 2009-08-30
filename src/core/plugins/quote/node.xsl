@@ -12,11 +12,11 @@
 		cdata-section-elements=""/>
 
 	<xsl:template match="*[@type='quote']" mode="wiki">
-		<blockquote class="text"><xsl:if test="@deleted"><xsl:attribute name="class">text deleted</xsl:attribute></xsl:if><xsl:apply-templates select="text"/></blockquote>
+		<blockquote class="text"><xsl:if test="@deleted"><xsl:attribute name="class">text deleted</xsl:attribute></xsl:if><xsl:apply-templates select="text" mode="wiki"/></blockquote>
 	</xsl:template>
 
 	<xsl:template match="*[@type='quote']/text" mode="diff">
-		<xsl:value-of select="text()" disable-output-escaping="yes"/>
+		<xsl:apply-templates select="."/>
 	</xsl:template>
 
 	<xsl:template match="*[@type='quote']" mode="form"><text><xsl:value-of select="text/text()"/></text></xsl:template>

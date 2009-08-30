@@ -169,7 +169,8 @@ Support team"/>
 <message id="Use" text="Use"/>
 <message id="User" text="User"/>
 <message id="UserRights" text="Registered user's rights"/>
-<message id="VersionConflict" text="Version conflict occured. %1 &lt;a href='%2'&gt;%3&lt;/a&gt; saved new version of content you're editing"/>
+<message id="VersionConflict" text="Version conflict occured."/>
+<message id="VersionConflictBody" text="%1 &lt;a href='%2'&gt;%3&lt;/a&gt; saved new version of content you're editing"/>
 <message id="view" text="View"/>
 <message id="ViewChangeList" text="View change list"/>
 <message id="WelcomeToWiki" text="Welcome to wiki"/>

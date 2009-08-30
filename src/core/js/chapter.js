@@ -164,6 +164,9 @@ var approximateTextareaRows = function(textarea) {
 			pos = nextPos;
 		}
 	}
+	if (rows <= 1)
+		rows = 2;
+
 	if (rows != textarea.getAttribute('rows')) {
 		textarea.setAttribute('rows', rows);
 	}
@@ -241,7 +244,7 @@ var BlockPlugin = function(type) {
 					? 	'&login=' + encodeURIComponent($('login').value) +
 						'&password=' + encodeURIComponent($('password').value)
 					: '');
-			var formData = this.getFormData();
+			var formData = this.getFormData(id);
 			for(var name in formData)
 				postData += '&' + name + '=' + formData[name];
 
@@ -268,7 +271,8 @@ var BlockPlugin = function(type) {
 			} else if (conflict.length > 0) {
 				conflict = conflict[0];
 				showErrorExt($('error' + id), 
-					Locale.getMessage('VersionConflict', 
+					Locale.getMessage('VersionConflict'), 
+					Locale.getMessage('VersionConflictBody', 
 						getTextTimeDifference(conflict.getAttribute('created-ts')),
                         www + 'person/' + conflict.getAttribute('author'),
                         conflict.getAttribute('author')) + ': <br/><br/>' +
@@ -340,7 +344,6 @@ var TextBlockPlugin = function(type) {
 	return Object.extend(new BlockPlugin(type), {
 		rows: 10,
 
-		input: null,
 		appendEditForm: function(form, ajax) {
 			var id = ajax.params.id;
 
@@ -356,13 +359,12 @@ var TextBlockPlugin = function(type) {
 			input.onkeypress = function() {
 				approximateTextareaRows(input);
 			};
-			this.input = input;
 		},
 		onEdit: function(id){
 			$('text' + id + 'input').focus();
 		},
-		getFormData: function() {
-			return { text: encodeURIComponent(this.input.value) };
+		getFormData: function(id) {
+			return { text: encodeURIComponent($('text' + id + 'input').value) };
 		}
 	});
 };
