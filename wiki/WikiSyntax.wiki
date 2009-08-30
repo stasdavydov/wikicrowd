@@ -16,3 +16,14 @@
 @page`[`Internal page name`]` "Name of the link" for internal page link.
 
 @page`[`URL`]` "Name of the link" for link to an URL.
+
+== Content types ==
+`@title` for title.
+`@subtitle` for subtitle.
+`@subsubtitle` for sub-subtitle.
+`@par` for general paragraph.
+`@listitem` for list item.
+`@footnote` for footnote.
+`@quote` for quotation.
+`@img url` for an image.
+`@html ...` for any HTML code.
