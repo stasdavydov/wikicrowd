@@ -1,5 +1,11 @@
 = Released =
 
+== 0.0.13 ==
+ * New content block type @html for embed HTML support.
+ * Fixed Wrong breadcrump path (issue #18).
+ * Fixed Invalid codepage of RSS feed (issue #17).
+ * Fixed some other bugs.
+
 == 0.0.12 ==
  * Initial [WikiSyntax Wiki syntax] support for bold, italic, subscript and superscript text (issue #9).
  * List of all registered users.
