@@ -15,9 +15,9 @@
 <link rel="shortcut icon" href="<?=www?>core/img/favicon.gif" />
 <link rel="stylesheet" type="text/css" href="<?=www?>core/css/main.css"/>
 <script type="text/javascript">var www = '<?=www?>';</script>
-<script type="text/javascript" src="<?=www?>core/js/base.js" charset="windows-1251">//<!--"--></script>
+<script type="text/javascript" src="<?=www?>core/js/base.js">//<!--"--></script>
 <script type="text/javascript" src="<?=www?>core/js/locale.js" charset="utf-8">//<!--"--></script>
-<script type="text/javascript" src="<?=www?>core/js/auth.js" charset="windows-1251">//<!--"--></script>
+<script type="text/javascript" src="<?=www?>core/js/auth.js">//<!--"--></script>
 <style type="text/css">
 body { margin: 0 0 0 1em; }
 p.copyright { margin-left: -1.25em; }
@@ -86,16 +86,10 @@ h2 { margin: 0 0 0.5em 0; }
 </form>
 </div>
 
-<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<?php echo VERSION; //?> by 
-<a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
 <?
-	if(defined('license')) {
-		echo license;
-	} else {
-?>License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.<?
-	}
-?></p>
-</body>
+	copyright();
+
+?></body>
 </html>
 <?
 	} else {

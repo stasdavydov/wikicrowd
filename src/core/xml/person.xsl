@@ -51,10 +51,10 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 .form label.cb { margin: 0 0 0.5em 0; }
 				</style>
 				<script type="text/javascript">var www = '<xsl:value-of select="$config//property[@name='www']/@value"/>';</script>
-				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/base.js">//<!--"--></script>
+				<script type="text/javascript" src="{$config//property[@name='www']/@value}core/js/base.js">//<!--"--></script>
 				<script type="text/javascript" charset="utf-8" src="{$config//property[@name='www']/@value}core/js/locale.js">//<!--"--></script>
-				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/auth.js">//<!--"--></script>
-				<script type="text/javascript" charset="windows-1251" src="{$config//property[@name='www']/@value}core/js/person.js">//<!--"--></script>
+				<script type="text/javascript" src="{$config//property[@name='www']/@value}core/js/auth.js">//<!--"--></script>
+				<script type="text/javascript" src="{$config//property[@name='www']/@value}core/js/person.js">//<!--"--></script>
 			</head>
 			<body>
 				<xsl:call-template name="menu"/>
