@@ -6,8 +6,7 @@
 	$mode = array_key_exists('view', $_GET) ? 'view' : 'edit';
 
 	$person = getSessionPerson();
-	if (isGuest($person) 
-		&& $mode == "edit" 
+	if ($mode == "edit" 
 		&& personCanView($person) 
 		&& !personCanEdit($person)) {
 
