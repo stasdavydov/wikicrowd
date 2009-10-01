@@ -160,8 +160,8 @@
 <link rel="shortcut icon" href="<?=www?>core/img/favicon.gif" />
 <link rel="stylesheet" type="text/css" href="<?=www?>core/css/main.css"/>
 <script type="text/javascript">var www = '<?=www?>';</script>
-<script type="text/javascript" src="<?=www?>core/js/base.js" charset="windows-1251">//<!--"--></script>
-<script type="text/javascript" src="<?=www?>core/js/auth.js" charset="windows-1251">//<!--"--></script>
+<script type="text/javascript" src="<?=www?>core/js/base.js">//<!--"--></script>
+<script type="text/javascript" src="<?=www?>core/js/auth.js">//<!--"--></script>
 <style type="text/css">
 h1 { margin: 0.25em 0 0.5em 0.65em; }
 h2 { margin: 1em 0 0 0; }
@@ -277,16 +277,10 @@ th.ne { border: none; border-bottom: 1px solid #999; }
 <input style="padding:0.25em;font-size:110%;" type="submit" value="<?=getMessage('Save')?>"/>
 </form>
 </div>
-<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<?php echo VERSION; //?> by 
-<a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
 <?
-	if(defined('license')) {
-		echo license;
-	} else {
-?>License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.<?
-	}
-?></p>
-</body>
+	copyright();
+
+?></body>
 </html>
 <?
 	ob_end_flush();
