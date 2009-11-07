@@ -1,4 +1,4 @@
-<?
+<?php
     require '../src/core.php';
     $version = file_get_contents('version.txt');
     if(preg_match('/^(\d+)\.(\d+)\.(\d+)$/', $version, $matches)) {
@@ -86,7 +86,7 @@
 
 			if (preg_match('/%embed\(([^)]+)\)%/', $line, $matchs)) {
 				echo "Embed {$matchs[1]}\n";
-				$line = '?>'.file_get_contents($matchs[1]).'<?';
+				$line = '?>'.file_get_contents($matchs[1]).'<?php';
 			}
 
 			fwrite($install, $line);
