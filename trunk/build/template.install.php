@@ -401,7 +401,8 @@ Please visit <a href="http://code.google.com/p/wikicrowd/">WikiCrowd home page</
 <label style="border-top:1px dotted #CCC; padding-top: 0.5em;">Use <select name="locale"><?php
 		array_walk($locales, create_function(
 			'$name, $code', 
-			'if ($code == "") continue;
+			'global $locale; 
+			 if ($code == "") continue;
 			 echo "<option ".($code == $locale ? "selected=\"selected\" " : "").
 				"value=\"$code\">$name</option>";'));
 ?></select> language for user interface.</label>
