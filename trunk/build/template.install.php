@@ -124,14 +124,14 @@ body { font-family: "Trebuchet MS", "Arial", serif; font-size: 100%; }
 </head>
 <body>
 <h1>WikiCrowd installation update</h1>
-<?
+<?php
 				$migrator->doMigrate();
 				updateHTAccess();
 
 ?><p>WikiCrowd installation is updated. Return to the wiki <a href="<?=$www?>">home page</a>.</p>
 </body>
 </html>
-<?
+<?php
 				cleanUp();
 
 				exit;
@@ -156,27 +156,27 @@ fieldset input { display: inline; }
 <body>
 <h1>WikiCrowd installation update</h1>
 <p>Update WikiCrowd from version <?=$migrator->getFromVersion()?> to <?=$migrator->getToVersion()?>.</p>
-<?
+<?php
 		if (count($errors) > 0) {
 ?><ul class="error">
-<?
+<?php
 			foreach($errors as $error) {
 ?><li><span><?=$error?></span></li>
-<?
+<?php
 			}
 ?></ul>
-<?
+<?php
 		}
 
-?><form method="post" action=""><?
+?><form method="post" action=""><?php
 		$migrator->customUI();
 ?><input style="padding:0.25em;font-size:110%;" type="submit" value="Update"/></form>
-<?
+<?php
 		checkNewerVersion();
 ?>
 </body>
 </html>
-<?
+<?php
 		exit;
 	}
 		
@@ -327,7 +327,7 @@ td label, td input { display:inline; margin: 0; float:none;}
 tr.odd { background: #EEE; }
 th { border: 1px solid #999; border-right: none; font-size:90%;}
 th.ne { border: none; border-bottom: 1px solid #999; }
-<?
+<?php
 	if (count($errors) > 0) {
 		foreach(array_keys($errors) as $id)
 			echo '#'.$id.', ';
@@ -370,20 +370,20 @@ Please visit <a href="http://code.google.com/p/wikicrowd/">WikiCrowd home page</
 	if (count($reqFails) > 0) {
 ?><p>The following issue<?= count($reqFails) > 1 ? 's' : '' ?> should be fixed before installation:</p>
 <ul class="error">
-<?
+<?php
 		foreach($reqFails as $error) {
-?><li><span><?=$error?></span></li><?
+?><li><span><?=$error?></span></li><?php
 		}
 ?></ul>
 <p><a href="<?=$_SERVER['REQUEST_URI']?>">Try again</a> when fixed.</p>
-<?	} else {
+<?php	} else {
 
 		if (count($errors) > 0) {
-?><ul class="error"><?
+?><ul class="error"><?php
 			foreach($errors as $error) {
-?><li><span><?=$error?></span></li><?
+?><li><span><?=$error?></span></li><?php
 			}
-?></ul><?
+?></ul><?php
 		}
 
 		$locales = array(%locales%);
@@ -425,35 +425,35 @@ Please visit <a href="http://code.google.com/p/wikicrowd/">WikiCrowd home page</
 <th>Guest can read</th></tr>
 </thead>
 <tbody>
-<?
+<?php
 		foreach($accessPlans as $plan=>$details) {
-?><tr<?	if ($plan % 2) echo ' class="odd"'; ?>><td><input type="radio" name="plan" <?
+?><tr<?php	if ($plan % 2) echo ' class="odd"'; ?>><td><input type="radio" name="plan" <?php
 			if ($plan == $accessPlan)
 				echo 'checked="checked" ';
 ?>id="plan<?=$plan?>" value="<?=$plan?>"/></td>
 <td class="ne"><label for="plan<?=$plan?>"><?=$details[0]?></label></td>
-<?			
+<?php
 			for($idx = 1; $idx < count($details); $idx++) {
-?><td><input type="checkbox" <? if ($details[$idx]) echo 'checked="checked" '; ?>disabled="disabled"/></td>
-<?
+?><td><input type="checkbox" <?php if ($details[$idx]) echo 'checked="checked" '; ?>disabled="disabled"/></td>
+<?php
 			}
 ?></tr>
-<?
+<?php
 		}
-?><tr<?	if (count($accessPlans) % 2) echo ' class="odd"'; ?>><td><input type="radio" name="plan" id="plan<?=count($accessPlans)?>" <?
+?><tr<?php	if (count($accessPlans) % 2) echo ' class="odd"'; ?>><td><input type="radio" name="plan" id="plan<?=count($accessPlans)?>" <?php
 			if (count($accessPlans) == $accessPlan)
 				echo 'checked="checked" ';
 ?>value="<?=count($accessPlans)?>"/></td>
 <td class="ne"><label for="plan<?=count($accessPlans)?>">Your choice</label></td>
-<td><input type="checkbox" name="anyoneCanRegister" value="1"<?
+<td><input type="checkbox" name="anyoneCanRegister" value="1"<?php
 		if ($anyoneCanRegister) echo ' checked="checked"'; ?>/></td>
-<td><input type="checkbox" name="newUserCanEdit" value="1"<?
+<td><input type="checkbox" name="newUserCanEdit" value="1"<?php
 		if ($newUserCanEdit) echo ' checked="checked"'; ?>/></td>
-<td><input type="checkbox" name="newUserCanView" value="1"<?
+<td><input type="checkbox" name="newUserCanView" value="1"<?php
 		if ($newUserCanView) echo ' checked="checked"'; ?>/></td>
-<td><input type="checkbox" name="guestCanEdit" value="1"<?
+<td><input type="checkbox" name="guestCanEdit" value="1"<?php
 		if ($guestCanEdit) echo ' checked="checked"'; ?>/></td>
-<td><input type="checkbox" name="guestCanView" value="1"<?
+<td><input type="checkbox" name="guestCanView" value="1"<?php
 		if ($guestCanView) echo ' checked="checked"'; ?>/></td>
 </tr>
 </tbody>
