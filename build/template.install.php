@@ -355,17 +355,20 @@ Please visit <a href="http://code.google.com/p/wikicrowd/">WikiCrowd home page</
 	} 
 	@unlink('test.tmp');
 
-	if (version_compare(phpversion(), '5.2', '<'))
+	if (function_exists('version_compare') && version_compare(phpversion(), '5.2', '<'))
 		$reqFails[] = 'PHP version 5.2 or later is required';
 
 	if (!class_exists('DOMDocument'))
-		$reqFails[] = 'DOM support is required';
+		$reqFails[] = '<a href="http://ru.php.net/manual/en/book.dom.php">DOM</a> support is required';
 
 	if (!class_exists('XSLTProcessor'))
-		$reqFails[] = 'XSL suuport is required';
+		$reqFails[] = '<a href="http://ru.php.net/manual/en/book.xsl.php">XSL</a> suuport is required';
 
 	if(! function_exists('iconv'))
-		$reqFails[] = 'iconv support is required';
+		$reqFails[] = '<a href="http://ru.php.net/manual/en/book.iconv.php">iconv</a> support is required';
+
+	if (! class_exists('ZipArchive'))
+		$reqFails[] = '<a href="http://ru.php.net/manual/en/book.zip.php">ZipArchive</a> support is required';
 
 	if (count($reqFails) > 0) {
 ?><p>The following issue<?= count($reqFails) > 1 ? 's' : '' ?> should be fixed before installation:</p>
