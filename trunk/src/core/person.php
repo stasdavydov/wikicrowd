@@ -24,19 +24,19 @@ function createPerson($login, $password, $name, $email, $info, $canEdit, $canVie
 }
 
 function isGuest($person) {
-	return $person->getAttribute('uid') == "guest";
+	return $person && $person->getAttribute('uid') == "guest";
 }
 
 function isAdmin($person) {
- 	return $person->getAttribute("admin");
+ 	return $person && $person->getAttribute("admin");
 }
 
 function personCanEdit($person) {
-	return $person->getAttribute('can-edit');
+	return $person && $person->getAttribute('can-edit');
 }
 
 function personCanView($person) {
-	return $person->getAttribute('can-view');
+	return $person && $person->getAttribute('can-view');
 }
 
 function personCan($person, $right) {
@@ -55,8 +55,8 @@ function getSessionPerson() {
 			if ($person && md5($person->getAttribute('password')) == $uid[1])
 				return $person;
 		}
-	} else
-		return loadPerson('guest');
+	} 
+	return loadPerson('guest');
 }
 
 function loadPerson($uid, $sandbox = false) {
