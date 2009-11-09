@@ -160,7 +160,7 @@
 		$person->save(HOME."persons/sandbox/$login.xml");
 
 		// 2. send confirmation e-mail 
-		mail ($email, 
+		@mail ($email, 
 			"=?UTF-8?b?".base64_encode(getMessage('RegistrationConfirmation').' "'.title.'"')."?=", 
 			chunk_split(base64_encode($msg=
 				sprintf(getMessage('RegistrationEmail'),
@@ -170,7 +170,8 @@
 			"From: [WikiCrowd] <".supportEmail.">\n".
 //			"BCC: Stas Davydov <$SUPPORT_EMAIL>\n".
 			"Content-Type: text/plain;\r\n\tcharset=UTF-8\n".
-			"Content-Transfer-Encoding: base64\n") or die('Mail was not deliverd');
+			"Content-Transfer-Encoding: base64\n") 
+			or warn(getMessage('RegistrationFailed'));
 
 ?><registered/><?
 

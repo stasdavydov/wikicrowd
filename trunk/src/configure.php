@@ -51,6 +51,7 @@
 	$newUserCanView = newUserCanView;
 
 	list($users, $usersDOM) = getPersonIndex();
+	list($sandboxUsers, $sandboxUsersDOM) = getPersonIndex(true);
 
 	$messages = array();
 
@@ -83,6 +84,8 @@
 				$user->setAttribute('changed', '');
 			}
 		}
+
+		$sandboxUsers = array_key_exists('sandbox', $_POST) ? $_POST['sandbox'] : array();
 
 		$title = stripslashes(trim($_POST['title']));
 		if($title == "")
@@ -147,6 +150,10 @@
 		
 				$usersDOM->save($personsIndex);
 			}
+
+			foreach($sandboxUsers as $uid=>$x)
+				if ($sandboxUser = loadPerson($uid, true))
+					rename(PERSONS."sandbox/$uid.xml", PERSONS."$uid.xml");
 
 			header('Location: '.www.'configure/?ts='.time());
 			exit;
@@ -273,8 +280,19 @@ th.ne { border: none; border-bottom: 1px solid #999; }
 <?
 	echo transformDOM($usersDOM, CORE.'xml/persons_index.xsl', array());
 	
+?>
+
+<?
+	if ($sandboxUsersDOM->getElementsByTagName('person')->length > 0) {
+?><h2><?=getMessage('SandboxUsers')?></h2>
+<?
+		echo transformDOM($sandboxUsersDOM, CORE.'xml/persons_index.xsl', array('MODE'=>'sandbox'));
+	
+	}
 ?><br/>
+
 <input style="padding:0.25em;font-size:110%;" type="submit" value="<?=getMessage('Save')?>"/>
+
 </form>
 </div>
 <?

@@ -73,28 +73,29 @@ function doLogin($person, $remember = false) {
     	$remember ? strtotime('+180 days') : 0, '/');
 }
 
-function getPersonIndex() {
+function getPersonIndex($sandbox = false) {
 	$users = array();
 
-	$personsIndex = CACHE.'persons-index.xml';
+	$personsIndex = CACHE.'persons-index'.($sandbox ? '-sandbox' : '').'.xml';
 	$personFilesTs = 0;
-	$dir = opendir(PERSONS);
+	$path = PERSONS.($sandbox ? 'sandbox/' : '');
+	$dir = opendir($path);
 	while($f = readdir($dir)) {
 		if (preg_match('/^([^.]+)\.xml$/', $f, $matchs)) {
 			$uid = $matchs[1];
 			$fileName = $uid.'.xml';
-			$personFilesTs = max(filemtime(PERSONS.$fileName), $personFilesTs);
+			$personFilesTs = max(filemtime($path.$fileName), $personFilesTs);
 			$users[$uid] = 0;
 		}
 	}
 	closedir($dir);
 
 	$usersDOM = new DOMDOcument('1.0', 'UTF-8');
-	if (! file_exists($personsIndex) || filemtime($personsIndex) < $personFilesTs) {
+	if (! file_exists($personsIndex) || filemtime($personsIndex) < $personFilesTs || $sandbox) {
 		// rebuild
 		$usersDOM->appendChild($usersDOM->createElement('persons'));
 		foreach($users as $uid=>$x)
-			$usersDOM->documentElement->appendChild($usersDOM->importNode(loadPerson($uid), true));
+			$usersDOM->documentElement->appendChild($usersDOM->importNode(loadPerson($uid, $sandbox), true));
 		$usersDOM->save($personsIndex);
 	} else
 		$usersDOM->load($personsIndex);

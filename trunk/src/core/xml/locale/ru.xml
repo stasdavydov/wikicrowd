@@ -49,6 +49,7 @@
 <message id="EnterLoginAndPassword" text="Для доступа к этой странице Вам необходимо ввести логин и пароль."/>
 <message id="FileIsNotSet" text="Файл не задан для media-блока."/>
 <message id="ForgotPassword" text="Вспомнить пароль"/>
+<message id="Grant" text="Авторизовать"/>
 <message id="GuestNotAdmin" text="Гость не может быть администратором."/>
 <message id='IDisEmpty' text='ID пуст.'/>
 <message id='IDisNotSet' text='ID не указан.'/>
@@ -139,6 +140,7 @@
 Если это повторится, пожалуйста, свяжитесь с нами.\n\n
 С уважением,\n
 Служба поддержки\n"/>
+<message id="RegistrationFailed" text="Письмо с активацией не было отправлено. Попробуйте еще раз."/>
 <message id="RegistrationIsClosed" text="Регистрация закрыта."/>
 <message id="RegistrationSuccess" text="Регистрация прошла успешно! На указанный Вами e-mail было отправлено письмо со ссылкой, перейдя по которой, Вы активируете Вашу учетную запись."/>
 <message id="RememberMe" text="Запомнить меня надолго"/>
@@ -147,6 +149,7 @@
 <message id="RevIsEmpty" text="Rev пуст."/>
 <message id="RevIsNotSet" text="Rev не указан."/>
 <message id="RSSDescription" text="Последние изменения wiki"/>
+<message id="SandboxUsers" text="Неавторизованные пользователи"/>
 <message id="Save" text="Сохранить"/>
 <message id="Saved" text="Сохранено."/>
 <message id="Saving" text="Сохраняем..."/>
