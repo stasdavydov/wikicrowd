@@ -45,7 +45,7 @@ function format_wiki($text) {
 		'/@page\s*\[([^\]]+)\]/', 'replace_wiki_callback', $text);
 
 	$text = preg_replace('/\*([^*\n\r]+)\*/', '<strong>$1</strong>', $text);
-//	$text = preg_replace('/\/([^/\n\r]+)\//', '<em>$1</em>', $text);
+	$text = preg_replace('/\/([^\/\n\r]+)\//', '<em>$1</em>', $text);
 	$text = preg_replace('/_([^_\n\r]+)_/', '<sub>$1</sub>', $text);
 	$text = preg_replace('/\^([^\^\n\r]+)\^/', '<sup>$1</sup>', $text);
 
