@@ -3,7 +3,7 @@
 // todo: create unit-test for wiki-syntax
 
 require_once('simpletest/autorun.php');
-require_once('../src/core/plugins/wiki/node.php');
+require_once('../core/plugins/wiki/node.php');
 
 class TestWikiSyntax extends UnitTestCase {
 	function testBold1() {
@@ -33,6 +33,20 @@ class TestWikiSyntax extends UnitTestCase {
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
+	
+	function testDiv1() {
+		$str = '<div>/italic/</div>';
+		$expected = '<div><em>italic</em></div>';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+	
+	function testDiv2() {
+		$str = '<div>/italic</div>/';
+		$expected = '<div>/italic</div>/';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
 
 	function testSubscript1() {
 		$str = '_subscript_';
@@ -44,6 +58,13 @@ class TestWikiSyntax extends UnitTestCase {
 	function testSuperScript1() {
 		$str = '^superscript^';
 		$expected = '<sup>superscript</sup>';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+	
+	function testSuperScriptBold1() {
+		$str = '*^superscript*^';
+		$expected = '*<sup>superscript*</sup>';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
