@@ -1,9 +1,13 @@
 <?php
 
 // todo: create unit-test for wiki-syntax
+define('DEBUG', false);
 
 require_once('simpletest/autorun.php');
-require_once('../core/plugins/wiki/node.php');
+if (file_exists('../core/plugins/wiki/node.php'))
+	require_once('../core/plugins/wiki/node.php');
+else
+	require_once('../src/core/plugins/wiki/node.php');
 
 class TestWikiSyntax extends UnitTestCase {
 	function testBold1() {
@@ -64,7 +68,7 @@ class TestWikiSyntax extends UnitTestCase {
 	
 	function testSuperScriptBold1() {
 		$str = '*^superscript*^';
-		$expected = '*<sup>superscript*</sup>';
+		$expected = '<strong>^superscript</strong>^';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
