@@ -1,13 +1,17 @@
 <?php
 
 // todo: create unit-test for wiki-syntax
-define('DEBUG', false);
 
 require_once('simpletest/autorun.php');
-if (file_exists('../core/plugins/wiki/node.php'))
-	require_once('../core/plugins/wiki/node.php');
-else
-	require_once('../src/core/plugins/wiki/node.php');
+if (file_exists('../core/plugins/wiki/node.php')) {
+	require_once('../core.php');
+//	require_once('../core/plugins/wiki/node.php');
+} else {
+	require_once('../src/core.php');
+//	require_once('../src/core/plugins/wiki/node.php');
+}
+
+define ('www', '/www/');
 
 class TestWikiSyntax extends UnitTestCase {
 	function testBold1() {
@@ -69,6 +73,34 @@ class TestWikiSyntax extends UnitTestCase {
 	function testSuperScriptBold1() {
 		$str = '*^superscript*^';
 		$expected = '<strong>^superscript</strong>^';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+
+	function testLink1() {
+		$str = '@page[http://microsoft.com/]';
+		$expected = '<a onclick="javascript:editOff()" href="http://microsoft.com/">http://microsoft.com/</a>';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+
+	function testLink2() {
+		$str = '@page[Home]';
+		$expected = '<a onclick="javascript:editOff()" href="'.www.'Home">Home</a>';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+
+	function testLink3() {
+		$str = '@page[Home] "123"';
+		$expected = '<a onclick="javascript:editOff()" href="'.www.'Home">123</a>';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+
+	function testLink4() {
+		$str = '@page "123"';
+		$expected = '<a onclick="javascript:editOff()" href="'.www.'123">123</a>';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
