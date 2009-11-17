@@ -88,7 +88,7 @@
 <message id="monAug" text="авг"/>
 <message id="monSep" text="сен"/>
 <message id="monOct" text="окт"/>
-<message id="monNov" text="нов"/>
+<message id="monNov" text="ноя"/>
 <message id="monDec" text="дек"/>
 <message id="NameIsNotSet" text="Имя не указано."/>
 <message id="NameIsRequired" text="Нам бы очень хотелось знать, как Вас зовут. Укажите, пожалуйста, Ваше имя."/>
