@@ -3,7 +3,9 @@
 
 	require_once 'core.php';
 
-	$mode = array_key_exists('view', $_GET) ? 'view' : 'edit';
+	$mode = array_key_exists('view', $_GET) 
+		? 'view' 
+		: (array_key_exists('rtf', $_GET) ? 'rtf' : 'edit');
 
 	$person = getSessionPerson();
 	if ($mode == "edit" 
@@ -13,6 +15,15 @@
 		header('Location: ?view');
 		exit;
 	}
+
+	if ($mode == "rtf" 
+		&& personCanView($person) 
+		&& !isAdmin($person)) {
+
+		header('Location: ?view');
+		exit;
+	}
+
 
 	$chapter = new chapter(false);
 
@@ -24,6 +35,21 @@
 
 	$xslFile = CORE.'xml/chapter.xsl';
 
+	if ($mode == "rtf") {
+		$xslFile = CORE.'xml/rtf.xsl';
+
+		function rtfencode($content) {
+			$translate = array();
+			for($c = 128; $c < 256; $c++)
+				$translate[chr($c)] = "\\'".strtolower(dechex($c));
+		 	
+		 	return strtr($content, $translate);
+		}
+		ob_start('rtfencode');
+
+		header('Content-Type: application/rtf');
+	}
+
 	$params = array(
 		'MODE'=>personCan($person, $mode) ? $mode : 'restricted',
 		'UID'=>$person->getAttribute('uid'),
@@ -32,7 +58,11 @@
 		'CANEDIT'=>personCanEdit($person),
 		'CANVIEW'=>personCanView($person));
 
-	echo $chapter->transform($xslFile, $params);
+	echo $chapter->transform($xslFile, $params, $mode == "rtf");
 
 	ob_end_flush();
+
+	if ($mode == "rtf") {
+		ob_end_flush();
+	}
 ?>

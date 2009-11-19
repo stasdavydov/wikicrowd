@@ -9,22 +9,38 @@
 		encoding="UTF-8"
 		omit-xml-declaration="yes"
 		cdata-section-elements=""/>
+	<xsl:param name="MODE"/>
 
 	<xsl:include href="core.xsl"/>
 
 	<xsl:template match="/">
 		<table border="0" cellspacing="0" cellpadding="3">
-			<thead>
-				<tr>
-					<th><xsl:value-of select="$locale//message[@id='User']/@text"/></th>
-					<th><xsl:value-of select="$locale//message[@id='Admin']/@text"/></th>
-					<th><xsl:value-of select="$locale//message[@id='CanEdit']/@text"/></th>
-					<th><xsl:value-of select="$locale//message[@id='CanRead']/@text"/></th>
-				</tr>
-			</thead>
-			<tbody>
-				<xsl:apply-templates select="//person"/>
-			</tbody>
+			<xsl:choose>
+				<xsl:when test="$MODE = 'sandbox'">
+					<thead>
+						<tr>
+							<th><xsl:value-of select="$locale//message[@id='User']/@text"/></th>
+							<th><xsl:value-of select="$locale//message[@id='Grant']/@text"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<xsl:apply-templates select="//person" mode="sandbox"/>
+					</tbody>
+				</xsl:when>
+				<xsl:otherwise>
+					<thead>
+						<tr>
+							<th><xsl:value-of select="$locale//message[@id='User']/@text"/></th>
+							<th><xsl:value-of select="$locale//message[@id='Admin']/@text"/></th>
+							<th><xsl:value-of select="$locale//message[@id='CanEdit']/@text"/></th>
+							<th><xsl:value-of select="$locale//message[@id='CanRead']/@text"/></th>
+						</tr>
+					</thead>
+					<tbody>
+						<xsl:apply-templates select="//person"/>
+					</tbody>
+				</xsl:otherwise>
+			</xsl:choose>
 		</table>
 	</xsl:template>
 
@@ -61,6 +77,17 @@
 						<xsl:attribute name="checked">checked</xsl:attribute>
 					</xsl:if>
 				</input>
+			</td>
+		</tr>
+	</xsl:template>
+
+	<xsl:template match="person" mode="sandbox">
+		<tr>
+			<td>
+				<xsl:value-of select="@uid"/>
+			</td>
+			<td>
+				<input type="checkbox" name="sandbox[{@uid}]" value="1"/>
 			</td>
 		</tr>
 	</xsl:template>

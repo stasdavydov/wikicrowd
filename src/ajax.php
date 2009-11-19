@@ -170,7 +170,8 @@
 			"From: [WikiCrowd] <".supportEmail.">\n".
 //			"BCC: Stas Davydov <$SUPPORT_EMAIL>\n".
 			"Content-Type: text/plain;\r\n\tcharset=UTF-8\n".
-			"Content-Transfer-Encoding: base64\n");
+			"Content-Transfer-Encoding: base64\n") 
+			or warn(getMessage('RegistrationFailed'));
 
 ?><registered/><?
 
@@ -313,7 +314,7 @@
 			$d = opendir('persons/sandbox/');
 			while($f = readdir($d)) {
 				if (preg_match('/^([a-zA-Z0-9]*)\.xml$/', $f, $matches)) {
-					$person = loadPerson($matches[1]);
+					$person = loadPerson($matches[1], true);
 					if ($person->getAttribute("email") == $email) {
 						$foundPerson = $person;
 						break;
