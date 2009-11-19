@@ -250,12 +250,7 @@ function wikiUrlEncode($str) {
 function copyright() {
 ?><p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<?php echo VERSION; //?> by 
 <a href="http://stasdavydov.com/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
+<a href='http://bestbusinessbooks.ru/'>BestBusinessBooks</a> (c) 2009.</p>
 <?
-	if(defined('license')) {
-		echo license;
-	} else {
-?>License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.<?
-	}
-?></p><?
 }
 ?>

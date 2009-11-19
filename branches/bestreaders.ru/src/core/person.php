@@ -24,19 +24,19 @@ function createPerson($login, $password, $name, $email, $info, $canEdit, $canVie
 }
 
 function isGuest($person) {
-	return $person->getAttribute('uid') == "guest";
+	return $person && $person->getAttribute('uid') == "guest";
 }
 
 function isAdmin($person) {
- 	return $person->getAttribute("admin");
+ 	return $person && $person->getAttribute("admin");
 }
 
 function personCanEdit($person) {
-	return $person->getAttribute('can-edit');
+	return $person && $person->getAttribute('can-edit');
 }
 
 function personCanView($person) {
-	return $person->getAttribute('can-view');
+	return $person && $person->getAttribute('can-view');
 }
 
 function personCan($person, $right) {
@@ -55,8 +55,8 @@ function getSessionPerson() {
 			if ($person && md5($person->getAttribute('password')) == $uid[1])
 				return $person;
 		}
-	} else
-		return loadPerson('guest');
+	} 
+	return loadPerson('guest');
 }
 
 function loadPerson($uid, $sandbox = false) {
@@ -73,28 +73,29 @@ function doLogin($person, $remember = false) {
     	$remember ? strtotime('+180 days') : 0, '/');
 }
 
-function getPersonIndex() {
+function getPersonIndex($sandbox = false) {
 	$users = array();
 
-	$personsIndex = CACHE.'persons-index.xml';
+	$personsIndex = CACHE.'persons-index'.($sandbox ? '-sandbox' : '').'.xml';
 	$personFilesTs = 0;
-	$dir = opendir(PERSONS);
+	$path = PERSONS.($sandbox ? 'sandbox/' : '');
+	$dir = opendir($path);
 	while($f = readdir($dir)) {
 		if (preg_match('/^([^.]+)\.xml$/', $f, $matchs)) {
 			$uid = $matchs[1];
 			$fileName = $uid.'.xml';
-			$personFilesTs = max(filemtime(PERSONS.$fileName), $personFilesTs);
+			$personFilesTs = max(filemtime($path.$fileName), $personFilesTs);
 			$users[$uid] = 0;
 		}
 	}
 	closedir($dir);
 
 	$usersDOM = new DOMDOcument('1.0', 'UTF-8');
-	if (! file_exists($personsIndex) || filemtime($personsIndex) < $personFilesTs) {
+	if (! file_exists($personsIndex) || filemtime($personsIndex) < $personFilesTs || $sandbox) {
 		// rebuild
 		$usersDOM->appendChild($usersDOM->createElement('persons'));
 		foreach($users as $uid=>$x)
-			$usersDOM->documentElement->appendChild($usersDOM->importNode(loadPerson($uid), true));
+			$usersDOM->documentElement->appendChild($usersDOM->importNode(loadPerson($uid, $sandbox), true));
 		$usersDOM->save($personsIndex);
 	} else
 		$usersDOM->load($personsIndex);

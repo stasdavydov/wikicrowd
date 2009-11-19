@@ -29,13 +29,7 @@
 
 	<xsl:template name="copyright">
 		<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<xsl:value-of select="$VERSION"/> by <a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
-			<xsl:choose>
-				<xsl:when test="$config//property[@name='license']/@value">
-					<xsl:value-of select="$config//property[@name='license']/@value" disable-output-escaping="yes"/>
-				</xsl:when>
-				<xsl:otherwise>License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</xsl:otherwise>
-			</xsl:choose>
-		</p>
+<a href='http://bestbusinessbooks.ru/'>BestBusinessBooks</a> (c) 2009.</p>
 	</xsl:template>
 
 	<xsl:template name="menu">
@@ -50,6 +44,9 @@
 						<a href="?view"><xsl:value-of select="$locale//message[@id='view']/@text"/></a>
 					</xsl:when>
 				</xsl:choose>
+				<xsl:if test="$ADMIN = '1'">
+					<a href="?rtf">RTF</a>
+				</xsl:if>
 			</div>
 			<div class="rightside">
 				<xsl:choose>

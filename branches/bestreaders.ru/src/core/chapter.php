@@ -29,7 +29,7 @@ class chapter {
 		return $chapter;
 	}
 
-	private function getTitle() { return $this->dom->documentElement->getAttribute('title'); }
+	public function getTitle() { return $this->dom->documentElement->getAttribute('title'); }
 
 	static private function getChapterFileName($chapterName) {
 		return makeFileName(fileNamePartEncode(trim($chapterName)).'.xml');

@@ -15,7 +15,7 @@
 	$msg = '';
 
 	if ($person = loadPerson($login, true)) {
-		rename("persons/sandbox/$login.xml", "persons/$login.xml");
+		rename(PERSONS."sandbox/$login.xml", PERSONS.$login.'.xml');
 		$msg = "<a href='".www."person/$login'>".getMessage('YourAccout')."</a> ".getMessage('SuccessfullyActivated'). 
 			' '.getMessage('WelcomeToWiki')." <a href='".www."'>".title."</a>!";
 		doLogin($person);
@@ -25,7 +25,7 @@
 				$person->setAttribute('email', $person->getAttribute('newemail'));
 				$person->removeAttribute('newemail');
 				$person->removeAttribute('newemailcheck');
-				$person->ownerDocument->save("persons/$login.xml");
+				$person->ownerDocument->save(PERSONS.$login.'.xml');
 				$msg = getMessage('EmailChangeIsConfirmed');
 			} else {
 				$msg = getMessage('EmailChangeWrongCode');
