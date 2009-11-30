@@ -35,9 +35,15 @@ function replace_wiki_callback($matches) {
 function replace_wiki_bold_callback($matches) {
 	return '<strong>'.format_with_tags($matches[1]).'</strong>';
 }
+
 function replace_wiki_italic_callback($matches) {
-	return '<em>'.format_with_tags($matches[1]).'</em>';
+	$formatted = format_with_tags($matches[1]);
+	if (!preg_match('/(<(\w+)>((?>[^<]*)|(?R))*<\/(\2)>)/', $formatted)) {
+		return '<em>'.$formatted .'</em>';
+	}
+	else return $matches[1];
 }
+
 function replace_wiki_subscript_callback($matches) {
 	return '<sub>'.format_with_tags($matches[1]).'</sub>';
 }
@@ -52,15 +58,16 @@ function trace($text) {
 
 function format_with_tags($text) {
 	trace($text);
-	$text = preg_replace_callback('/\*([^*\n\r<>]+)\*/', 'replace_wiki_bold_callback', $text);
-	$text = preg_replace_callback('/\/([^\/\n\r<>]+)\//', 'replace_wiki_italic_callback', $text);
-	$text = preg_replace_callback('/_([^_\n\r<>]+)_/', 'replace_wiki_subscript_callback', $text);
-	$text = preg_replace_callback('/\^([^\^\n\r<>]+)\^/', 'replace_wiki_superscript_callback', $text);
-
+		$text = preg_replace_callback('/\*([^*\n\r<>]+)\*/', 'replace_wiki_bold_callback', $text);
+		$text = preg_replace_callback('/\/([^\/\n\r<>]+)\//', 'replace_wiki_italic_callback', $text);
+		$text = preg_replace_callback('/_([^_\n\r<>]+)_/', 'replace_wiki_subscript_callback', $text);
+		$text = preg_replace_callback('/\^([^\^\n\r<>]+)\^/', 'replace_wiki_superscript_callback', $text);
 	return $text;
 }
 
 function format_wiki($text) {
+	$text = format_with_tags($text);
+
 	$text = preg_replace_callback(
 		'/@page\s+"([^"]+)"/', 'replace_wiki_callback', $text);
 	$text = preg_replace_callback(
@@ -68,6 +75,6 @@ function format_wiki($text) {
 	$text = preg_replace_callback(
 		'/@page\s*\[([^\]]+)\]/', 'replace_wiki_callback', $text);
 
-	return format_with_tags($text);
+	return $text;
 }
 ?>
