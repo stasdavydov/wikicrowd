@@ -12,9 +12,29 @@ if (file_exists('../core/plugins/wiki/node.php')) {
 define ('www', '/www/');
 
 class TestWikiSyntax extends UnitTestCase {
+	function testURIPattern1() {
+		$url = 'http://www.netflix.com';
+		$this->assertTrue(preg_match('/^'.uri_pattern.'$/i', $url));
+	}
+	function testURIPattern2() {
+		$url = 'http://www.businessweek.com/smaUbiz/content/may2006/sb20060525_268860.htm?campaign_jd=search';
+		$this->assertTrue(preg_match('/^'.uri_pattern.'$/i', $url));
+	}
+	function testURIPattern3() {
+		$url = 'http://www.businessweek.com/smaUbiz/content/may2006/sb20060525_268860.htm?campaign_jd=search;';
+		$this->assertFalse(preg_match('/^'.uri_pattern.'$/i', $url));
+	}
+
 	function testBold1() {
 		$str = '*bold*';
 		$expected = '<strong>bold</strong>';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+
+	function testBold2() {
+		$str = '**';
+		$expected = '**';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
@@ -36,6 +56,12 @@ class TestWikiSyntax extends UnitTestCase {
 	function testItalic1() {
 		$str = '/italic/';
 		$expected = '<em>italic</em>';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+	function testItalic2() {
+		$str = '//';
+		$expected = '//';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
@@ -99,6 +125,37 @@ class TestWikiSyntax extends UnitTestCase {
 	function testLink4() {
 		$str = '@page "123"';
 		$expected = '<a onclick="javascript:editOff()" href="'.www.'123">123</a>';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+
+	function testLink5() {
+		$str = 'http://www.netflix.com/';
+		$expected = '<a onclick="javascript:editOff()" href="http://www.netflix.com/">http://www.netflix.com/</a>';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+	function testLink6() {
+		$str = 'http://www.netflix.com/.';
+		$expected = '<a onclick="javascript:editOff()" href="http://www.netflix.com/">http://www.netflix.com/</a>.';
+
+		$this->assertEqual($expected, format_wiki($str));
+	}
+	function testExcludeReplace1() {
+		$str = 'aa */bbb/* ccc';
+		$expected = 'aa `[{<strong>}]``[{<em>}]`bbb`[{</em>}]``[{</strong>}]` ccc';
+		$this->assertEqual($expected, replace_pull::replace($str));
+	}
+
+	function testRemoveEscape() {
+		$str = 'aa `[{<strong>}]``[{<em>}]`bbb`[{</em>}]``[{</strong>}]` ccc';
+		$expected = 'aa <strong><em>bbb</em></strong> ccc';
+		$this->assertEqual($expected, remove_escape($str));
+	}
+
+	function testEmail() {
+		$str = 'E-mail me to mailto:stas@motivateme.ru';
+		$expected = 'E-mail me to <a onclick="javascript:editOff()" href="mailto:stas@motivateme.ru">mailto:stas@motivateme.ru</a>';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
