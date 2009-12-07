@@ -17,6 +17,8 @@
 
 @page`[`URL`]` "Name of the link" for link to an URL.
 
+Also WikiCrowd automatically changes URLs to links.
+
 == Content types ==
 `@title` for title.
 
