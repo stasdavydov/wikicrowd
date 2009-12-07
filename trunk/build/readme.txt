@@ -38,6 +38,7 @@ II. INSTALLATION:
 III. RELEASE NOTES:
   0.0.14  List unauthorized users in admin interface and
   		  grant them authorization (issue #29).
+  		  Bugfix.
 
   0.0.13  New content block type @html for embed HTML support.
   		  Bugfix.

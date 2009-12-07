@@ -6,7 +6,7 @@
 
 */
 
-define('dont_touch', '[don\'t touch]');
+define('uri_pattern', '(ftps?|mailto|https?):\/{0,2}[a-z0-9:\-\._~?#&=%\/\$\+@]+[a-z0-9:\-_~?#&=%\/\$\+@]');
 
 /*
 	*bold* -> <strong>bold</strong>
@@ -16,6 +16,105 @@ define('dont_touch', '[don\'t touch]');
 */
 
 
+function exclude_replace($pattern, $callback, $text) {
+	if ($text == "")
+		return $text;
+
+	$originalText = $text;
+
+	$excludes = array(0=>array());
+	$escape_pattern = '/`\[\{([^}]|\}[^\]]|\}\][^`])+\}\]`/';
+	if(preg_match_all($escape_pattern, $text, $excludes)) {
+		$text = preg_replace($escape_pattern, '`[{}]`', $text, -1, $count);
+		if($count != count($excludes[0]))
+			die('Something strange: excludes = '.(count($excludes[0])).', count = '.$count);
+	}
+
+	$text = preg_replace_callback($pattern, $callback, $text);
+
+	if (count($excludes[0]) > 0)
+		foreach($excludes[0] as $exclude)
+			$text = preg_replace('/`\[\{\}\]`/', $exclude, $text, 1);
+
+	if (isValidXHtml($text))
+		return $text;
+	else
+		return $originalText;
+}
+
+function remove_escape($text) {
+	return str_replace(array('`[{', '}]`'), array('', ''), $text);
+}
+
+function make_link($link, $name) {
+	if (! preg_match('/^'.uri_pattern.'$/i', $link))
+		$link = www.($link == "/" ? '' : wikiUrlEncode($link));
+
+	return '`[{<a onclick="javascript:editOff()" href="'.$link.'">'.$name.'</a>}]`';
+}
+
+abstract class base_callback {
+	abstract public function callback($matches);
+	abstract public function pattern();
+}
+
+class url_callback extends base_callback {
+	public function pattern() {
+		return '/('.uri_pattern.')/i';
+	}
+
+	public function callback($matches) {
+		return make_link($matches[1], $matches[1]);
+	}
+}
+
+class tag_callback extends base_callback {
+	private $tag;
+	private $sign;
+	public function __construct($tag, $sign) {
+		$this->tag = $tag;
+		$this->sign = preg_quote($sign, '/');
+	}
+	public function pattern() {
+		return '/'.$this->sign.'([^'.$this->sign.'\n\r]+)'.$this->sign.'/';
+	}
+	public function callback($matches) {
+		return '`[{<'.$this->tag.'>}]`'.$matches[1].'`[{</'.$this->tag.'>}]`';
+	}
+}
+
+class replace_pull {
+	private static $callbacks;
+	public static function replace($text) {
+		if (! replace_pull::$callbacks)
+			replace_pull::$callbacks = array(
+				new url_callback(),
+				new tag_callback('strong', '*'),
+				new tag_callback('em', '/'),
+				new tag_callback('sup', '^'),
+				new tag_callback('sub', '_'));
+		foreach(replace_pull::$callbacks as $callback) {
+			$text = exclude_replace($callback->pattern(), array($callback, 'callback'), $text);
+		}
+
+		return $text;
+	}
+}
+
+function format_wiki($text) {
+	$text = preg_replace_callback(
+		'/@page\s+"([^"]+)"/', create_function('$matches', '
+			return make_link($matches[1], $matches[1]);'), $text);
+	$text = preg_replace_callback(
+		'/@page\s*\[([^\]]+)\]\s+"(?P<name>[^"]+)"/', create_function('$matches', '
+			return make_link($matches[1], $matches[2]);'), $text);
+	$text = preg_replace_callback(
+		'/@page\s*\[([^\]]+)\]/', create_function('$matches', '
+			return make_link($matches[1], $matches[1]);'), $text);
+
+	return remove_escape(replace_pull::replace($text));
+}
+
 function isValidXHtml($xhtml) {
 	$xhtml = trim($xhtml);
 	if (preg_match('/^[^<>]*$/', $xhtml))
@@ -24,92 +123,4 @@ function isValidXHtml($xhtml) {
 	return preg_match('/(<(\w+)(\s*\w+\s*=\s*(\'[^\']*\'|"[^"]*")\s*)*>((?>[^<>]*)|(?R))<\/\2>)/', trim($xhtml));
 }
 
-class tag_formatter {
-	private static $pull;
-	private $start;
-	private $tag;
-
-	private function __construct($tag, $start) {
-		$this->tag = $tag;
-		$this->start = $start;
-	}
-
-	public function apply($text) {
-		$pattern = '/'.$this->start.'([^'.$this->start.'\n\r<>]+)'.$this->start.'/';
-		return preg_replace_callback($pattern, array($this, 'callback'), $text);
-	}
-
-	private function callback($matches) {
-		$formatted = tag_formatter::apply_formatters($matches[1]);
-		if (isValidXHtml($formatted))
-			return '<'.$this->tag.'>'.$formatted.'</'.$this->tag.'>';
-		return $matches[1];
-	}
-
-	private static function apply_formatters($text) {
-		foreach(tag_formatter::$pull as $tf)
-			$text = $tf->apply($text);
-		return $text;
-	}
-
-	private function replace_link_callback($matches) {
-		if(count($matches) == 2) {
-			return dont_touch.
-				'<a onclick="javascript:editOff()" href="'.
-				(preg_match('/^https?:\/\//i', $matches[1]) 
-					? $matches[1]
-					: www.($matches[1] == "/"
-						? ''
-						: wikiUrlEncode($matches[1]))).'">'.$matches[1].'</a>'.
-				dont_touch;
-		} else if (count($matches) == 3) {
-	 		return dont_touch.
-	 			'<a onclick="javascript:editOff()" href="'.
-				(preg_match('/^https?:\/\//i', $matches[1]) 
-					? $matches[1]
-					: www.($matches[1] == "/"
-						? ''
-						: wikiUrlEncode($matches[1]))).'">'.$matches[2].'</a>'.
-				dont_touch;
-		} else
-			internal('Wrong matches: ', print_r($matches, true));
-	}
-
-	public static function format($text) {
-		if (! tag_formatter::$pull) {
-			tag_formatter::$pull = array(
-				new tag_formatter('strong', '\*'),
-				new tag_formatter('em', '\/'),
-				new tag_formatter('sup', '\^'),
-				new tag_formatter('sub', '_'));
-		}
-
-		$text = preg_replace_callback(
-			'/@page\s+"([^"]+)"/', array('tag_formatter', 'replace_link_callback'), $text);
-		$text = preg_replace_callback(
-			'/@page\s*\[([^\]]+)\]\s+"([^"]+)"/', array('tag_formatter', 'replace_link_callback'), $text);
-		$text = preg_replace_callback(
-			'/@page\s*\[([^\]]+)\]/', array('tag_formatter', 'replace_link_callback'), $text);
-
-		$parts = preg_split('/'.preg_quote(dont_touch).'/', $text);
-		$numParts = count($parts);
-		for($i = 0; $i < $numParts; $i+=2)  {
-			$part = $parts[$i];
-			foreach(tag_formatter::$pull as $tf)
-				$part = $tf->apply($part);
-			$parts[$i] = $part;
-		}
-		return implode($parts);
-	}
-}
-
-
-function trace($text) {
-	if (DEBUG)
-		echo "Trace: $text\n";
-}
-
-function format_wiki($text) {
-	return tag_formatter::format($text);
-}
 ?>
