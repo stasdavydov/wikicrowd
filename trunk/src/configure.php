@@ -151,10 +151,12 @@
 				$usersDOM->save($personsIndex);
 			}
 
-			foreach($sandboxUsers as $uid=>$x)
-				if ($sandboxUser = loadPerson($uid, true))
-					rename(PERSONS."sandbox/$uid.xml", PERSONS."$uid.xml");
-
+			if (count($sandboxUsers) > 0) {
+				foreach($sandboxUsers as $uid=>$x)
+					if ($sandboxUser = loadPerson($uid, true))
+						rename(PERSONS."sandbox/$uid.xml", PERSONS."$uid.xml");
+				
+			}
 			header('Location: '.www.'configure/?ts='.time());
 			exit;
 		}

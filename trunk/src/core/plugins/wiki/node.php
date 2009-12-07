@@ -6,24 +6,7 @@
 
 */
 
-function replace_wiki_callback($matches) {
-	if(count($matches) == 2) {
-		return '<a onclick="javascript:editOff()" href="'.
-			(preg_match('/^https?:\/\//i', $matches[1]) 
-				? $matches[1]
-				: www.($matches[1] == "/"
-					? ''
-					: wikiUrlEncode($matches[1]))).'">'.$matches[1].'</a>';
-	} else if (count($matches) == 3) {
-	 	return '<a onclick="javascript:editOff()" href="'.
-			(preg_match('/^https?:\/\//i', $matches[1]) 
-				? $matches[1]
-				: www.($matches[1] == "/"
-					? ''
-					: wikiUrlEncode($matches[1]))).'">'.$matches[2].'</a>';
-	} else
-		internal('Wrong matches: ', print_r($matches, true));
-}
+define('dont_touch', '[don\'t touch]');
 
 /*
 	*bold* -> <strong>bold</strong>
@@ -32,49 +15,101 @@ function replace_wiki_callback($matches) {
 	^superscript^ -> <sup>superscript</sup>
 */
 
-function replace_wiki_bold_callback($matches) {
-	return '<strong>'.format_with_tags($matches[1]).'</strong>';
+
+function isValidXHtml($xhtml) {
+	$xhtml = trim($xhtml);
+	if (preg_match('/^[^<>]*$/', $xhtml))
+		return true;
+
+	return preg_match('/(<(\w+)(\s*\w+\s*=\s*(\'[^\']*\'|"[^"]*")\s*)*>((?>[^<>]*)|(?R))<\/\2>)/', trim($xhtml));
 }
 
-function replace_wiki_italic_callback($matches) {
-	$formatted = format_with_tags($matches[1]);
-	if (!preg_match('/(<(\w+)>((?>[^<]*)|(?R))*<\/(\2)>)/', $formatted)) {
-		return '<em>'.$formatted .'</em>';
+class tag_formatter {
+	private static $pull;
+	private $start;
+	private $tag;
+
+	private function __construct($tag, $start) {
+		$this->tag = $tag;
+		$this->start = $start;
 	}
-	else return $matches[1];
+
+	public function apply($text) {
+		$pattern = '/'.$this->start.'([^'.$this->start.'\n\r<>]+)'.$this->start.'/';
+		return preg_replace_callback($pattern, array($this, 'callback'), $text);
+	}
+
+	private function callback($matches) {
+		$formatted = tag_formatter::apply_formatters($matches[1]);
+		if (isValidXHtml($formatted))
+			return '<'.$this->tag.'>'.$formatted.'</'.$this->tag.'>';
+		return $matches[1];
+	}
+
+	private static function apply_formatters($text) {
+		foreach(tag_formatter::$pull as $tf)
+			$text = $tf->apply($text);
+		return $text;
+	}
+
+	private function replace_link_callback($matches) {
+		if(count($matches) == 2) {
+			return dont_touch.
+				'<a onclick="javascript:editOff()" href="'.
+				(preg_match('/^https?:\/\//i', $matches[1]) 
+					? $matches[1]
+					: www.($matches[1] == "/"
+						? ''
+						: wikiUrlEncode($matches[1]))).'">'.$matches[1].'</a>'.
+				dont_touch;
+		} else if (count($matches) == 3) {
+	 		return dont_touch.
+	 			'<a onclick="javascript:editOff()" href="'.
+				(preg_match('/^https?:\/\//i', $matches[1]) 
+					? $matches[1]
+					: www.($matches[1] == "/"
+						? ''
+						: wikiUrlEncode($matches[1]))).'">'.$matches[2].'</a>'.
+				dont_touch;
+		} else
+			internal('Wrong matches: ', print_r($matches, true));
+	}
+
+	public static function format($text) {
+		if (! tag_formatter::$pull) {
+			tag_formatter::$pull = array(
+				new tag_formatter('strong', '\*'),
+				new tag_formatter('em', '\/'),
+				new tag_formatter('sup', '\^'),
+				new tag_formatter('sub', '_'));
+		}
+
+		$text = preg_replace_callback(
+			'/@page\s+"([^"]+)"/', array('tag_formatter', 'replace_link_callback'), $text);
+		$text = preg_replace_callback(
+			'/@page\s*\[([^\]]+)\]\s+"([^"]+)"/', array('tag_formatter', 'replace_link_callback'), $text);
+		$text = preg_replace_callback(
+			'/@page\s*\[([^\]]+)\]/', array('tag_formatter', 'replace_link_callback'), $text);
+
+		$parts = preg_split('/'.preg_quote(dont_touch).'/', $text);
+		$numParts = count($parts);
+		for($i = 0; $i < $numParts; $i+=2)  {
+			$part = $parts[$i];
+			foreach(tag_formatter::$pull as $tf)
+				$part = $tf->apply($part);
+			$parts[$i] = $part;
+		}
+		return implode($parts);
+	}
 }
 
-function replace_wiki_subscript_callback($matches) {
-	return '<sub>'.format_with_tags($matches[1]).'</sub>';
-}
-function replace_wiki_superscript_callback($matches) {
-	return '<sup>'.format_with_tags($matches[1]).'</sup>';
-}
 
 function trace($text) {
 	if (DEBUG)
 		echo "Trace: $text\n";
 }
 
-function format_with_tags($text) {
-	trace($text);
-		$text = preg_replace_callback('/\*([^*\n\r<>]+)\*/', 'replace_wiki_bold_callback', $text);
-		$text = preg_replace_callback('/\/([^\/\n\r<>]+)\//', 'replace_wiki_italic_callback', $text);
-		$text = preg_replace_callback('/_([^_\n\r<>]+)_/', 'replace_wiki_subscript_callback', $text);
-		$text = preg_replace_callback('/\^([^\^\n\r<>]+)\^/', 'replace_wiki_superscript_callback', $text);
-	return $text;
-}
-
 function format_wiki($text) {
-	$text = format_with_tags($text);
-
-	$text = preg_replace_callback(
-		'/@page\s+"([^"]+)"/', 'replace_wiki_callback', $text);
-	$text = preg_replace_callback(
-		'/@page\s*\[([^\]]+)\]\s+"([^"]+)"/', 'replace_wiki_callback', $text);
-	$text = preg_replace_callback(
-		'/@page\s*\[([^\]]+)\]/', 'replace_wiki_callback', $text);
-
-	return $text;
+	return tag_formatter::format($text);
 }
 ?>
