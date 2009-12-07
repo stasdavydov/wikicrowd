@@ -1,5 +1,10 @@
 = Released =
 
+== 0.0.14 ==
+ * List unauthorized users in admin interface and grant them authorization (issue #29).
+ * Installer: additional pre-install check for ZipArchive. Also <? changed to <?php (issue #32).
+ * Fixed wiki layout for /italic/ text (issue #9).
+
 == 0.0.13 ==
  * New content block type @html for embed HTML support.
  * Fixed Wrong breadcrump path (issue #18).
