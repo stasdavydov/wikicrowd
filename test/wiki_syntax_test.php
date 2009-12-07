@@ -5,10 +5,8 @@
 require_once('simpletest/autorun.php');
 if (file_exists('../core/plugins/wiki/node.php')) {
 	require_once('../core.php');
-//	require_once('../core/plugins/wiki/node.php');
 } else {
 	require_once('../src/core.php');
-//	require_once('../src/core/plugins/wiki/node.php');
 }
 
 define ('www', '/www/');
