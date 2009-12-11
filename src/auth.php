@@ -27,12 +27,12 @@ h2 { margin: 0 0 0.5em 0; }
 .form input { font-size: 100%; margin: 0.5em 0 0 0; padding: 0.15em; }
 .form label { display: block; margin: 0 0 0 0; }
 .form label input { display: block; font: 100%/100% sans-serif; margin: 0 0 0.5em 0; padding: 0; width: 60%;}
-.form label textarea { display: block; width: 99%; }
+.form label textarea { display: block; width: 98%; }
 .form .error, .form .notice { font-weight: bold; }
 
 .odd { background: #FFC; border: 1px dotted #CCC; }
 .floatleft { float: left; }
-.floatright { float: right; margin-right: 2%;}
+.floatright { float: right; margin-right: 1%;}
 .form label input.inline { width: auto; margin: 0 0 0.2em 0.15em; }
 .menu { margin-left: -1em; }
 
