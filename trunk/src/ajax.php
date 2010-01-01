@@ -15,6 +15,21 @@
 		exit;
 	}
 
+	function sendRegistrationConfirmationEmail($email, $name, $login, $password) {
+		@mail ($email, 
+			"=?UTF-8?b?".base64_encode(getMessage('RegistrationConfirmation').' "'.title.'"')."?=", 
+			chunk_split(base64_encode($msg=
+				sprintf(getMessage('RegistrationEmail'),
+					$name, title, $login, $password,
+					"http://{$_SERVER['SERVER_NAME']}".www."check/$login-".md5(md5($password)).'/',
+					"http://{$_SERVER['SERVER_NAME']}".www))), 
+			"From: [WikiCrowd] <".supportEmail.">\r\n".
+			"Content-Type: text/plain; charset=UTF-8\r\n".
+			"Content-Transfer-Encoding: base64\r\n") 
+			or warn(getMessage('RegistrationFailed'));
+	}
+
+
 	if(! array_key_exists('do', $_REQUEST)) {
 		internal(getMessage('ActionIsNotSet'));
 	}
@@ -160,6 +175,8 @@
 		$person->save(HOME."persons/sandbox/$login.xml");
 
 		// 2. send confirmation e-mail 
+		sendRegistrationConfirmationEmail($email, $name, $login, $password);
+/*
 		@mail ($email, 
 			"=?UTF-8?b?".base64_encode(getMessage('RegistrationConfirmation').' "'.title.'"')."?=", 
 			chunk_split(base64_encode($msg=
@@ -167,12 +184,12 @@
 					$name, title, 
 					"http://{$_SERVER['SERVER_NAME']}".www."check/$login-".md5(md5($password)).'/',
 					"http://{$_SERVER['SERVER_NAME']}".www))), 
-			"From: [WikiCrowd] <".supportEmail.">\n".
-//			"BCC: Stas Davydov <$SUPPORT_EMAIL>\n".
-			"Content-Type: text/plain;\r\n\tcharset=UTF-8\n".
-			"Content-Transfer-Encoding: base64\n") 
+			"From: [WikiCrowd] <".supportEmail.">\r\n".
+//			"BCC: Stas Davydov <$SUPPORT_EMAIL>\r\n".
+			"Content-Type: text/plain; charset=UTF-8\r\n".
+			"Content-Transfer-Encoding: base64\r\n") 
 			or warn(getMessage('RegistrationFailed'));
-
+*/
 ?><registered/><?
 
 
@@ -259,10 +276,11 @@
 						$name, title, 
 						"http://{$_SERVER['SERVER_NAME']}".www."check/$login-$checkCode/",
 						"http://{$_SERVER['SERVER_NAME']}".www))), 
-				"From: [WikiCrowd] <".supportEmail.">\n".
-//				"BCC: Stas Davydov <$SUPPORT_EMAIL>\n".
-				"Content-Type: text/plain;\r\n\tcharset=UTF-8\n".
-				"Content-Transfer-Encoding: base64\n");
+				"From: [WikiCrowd] <".supportEmail.">\r\n".
+//				"BCC: Stas Davydov <$SUPPORT_EMAIL>\r\n".
+				"Content-Type: text/plain; charset=UTF-8\r\n".
+				"Content-Transfer-Encoding: base64\r\n")
+			or warn('Confirmation e-mail isn\'t sent.');
 		}
 
 ?><saved/><?
@@ -279,51 +297,49 @@
 		else if (! preg_match('/[\w\d._+]+@[\w\d.-]+\.[a-z]{2,4}$/i', $email)) 
 			warn(getMessage('EmailIsWrong'));
 		
-		$foundPerson = NULL;
-		$d = opendir('persons/');
-		while($f = readdir($d)) {
-			if (preg_match('/^([a-zA-Z0-9]*)\.xml$/', $f, $matches)) {
-				$person = loadPerson($matches[1]);
-				if ($person->getAttribute("email") == $email) {
-					$foundPerson = $person;
-					break;
-				}
-			}
-		}
-		closedir($d);
-		if ($foundPerson) {
+		list($users, $usersDOM) = getPersonIndex();
+		$xpath = new DOMXPath($usersDOM);
+		$found = $xpath->query("//person[@email = '$email']");
+
+		if ($found->length > 0) {
+			$foundPerson = $found->item(0);
+			$foundPerson = loadPerson($foundPerson->getAttribute('uid'));
+
 			$newPassword = substr(md5(time()), 0, 8);
 			$foundPerson->setAttribute('password', md5($newPassword));
-			$foundPerson->ownerDocument->save('persons/'.$foundPerson->getAttribute('uid').'.xml');
+			$foundPerson->ownerDocument->save(PERSONS.$foundPerson->getAttribute('uid').'.xml');
 
 			@mail ($email, 
 				"=?UTF-8?b?".base64_encode(getMessage('NewPasswrodOnSite').' "'.title.'"')."?=", 
 				chunk_split(base64_encode($msg=
 					sprintf(getMessage('NewPasswrodMessage'),
-						$name, title, $foundPerson->getAttribute('uid'), $newPassword,
+						$foundPerson->getAttribute('name'), 
+						title, $foundPerson->getAttribute('uid'), $newPassword,
                         "http://{$_SERVER['SERVER_NAME']}".www."auth/",
                         "http://{$_SERVER['SERVER_NAME']}".www."person/".$foundPerson->getAttribute('uid'),
                         "http://{$_SERVER['SERVER_NAME']}".www))), 
-				"From: [WikiCrowd] <supportEmail>\n".
-//				"BCC: Stas Davydov <$SUPPORT_EMAIL>\n".
-				"Content-Type: text/plain;\r\n\tcharset=UTF-8\n".
-				"Content-Transfer-Encoding: base64\n");
+				"From: [WikiCrowd] <".supportEmail.">\r\n".
+				"Content-Type: text/plain; charset=UTF-8\r\n".
+				"Content-Transfer-Encoding: base64\r\n")
+			or warn('E-mail isn\'t sent.');	
 
 ?><sent/><?
 		} else {
-			$d = opendir('persons/sandbox/');
-			while($f = readdir($d)) {
-				if (preg_match('/^([a-zA-Z0-9]*)\.xml$/', $f, $matches)) {
-					$person = loadPerson($matches[1], true);
-					if ($person->getAttribute("email") == $email) {
-						$foundPerson = $person;
-						break;
-					}
-				}
-			}
-			closedir($d);
+			list($users, $usersDOM) = getPersonIndex(true);
+			$xpath = new DOMXPath($usersDOM);
+			$found = $xpath->query("//person[@email = '$email']");
+		
+			if ($found->length > 0) {
+				$foundPerson = $found->item(0);
+				$foundPerson = loadPerson($foundPerson->getAttribute('uid'), true);
 
-			if ($foundPerson) {
+				$newPassword = substr(md5(time()), 0, 8);
+				$foundPerson->setAttribute('password', md5($newPassword));
+				$foundPerson->ownerDocument->save(PERSONS.'sandbox/'.$foundPerson->getAttribute('uid').'.xml');
+				
+				sendRegistrationConfirmationEmail($email, $foundPerson->getAttribute('name'), 
+					$foundPerson->getAttribute('uid'), $newPassword);
+
 				warn(getMessage('AccountIsNotActiveYet'));
 			} else {
 				warn(getMessage('ThereAreNoAccounts'));
