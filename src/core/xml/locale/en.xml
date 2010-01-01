@@ -3,7 +3,7 @@
 <message id="AccessRights" text="New user rights"/>
 <message id="AccoutActivation" text="Account activation"/>
 <message id="AccountIsNotActive" text="Your account is not activated yet. Please click on link from confirmation message to activate your account."/>
-<message id="AccountIsNotActiveYet" text="Your account is not activated yet."/>
+<message id="AccountIsNotActiveYet" text="Your account is not activated yet. We sent again confirmation e-mail, so please click on link in it to activate your account."/>
 <message id="AccountIsNotFound" text="There is no such person"/>
 <message id="ActionIsNotSet" text="Action is not defined."/>
 <message id="Admin" text="Admin"/>
@@ -130,6 +130,8 @@ Support team"/>
 <message id="RegistrationConfirmation" text="Registration confirmation"/>
 <message id="RegistrationEmail" text="Hello, %s!\n\n
 Thank you so much for registration on web-site '%s'!\n
+Your login: %s\n
+Your password: %s\n\n
 Please click on the following link to activate your account:\n
 %s\n\n
 If you didn't ask to send this e-mail to you, please sorry that you get it.\n

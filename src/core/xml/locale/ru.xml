@@ -2,8 +2,8 @@
 <locale language="Русский">
 <message id="AccessRights" text="Права доступа для нового пользователя"/>
 <message id="AccoutActivation" text="Активация учетной записи"/>
-<message id="AccountIsNotActive" text="Ваша учетная запись еще не активирована. Пожалуйста, кликните на ссылку из письма с подтверждением, чтобы активировать Вашу учетную запись."/>
-<message id="AccountIsNotActiveYet" text="Ваша учетная запись еще не активирована."/>
+<message id="AccountIsNotActive" text="Ваша учетная запись еще не активирована. Пожалуйста, кликните на ссылку из письма с подтверждением, чтобы активировать вашу учетную запись."/>
+<message id="AccountIsNotActiveYet" text="Ваша учетная запись еще не активирована. Мы повторно отправили вам письмо о подтверждении учетной записи, так что просто кликните на ссылку из письма, чтобы активировать вашу учетную запись."/>
 <message id="AccountIsNotFound" text="Нет такого человека"/>
 <message id="ActionIsNotSet" text="Действие не определено."/>
 <message id="Admin" text="Администратор"/>
@@ -27,34 +27,34 @@
 <message id="edit" text="Редактировать"/>
 <message id="EditFormLoading" text="Загрузка формы для редактирования..."/>
 <message id="ElementWithIDNotFound" text="Элемент с ID %s не найден."/>
-<message id="EmailCannotBeEmpty" text="E-mail нужен для того, чтобы точно убедиться, что Вы - это Вы. Еще он нужен, чтобы получить письмом пароль, если вдруг Вы его забыли. А еще нам очень хочется иметь возможность связаться с Вами, если что (никакого СПАМа!). Укажите, пожалуйста, Ваш e-mail."/>
+<message id="EmailCannotBeEmpty" text="E-mail нужен для того, чтобы точно убедиться, что вы - это вы. Еще он нужен, чтобы получить письмом пароль, если вдруг вы его забыли. А еще нам очень хочется иметь возможность связаться с вами, если что (никакого СПАМа!). Укажите, пожалуйста, ваш e-mail."/>
 <message id="EmailChangeConfirmation" text="Подтверждение изменения e-mail на сайте"/>
 <message id="EmailChangeIsConfirmed" text="Спасибо! Изменение e-mail подтверждено."/>
 <message id="EmailChangeMessage" text="Здравствуйте, %s!\n\n
-Вы изменили Ваш e-mail адрес на сайте '%s'\n
+Вы изменили ваш e-mail адрес на сайте '%s'\n
 Чтобы подтвердить новый адрес, пожалуйста, перейдите \n
 по следующей ссылке: \n
 %s\n\n
-Если Вы не просили присылать это письмо, просим нас извинить, 
-что оно к Вам пришло.\n
-Вероятно, кто-то использовал Ваш e-mail на сайте %s\n
+Если вы не просили присылать это письмо, просим нас извинить, 
+что оно к вам пришло.\n
+Вероятно, кто-то использовал ваш e-mail на сайте %s\n
 Если это повторится, пожалуйста, свяжитесь с нами.\n\n
 С уважением,\n
 Служба поддержки"/>
 <message id="EmailChangeWrongCode" text="Неверно указан код подтверждения изменения e-mail."/>
-<message id="EmailIsEmpty" text="Если Вы не укажете Ваш e-mail, мы не сможем прислать Вам пароль."/>
+<message id="EmailIsEmpty" text="Если вы не укажете ваш e-mail, мы не сможем прислать вам пароль."/>
 <message id="EmailIsNotSet" text="E-mail не указан."/>
-<message id="EmailIsWrong" text="В Вашем e-mail ошибка, проверьте, пожалуйста. Хочется чего-то вроде email@server.com"/>
+<message id="EmailIsWrong" text="В вашем e-mail ошибка, проверьте, пожалуйста. Хочется чего-то вроде email@server.com"/>
 <message id="Enter" text="Вход"/>
-<message id="EnterLoginAndPassword" text="Для доступа к этой странице Вам необходимо ввести логин и пароль."/>
+<message id="EnterLoginAndPassword" text="Для доступа к этой странице вам необходимо ввести логин и пароль."/>
 <message id="FileIsNotSet" text="Файл не задан для media-блока."/>
 <message id="ForgotPassword" text="Вспомнить пароль"/>
 <message id="Grant" text="Авторизовать"/>
 <message id="GuestNotAdmin" text="Гость не может быть администратором."/>
 <message id='IDisEmpty' text='ID пуст.'/>
 <message id='IDisNotSet' text='ID не указан.'/>
-<message id='IfYourForgetPassword' text='Если Вы забыли пароль или логин, укажите e-mail, который Вы использовали при регистрации на этом сайте. Мы вышлем Вам новый пароль письмом на указанный адрес.'/>
-<message id='IfYouForgetShort' text='Если Вы забыли Ваш логин или пароль, их всегда &lt;a href="%1"&gt;можно восстановить&lt;/a&gt;.'/>
+<message id='IfYourForgetPassword' text='Если вы забыли пароль или логин, укажите e-mail, который вы использовали при регистрации на этом сайте. Мы вышлем вам новый пароль письмом на указанный адрес.'/>
+<message id='IfYouForgetShort' text='Если вы забыли ваш логин или пароль, их всегда &lt;a href="%1"&gt;можно восстановить&lt;/a&gt;.'/>
 <message id='InfoIsNotSet' text='Информация не указана.'/>
 <message id='InternalError' text='Внутренняя ошибка'/>
 <message id='InternalErrorOccured' text='Произошла внутренняя ошибка:'/>
@@ -72,8 +72,8 @@
 <message id="LoginField" text="Логин (последовательность из латинских букв и цифр)"/>
 <message id="LoginIsEmpty" text="Логин пуст."/>
 <message id="LoginIsNotSet" text="Логин не указан."/>
-<message id="LoginIsRegistered" text="Некто, с указанным Вами логином, уже зарегистрирован. Если это были Вы, пожалуйста, укажите пароль, который Вы использовали первый раз, и продолжите регистрацию."/>
-<message id="LoginIsUsed" text="Указанный Вами логин уже используется на нашем сайте."/>
+<message id="LoginIsRegistered" text="Некто, с указанным вами логином, уже зарегистрирован. Если это были вы, пожалуйста, укажите пароль, который вы использовали первый раз, и продолжите регистрацию."/>
+<message id="LoginIsUsed" text="Указанный вами логин уже используется на нашем сайте."/>
 <message id="LoginOrPasswordWrong" text="Логин или пароль указаны неверно."/>
 <message id="LoginRule" text="Логин может содержать только латинские буквы (a-z, A-Z) или арабские цифры (0-9)."/>
 <message id="LoginWrong" text="Логин указан неверно."/>
@@ -91,31 +91,31 @@
 <message id="monNov" text="ноя"/>
 <message id="monDec" text="дек"/>
 <message id="NameIsNotSet" text="Имя не указано."/>
-<message id="NameIsRequired" text="Нам бы очень хотелось знать, как Вас зовут. Укажите, пожалуйста, Ваше имя."/>
+<message id="NameIsRequired" text="Нам бы очень хотелось знать, как вас зовут. Укажите, пожалуйста, ваше имя."/>
 <message id="NewPassword" text="Новый пароль"/>
 <message id="NewPasswrodMessage" text="Здравствуйте, %s!\n\n
-Вы попросили прислать Вам новый пароль на сайте '%s'\n\n
+Вы попросили прислать вам новый пароль на сайте '%s'\n\n
 Ваш логин: %s\n
 Ваш новый пароль: %s\n\n
 Введите их на странице входа на сайт: \n
 %s\n\n
-Вы можете изменить Ваш новый пароль на странице с Вашей учетной записью:\n
+Вы можете изменить ваш новый пароль на странице с вашей учетной записью:\n
 %s\n\n
-Если Вы не просили присылать это письмо, вероятно, кто-то использовал \n
+Если вы не просили присылать это письмо, вероятно, кто-то использовал \n
 Ваш e-mail на сайте %s\n
 Если это повторится, пожалуйста, свяжитесь с нами.\n\n
 С уважением,\n
 Служба поддержки"/>
-<message id="NewPasswordOldPassword" text="Если Вы хотите задать новый пароль, пожалуйста, укажите Ваш старый пароль. Это нужно для дополнительной проверки, что Вы - это Вы."/>
+<message id="NewPasswordOldPassword" text="Если вы хотите задать новый пароль, пожалуйста, укажите ваш старый пароль. Это нужно для дополнительной проверки, что вы - это вы."/>
 <message id="NewPasswrodOnSite" text="Новый пароль на сайте"/>
-<message id="NewPasswrodSent" text="Мы отправили Вам письмо с новым паролем."/>
+<message id="NewPasswrodSent" text="Мы отправили вам письмо с новым паролем."/>
 <message id="NewUserCanEdit" text="Новый пользователь может редактировать"/>
 <message id="NewUserCanView" text="Новый пользователь может читать"/>
 <message id="NewVersionAvailable" text="Появилась новая версия: &lt;a href='%s'&gt;WikiCrowd %s&lt;/a&gt;."/>
 <message id="NoAdminExist" text="На сайте не осталось админов, пожалуйста, выберите хотя бы одного."/>
 <message id="NoChanges" text="Изменений еще не было."/>
 <message id="NothingIsChanged" text="Такое впечатление, что ничего не изменилось."/>
-<message id="NotRegisteredYet" text="Если Вы еще не регистрировались на нашем сайте, можно сделать это прямо сейчас."/>
+<message id="NotRegisteredYet" text="Если вы еще не регистрировались на нашем сайте, можно сделать это прямо сейчас."/>
 <message id="OldPassword" text="Старый пароль"/>
 <message id="OldPasswordIsNotSet" text="Старый пароль не указан."/>
 <message id="Original" text="оригинал"/>
@@ -124,7 +124,7 @@
 <message id="PasswordCannotBeEmpty" text="Пароль не может быть пустым. Если не задать пароль, кто угодно сможет выдать себя за вас."/>
 <message id="PasswordCannotBeEmptyWOAlert" text="Пароль не может быть пустым."/>
 <message id="PasswordIsNotSet" text="Пароль не указан."/>
-<message id="PasswordIsWrong" text="Пароль, который Вы указали, неверный."/>
+<message id="PasswordIsWrong" text="Пароль, который вы указали, неверный."/>
 <message id="Persons" text="Люди"/>
 <message id="Register" text="Зарегистрироваться"/>
 <message id="Registring" text="Идет регистрация..."/>
@@ -132,17 +132,19 @@
 <message id="RegistrationConfirmation" text="Подтверждение регистрации на сайте"/>
 <message id="RegistrationEmail" text="Здравствуйте, %s!\n\n
 Большое спасибо за регистрацию на сайте '%s'!\n
-Чтобы активировать Вашу учетную запись, пожалуйста, перейдите \n
+Ваш логин: %s\n
+Ваш пароль: %s\n\n
+Чтобы активировать вашу учетную запись, пожалуйста, перейдите \n
 по следующей ссылке: \n
 %s\n\n
-Если Вы не просили присылать это письмо, вероятно, кто-то использовал \nВаш e-mail на 
+Если вы не просили присылать это письмо, вероятно, кто-то использовал \nваш e-mail на 
 сайте %s\n
 Если это повторится, пожалуйста, свяжитесь с нами.\n\n
 С уважением,\n
 Служба поддержки\n"/>
 <message id="RegistrationFailed" text="Письмо с активацией не было отправлено. Попробуйте еще раз."/>
 <message id="RegistrationIsClosed" text="Регистрация закрыта."/>
-<message id="RegistrationSuccess" text="Регистрация прошла успешно! На указанный Вами e-mail было отправлено письмо со ссылкой, перейдя по которой, Вы активируете Вашу учетную запись."/>
+<message id="RegistrationSuccess" text="Регистрация прошла успешно! На указанный вами e-mail было отправлено письмо со ссылкой, перейдя по которой, вы активируете вашу учетную запись."/>
 <message id="RememberMe" text="Запомнить меня надолго"/>
 <message id="RestrictedAccess" text="Доступ к закрытой части сайта"/>
 <message id="RestrictedArea" text="Закрытая часть сайта"/>
@@ -159,17 +161,17 @@
 <message id="SomethingHappen" text="Возникли сложности."/>
 <message id="SomethingWithNetwork" text="Вероятно что-то с сетью. Попробуйте повторить чуть позже."/>
 <message id="SomethingWithServer" text="Какие-то проблемы на сервере."/>
-<message id="SpecifyLoginAndPassword" text="Укажите Ваш логин и пароль для доступа к сайту и сохраните текст еще раз."/>
+<message id="SpecifyLoginAndPassword" text="Укажите ваш логин и пароль для доступа к сайту и сохраните текст еще раз."/>
 <message id="SuccessfullyActivated" text="успешно активирована."/>
 <message id="SupportIsNotified" text="Наша служба поддержки уже получила уведомление и постарается исправить проблему как можно скорее."/>
 <message id="SupportsEmail" text="E-mail службы поддержки"/>
 <message id="SupportsEmailLookWrong" text="E-mail службы поддержки выглядит странно."/>
 <message id="TextIsNotSet" text="Текст не задан."/>
-<message id="ThereAreNoAccounts" text="Не найдено ни одной учетной записи с указанным Вами e-mail."/>
+<message id="ThereAreNoAccounts" text="Не найдено ни одной учетной записи с указанным вами e-mail."/>
 <message id="Title" text="Название wiki сайта"/>
 <message id="TitleIsNotSet" text="Свойство 'title' не задано."/>
 <message id="TitleIsRequired" text="Название wiki сайта не задано."/>
-<message id="ToChangePassword" text="Чтобы изменить пароль, введите Ваш старый и новый пароли"/>
+<message id="ToChangePassword" text="Чтобы изменить пароль, введите ваш старый и новый пароли"/>
 <message id="ToHome" text="Домой"/>
 <message id="ToManyElementsWithID" text="Слишком много элементов с ID"/>
 <message id="UserRights" text="Права зарегистрированных пользователей"/>
@@ -210,13 +212,13 @@
 </message>
 <message id="WikiHelpTip" text="Краткая справка по wiki-синтаксису"/>
 <message id="WrongBlockType" text="Недопустимый тип блока"/>
-<message id="WrongOldPassword" text="Вы неправильно указали Ваш старый пароль."/>
+<message id="WrongOldPassword" text="Вы неправильно указали ваш старый пароль."/>
 <message id="YouHaveNoPermissions" text="У вас нет доступа к этой странице."/>
 <message id="YourAccout" text="Ваша учетная запись"/>
 <message id="YourLogin" text="Логин"/>
 <message id="YourEmail" text="Ваш e-mail (для связи, на сайте не публикуется)"/>
 <message id="YourEmailField" text="Ваш e-mail"/>
-<message id="YourInformation" text="Информация о Вас (будет опубликована на сайте)"/>
+<message id="YourInformation" text="Информация о вас (будет опубликована на сайте)"/>
 <message id="YourName" text="Ваше имя"/>
 
 <function id="getMinutesText" params="minutes"><![CDATA[return minutes + " минут" + 
