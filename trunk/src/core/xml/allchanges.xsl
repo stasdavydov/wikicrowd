@@ -18,6 +18,9 @@
 
 	<xsl:include href="core.xsl"/>
 
+	<xsl:param name="PAGE"/>
+	<xsl:param name="PAGESIZE"/>
+
 	<xsl:template match="/">
 		<html xml:lang="{$LOCALE}">
 			<head><title><xsl:value-of select="$locale//message[@id='AllChanges']/@text"/> &#0187; <xsl:value-of select="$config//property[@name='title']/@value"/></title>
@@ -43,17 +46,22 @@ h2 { margin: 0 0 0.15em 0; }
 				<h1><xsl:value-of select="$locale//message[@id='AllChanges']/@text"/> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
 
 				<div id="chapter">
+					<xsl:call-template name="pages"/>
+
 					<xsl:choose>
 						<xsl:when test="count(/changes/change) &gt; 0">
-							<ul>
+							<ul style="clear:left">
 								<xsl:for-each select="/changes/change">
 									<xsl:sort select="position()" data-type="number" order="descending"/>
-									<xsl:apply-templates select="."/>
+
+									<xsl:if test="position() &gt;= ($PAGE - 1) * $PAGESIZE and position() &lt; $PAGE * $PAGESIZE">
+										<xsl:apply-templates select="."/>
+									</xsl:if>
 								</xsl:for-each>
 							</ul>
 						</xsl:when>
 						<xsl:otherwise>
-							<p><xsl:value-of select="$locale//message[@id='NoChanges']/@text"/></p>
+							<p style="clear:left"><xsl:value-of select="$locale//message[@id='NoChanges']/@text"/></p>
 						</xsl:otherwise>
 					</xsl:choose>
 				</div>
@@ -79,4 +87,44 @@ h2 { margin: 0 0 0.15em 0; }
 			</div>
 		</li>
 	</xsl:template>
+
+	<xsl:template name="pages">
+		<div class="pages">
+			<xsl:if test="count(/changes/change) &gt; $PAGESIZE">
+				<div class="label">
+					<xsl:value-of select="$locale//message[@id='Pages']/@text"/> 
+				</div>
+				<ul>
+					<xsl:call-template name="page">
+						<xsl:with-param name="page" select="1"/>
+					</xsl:call-template>
+				</ul>
+			</xsl:if>
+		</div>
+	</xsl:template>
+
+	<xsl:template name="page">
+		<xsl:param name="page"/>
+
+		<li>
+			<xsl:choose>
+				<xsl:when test="$page = $PAGE">
+					<span>
+						<xsl:value-of select="$page"/>
+					</span>
+				</xsl:when>
+				<xsl:otherwise>
+					<a href="?page={$page}">
+						<xsl:value-of select="$page"/>
+					</a>
+				</xsl:otherwise>
+			</xsl:choose>
+		</li>
+		<xsl:if test="$page &lt; ceiling(count(/changes/change) div $PAGESIZE)">
+			<xsl:call-template name="page">
+				<xsl:with-param name="page" select="$page + 1"/>
+			</xsl:call-template>
+		</xsl:if>
+	</xsl:template>
+
 </xsl:stylesheet>
