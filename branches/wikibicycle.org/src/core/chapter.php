@@ -49,8 +49,9 @@ class chapter {
   				header('HTTP/1.0 404 Not Found');
 	   			exit;
 			} else if ($chapterName == "") {
-				header('Location: '.www.rawurlencode(homePage));
-				exit;
+				$chapterName = homePage;
+//				header('Location: '.www.rawurlencode(homePage));
+//				exit;
 			}
 		}
 

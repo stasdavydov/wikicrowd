@@ -95,6 +95,8 @@ h1 { margin: 0.25em 0 0.5em 0.65em; }
 				<xsl:call-template name="menu"/>
 				<h1><xsl:value-of select="/person/@name"/> &#0187; <a href="{$config//property[@name='www']/@value}person/"><xsl:value-of select="$locale//message[@id='Persons']/@text"/></a> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
 				<div id="person">
+					<xsl:call-template name="ad-top"/>
+
 					<xsl:call-template name="textbr">
 						<xsl:with-param name="text"><xsl:value-of select="info"/></xsl:with-param>
 					</xsl:call-template>

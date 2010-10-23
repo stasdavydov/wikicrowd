@@ -28,14 +28,15 @@
 	<xsl:variable name="locale" select="document(concat('locale/', $LOCALE, '.xml'))/locale"/>
 
 	<xsl:template name="copyright">
-		<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<xsl:value-of select="$VERSION"/> by <a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
+		<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<xsl:value-of select="$VERSION"/> by <a href="http://stasdavydov.com/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
 			<xsl:choose>
 				<xsl:when test="$config//property[@name='license']/@value">
 					<xsl:value-of select="$config//property[@name='license']/@value" disable-output-escaping="yes"/>
 				</xsl:when>
-				<xsl:otherwise>License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.</xsl:otherwise>
+				<xsl:otherwise>License: <noindex><a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a></noindex>.</xsl:otherwise>
 			</xsl:choose>
 		</p>
+		<div style="margin-top:2em;background:#CCC"><xsl:comment>SAPE</xsl:comment></div>
 	</xsl:template>
 
 	<xsl:template name="menu">
@@ -44,10 +45,10 @@
 			<div class="leftside">
 				<xsl:choose>
 					<xsl:when test="count(/chapter) > 0 and $MODE = 'view' and $CANEDIT = '1'">
-						<a href="?"><xsl:value-of select="$locale//message[@id='edit']/@text"/></a>
+						<a href="?edit"><xsl:value-of select="$locale//message[@id='edit']/@text"/></a>
 					</xsl:when>
 					<xsl:when test="count(/chapter) > 0 and $MODE = 'edit' and $CANVIEW = '1'">
-						<a href="?view"><xsl:value-of select="$locale//message[@id='view']/@text"/></a>
+						<a href="?"><xsl:value-of select="$locale//message[@id='view']/@text"/></a>
 					</xsl:when>
 				</xsl:choose>
 			</div>
@@ -232,7 +233,7 @@
 								</xsl:if>
 								<xsl:value-of select="php:function('wikiUrlEncode', substring-before($title, '/'))"/>
 								<xsl:value-of select="php:function('wikiUrlEncode', $title)"/>
-								<xsl:if test="$MODE = 'view' and $CANVIEW = '1'">?view</xsl:if>
+								<xsl:if test="$MODE = 'edit' and $CANEDIT = '1'">?edit</xsl:if>
 							</xsl:attribute>
 							<xsl:value-of select="$title"/>
 						</a>
@@ -274,7 +275,7 @@
 								</xsl:if>
 								<xsl:value-of select="php:function('wikiUrlEncode', substring-before($title, '/'))"/>
 								<xsl:value-of select="php:function('wikiUrlEncode', $title)"/>
-								<xsl:if test="$MODE = 'view' and $CANVIEW = '1'">?view</xsl:if>
+								<xsl:if test="$MODE = 'edit' and $CANEDIT = '1'">?edit</xsl:if>
 							</xsl:attribute>
 							<xsl:value-of select="$title"/>
 						</a>
@@ -299,6 +300,21 @@
 				<xsl:value-of select="$title"/>
 			</xsl:otherwise>
 		</xsl:choose>
+	</xsl:template>
+
+	<xsl:template name="ad-top">
+		<div class="ad">
+			<script type="text/javascript"><xsl:comment><xsl:text>
+google_ad_client = "pub-1655371881504104";
+google_ad_slot = "9471030623";
+google_ad_width = 468;
+google_ad_height = 60;
+//</xsl:text></xsl:comment>
+			</script>
+			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				<xsl:text>//</xsl:text>
+			</script>
+		</div>
 	</xsl:template>
 </xsl:stylesheet>
 
