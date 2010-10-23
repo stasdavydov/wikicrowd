@@ -71,6 +71,8 @@
 						</xsl:call-template>
 					</p>
 
+					<xsl:call-template name="ad-top"/>
+
 					<xsl:choose>
 						<xsl:when test="$MODE = 'edit'">
 							<xsl:for-each select="/chapter/block">

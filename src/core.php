@@ -258,4 +258,36 @@ function copyright() {
 	}
 ?></p><?
 }
+
+// SAPE
+
+// SAPE
+
+define('_SAPE_USER', 'a0c1683793bedf9d57cd712e0673711b'); 
+
+function install_sape() {
+	if (file_exists(dirname(__FILE__).'/'._SAPE_USER)) {
+		@require_once(dirname(__FILE__).'/'._SAPE_USER.'/sape.php'); 
+		global $sape;
+		$sape = new SAPE_client(array('charset'=>'UTF-8'));
+		$sape_context = new SAPE_context(); 
+
+		ob_start('sape_embed');
+	
+    	ob_start(array(&$sape_context,'replace_in_page'));
+	}
+}
+
+function flush_sape() {
+	if (file_exists(dirname(__FILE__).'/'._SAPE_USER)) {
+		ob_end_flush();
+		ob_end_flush();
+	}
+}
+
+function sape_embed($content) {
+	global $sape;
+	return str_replace('<!--SAPE-->', $sape->return_links(), $content);
+}
+
 ?>

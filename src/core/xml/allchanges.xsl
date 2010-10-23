@@ -46,6 +46,8 @@ h2 { margin: 0 0 0.15em 0; }
 				<h1><xsl:value-of select="$locale//message[@id='AllChanges']/@text"/> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
 
 				<div id="chapter">
+					<xsl:call-template name="ad-top"/>
+
 					<xsl:call-template name="pages"/>
 
 					<xsl:choose>

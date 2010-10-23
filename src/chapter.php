@@ -3,14 +3,14 @@
 
 	require_once 'core.php';
 
-	$mode = array_key_exists('view', $_GET) ? 'view' : 'edit';
+	$mode = array_key_exists('edit', $_GET) ? 'edit' : 'view';
 
 	$person = getSessionPerson();
 	if ($mode == "edit" 
 		&& personCanView($person) 
 		&& !personCanEdit($person)) {
 
-		header('Location: ?view');
+		header('Location: ?');
 		exit;
 	}
 
@@ -21,6 +21,8 @@
 		include 'auth.php';
 		exit;
 	}
+
+	install_sape();
 
 	$xslFile = CORE.'xml/chapter.xsl';
 
@@ -33,6 +35,8 @@
 		'CANVIEW'=>personCanView($person));
 
 	echo $chapter->transform($xslFile, $params);
+
+	flush_sape();
 
 	ob_end_flush();
 ?>

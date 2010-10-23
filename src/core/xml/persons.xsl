@@ -38,6 +38,8 @@
 				<h1><xsl:value-of select="$locale//message[@id='Persons']/@text"/> &#0187; <a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a></h1>
 
 				<div id="chapter">
+					<xsl:call-template name="ad-top"/>
+
 					<xsl:for-each select="//person">
 						<xsl:sort select="@name" order="ascending"/>
 						<xsl:apply-templates select="."/>
