@@ -4,7 +4,7 @@
 == Text formatting ==
 `*`bold`*` for *bold* text.
 
-/italic/ for _italic_ text.
+//italic// for _italic_ text.
 
 `^`superscript`^` for^superscript^
 
