@@ -2,6 +2,7 @@
 
 == 0.0.15 ==
  * Paging on 'All changes' page.
+ * WikiSyntax changed a bit: // for italic //
  * Minor fixes.
 
 == 0.0.14 ==
