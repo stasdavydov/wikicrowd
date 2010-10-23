@@ -118,6 +118,7 @@ Support team"/>
 <message id="OldPasswordIsNotSet" text="Old password is not set."/>
 <message id="Original" text="original"/>
 <message id="Overwrite" text="Overwrite"/>
+<message id="Pages" text="Pages: "/>
 <message id="Password" text="Password"/>
 <message id="PasswordCannotBeEmpty" text="Password cannot be empty. If you'll not specify the password anyone will be able to pass oneself off as you."/>
 <message id="PasswordCannotBeEmptyWOAlert" text="Password cannot be empty."/>
