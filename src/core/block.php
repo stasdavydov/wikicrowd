@@ -24,7 +24,7 @@ abstract class versioned {
 		$this->author = $author;
 	}
 
-	protected function __set($name, $value) {
+	public function __set($name, $value) {
 		switch($name) {
 			case 'element':
 				$this->element = $value;
@@ -121,7 +121,7 @@ abstract class block extends versioned {
 		}
 	}
 
-	protected function __set($name, $value) {
+	public function __set($name, $value) {
 		switch($name) {
 			case 'id':
 			case 'type':

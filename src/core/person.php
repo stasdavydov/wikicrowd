@@ -49,7 +49,7 @@ function personCan($person, $right) {
 
 function getSessionPerson() {
 	if (array_key_exists('uid', $_COOKIE)) {
-		$uid = split('-', $_COOKIE['uid']);
+		$uid = preg_split('/-/', $_COOKIE['uid']);
 		if (count($uid) == 2) {
 			$person = loadPerson($uid[0]);
 			if ($person && md5($person->getAttribute('password')) == $uid[1])

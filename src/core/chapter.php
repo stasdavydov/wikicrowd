@@ -35,16 +35,23 @@ class chapter {
 		return makeFileName(fileNamePartEncode(trim($chapterName)).'.xml');
 	}
 
-	public function __construct($ajaxUsing = true) {
+	/**
+	 * @note Usualy it doesn't require to pass $chapterName by param because
+	 * it will be requested from environment. There is only one exception: when you want
+	 * to manually create chapter with the specific name.
+	 */
+	public function __construct($ajaxUsing = true, $chapterName = NULL) {
 		global $LOCKFILE;
 
-		$chapterName = chapter::getChapterName($ajaxUsing);
 		if ($chapterName === NULL) {
-  			header('HTTP/1.0 404 Not Found');
-	   		exit;
-		} else if ($chapterName == "") {
-			header('Location: '.www.rawurlencode(homePage));
-			exit;
+			$chapterName = chapter::getChapterName($ajaxUsing);
+			if ($chapterName === NULL) {
+  				header('HTTP/1.0 404 Not Found');
+	   			exit;
+			} else if ($chapterName == "") {
+				header('Location: '.www.rawurlencode(homePage));
+				exit;
+			}
 		}
 
 		$this->chapterFile = CHAPTERS . chapter::getChapterFileName($chapterName);
@@ -67,9 +74,10 @@ class chapter {
 
 			$par = new par($this);
 			$par->create($person->getAttribute('uid'), 'type you text here');
+			$par->id = 'firstline';
 			$this->appendBlock($par);
-			
-			$this->dom->save($this->chapterFile);
+
+			$this->save(false);	
 		} else {
 			$this->dom->load($this->chapterFile);
 		}
@@ -198,7 +206,7 @@ class chapter {
 			PROJECT_MTIME);
 	}
 
-	private function getBlock($id) {
+	public function getBlock($id) {
 		if ($element = $this->getElementById($id)) {
 			$type = $element->getAttribute('type');
 			$block = new $type($this);
@@ -206,6 +214,16 @@ class chapter {
 			return $block;
 		} else
 			return NULL;
+	}
+
+	public function save($saveChanges = true) {
+		// save new version
+		$this->dom->save($this->chapterFile);
+
+		if ($saveChanges) {
+			// save changes log
+			$this->allChanges->save(CORE.'changes.xml');
+		}
 	}
 
 	public function update($data, $author) {
@@ -250,11 +268,8 @@ class chapter {
 				$block->increaseRevision($author);
 				$this->fireBlockUpdated($block);
 			}
-			// save new version
-			$this->dom->save($this->chapterFile);
 
-			// save changes log
-			$this->allChanges->save(CORE.'changes.xml');
+			$this->save();
 		}
 		$this->respond();
 	}
@@ -284,7 +299,7 @@ class chapter {
 
 	public function appendBlock($block, $afterBlock = NULL) {
 		$before = $afterBlock ? $afterBlock->element->nextSibling : NULL;
-		if($before)
+		if(! is_null($before))
 			$this->dom->documentElement->insertBefore($block->element, $before);
 		else
 			$this->dom->documentElement->appendChild($block->element);

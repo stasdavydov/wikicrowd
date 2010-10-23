@@ -187,6 +187,7 @@ Support team"/>
 	<li><code>@page "Page title"</code>&mdash;link to the wiki page.</li>
 	<li><code>@page[Page title] "link text"</code>&mdash;link to the wiki page with specified link text.</li>
 	<li><code>@page[URL] "link text"</code>&mdash;link to an outside URL.</li>
+	<li><code>@page[Page/Sub page] "Sub page"</code>&mdash;link to a sub-page in hierarchy tree.</li>
 </ul>
 <p><strong>Prefixes of block types:</strong> use it on line begin<br/>before text to change block type:</p>
 <ul>
@@ -203,7 +204,7 @@ Support team"/>
 <p><strong>Additional layout:</strong> in any place of text:</p>
 <ul>
 	<li><code>*bold*</code>&mdash;for <strong>bold</strong>;</li>
-	<li><code>/italic/</code>&mdash;for <em>italic</em>;</li>
+	<li><code>//italic//</code>&mdash;for <em>italic</em>;</li>
 	<li><code>^superscript^</code>&mdash;for <sup>superscript</sup>;</li>
 	<li><code>_subscript_</code>&mdash;for <sub>subscript</sub>.</li>
 </ul>]]>
