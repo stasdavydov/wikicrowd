@@ -190,6 +190,7 @@
 	<li><code>@page "Название страницы"</code>&nbsp;&mdash; ссылка на страницу в wiki.</li>
 	<li><code>@page[Название страницы] "текст ссылки"</code>&nbsp;&mdash; ссылка на страницу в wiki с заданным текстом.</li>
 	<li><code>@page[URL] "текст ссылки"</code>&nbsp;&mdash; ссылка на внешний URL.</li>
+	<li><code>@page[Страница/Подстраница] "Подстраница"</code>&nbsp;&mdash; ссылка на подстраницу в иерархии.</li>
 </ul>
 <p><strong>Префиксы типов блоков:</strong> использовать в начале строки<br/>перед текстом, чтобы изменить тип блока:</p>
 <ul>
@@ -206,7 +207,7 @@
 <p><strong>Дополнительная разметка:</strong> в любом месте текста:</p>
 <ul>
 	<li><code>*bold*</code>&nbsp;&mdash; <strong>жирный</strong>;</li>
-	<li><code>/italic/</code>&nbsp;&mdash; <em>наклонный</em>;</li>
+	<li><code>//italic//</code>&nbsp;&mdash; <em>наклонный</em>;</li>
 	<li><code>^superscript^</code>&nbsp;&mdash; <sup>верхний</sup> индекс;</li>
 	<li><code>_subscript_</code>&mdash;&nbsp; <sub>нижний</sub> индекс.</li>
 </ul>]]>

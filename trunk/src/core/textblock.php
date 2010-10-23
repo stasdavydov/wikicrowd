@@ -70,7 +70,7 @@ abstract class textblock extends block {
 			$changed = $this->deleted = true;
 			$this->text = '';
 		} else {
-			$texts = split("\n", $text);
+			$texts = preg_split('/\n/', $text);
 			$first = true;
 			$after = $this;
 

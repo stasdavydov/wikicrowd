@@ -71,12 +71,15 @@ class url_callback extends base_callback {
 class tag_callback extends base_callback {
 	private $tag;
 	private $sign;
-	public function __construct($tag, $sign) {
+	private $openSign;
+	private $closeSign;
+	public function __construct($tag, $openSign, $closeSign = NULL) {
 		$this->tag = $tag;
-		$this->sign = preg_quote($sign, '/');
+		$this->openSign = preg_quote($openSign, '/');
+		$this->closeSign = $closeSign ? preg_quote($closeSign, '/') : $this->openSign;
 	}
 	public function pattern() {
-		return '/'.$this->sign.'([^'.$this->sign.'\n\r]+)'.$this->sign.'/';
+		return '/'.$this->openSign.'([^'.$this->closeSign.'\n\r]+)'.$this->closeSign.'/';
 	}
 	public function callback($matches) {
 		return '`[{<'.$this->tag.'>}]`'.$matches[1].'`[{</'.$this->tag.'>}]`';
@@ -90,7 +93,7 @@ class replace_pull {
 			replace_pull::$callbacks = array(
 				new url_callback(),
 				new tag_callback('strong', '*'),
-				new tag_callback('em', '/'),
+				new tag_callback('em', '//'),
 				new tag_callback('sup', '^'),
 				new tag_callback('sub', '_'));
 		foreach(replace_pull::$callbacks as $callback) {

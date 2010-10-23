@@ -36,6 +36,8 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
+  0.0.15  Paging on 'All changes' page.
+
   0.0.14  List unauthorized users in admin interface and
   		  grant them authorization (issue #29).
   		  Bugfix.

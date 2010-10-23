@@ -5,7 +5,7 @@ class subsubtitle extends textblock {
 		parent::__construct($chapter);
 	}
 
-	public function create($author, $text) {
+	public function create($author, $text, $nil = NULL) {
 		parent::create('subsubtitle', $author, $text);
 	}
 }
