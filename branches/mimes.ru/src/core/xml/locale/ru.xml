@@ -120,6 +120,7 @@
 <message id="OldPasswordIsNotSet" text="Старый пароль не указан."/>
 <message id="Original" text="оригинал"/>
 <message id="Overwrite" text="Перезаписать"/>
+<message id="Pages" text="Страницы: "/>
 <message id="Password" text="Пароль"/>
 <message id="PasswordCannotBeEmpty" text="Пароль не может быть пустым. Если не задать пароль, кто угодно сможет выдать себя за вас."/>
 <message id="PasswordCannotBeEmptyWOAlert" text="Пароль не может быть пустым."/>

@@ -28,7 +28,7 @@
 	<xsl:variable name="locale" select="document(concat('locale/', $LOCALE, '.xml'))/locale"/>
 
 	<xsl:template name="copyright">
-		<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<xsl:value-of select="$VERSION"/> by <a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
+		<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<xsl:value-of select="$VERSION"/> by <a href="http://stasdavydov.com/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
 			<xsl:choose>
 				<xsl:when test="$config//property[@name='license']/@value">
 					<xsl:value-of select="$config//property[@name='license']/@value" disable-output-escaping="yes"/>

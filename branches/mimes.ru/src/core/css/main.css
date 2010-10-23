@@ -103,3 +103,9 @@ code { background: #FFC; }
 
 .breadcrump { font-size: 75%; margin: 0 0 0 0.65em; color: #666; text-align:right;}
 .breadcrump a { text-decoration: underline; }
+
+.pages .label { float: left; }
+.pages ul { float:left; }
+.pages ul li { float: left; padding: 0 0.5em 0 0; }
+.pages ul li a:hover { background: #EEE; }
+.pages ul li span { background: #EEE; }
