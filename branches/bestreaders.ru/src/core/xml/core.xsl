@@ -28,7 +28,7 @@
 	<xsl:variable name="locale" select="document(concat('locale/', $LOCALE, '.xml'))/locale"/>
 
 	<xsl:template name="copyright">
-		<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<xsl:value-of select="$VERSION"/> by <a href="http://davidovsv.narod.ru/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
+		<p class="copyright"><a href="http://code.google.com/p/wikicrowd/">WikiCrowd</a> v.<xsl:value-of select="$VERSION"/> by <a href="http://stasdavydov.com/">Stas Davydov</a> and <a href="http://outcorp-ru.blogspot.com/">Outcorp</a>.<br/>
 <a href='http://bestbusinessbooks.ru/'>BestBusinessBooks</a> (c) 2009.</p>
 	</xsl:template>
 
