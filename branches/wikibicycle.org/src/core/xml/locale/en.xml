@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<locale language="English">
+<message id="AccessRights" text="New user rights"/>
+<message id="AccoutActivation" text="Account activation"/>
+<message id="AccountIsNotActive" text="Your account is not activated yet. Please click on link from confirmation message to activate your account."/>
+<message id="AccountIsNotActiveYet" text="Your account is not activated yet. We sent again confirmation e-mail, so please click on link in it to activate your account."/>
+<message id="AccountIsNotFound" text="There is no such person"/>
+<message id="ActionIsNotSet" text="Action is not defined."/>
+<message id="Admin" text="Admin"/>
+<message id="AllChanges" text="Changes"/>
+<message id='AllFieldsRequired' text='All fields are required.'/>
+<message id="AlreadyActivated" text="already activated."/>
+<message id="AnyoneCanRegister" text="Anyone can register"/>
+<message id="back" text="ago"/>
+<message id="Cancel" text="Cancel"/>
+<message id="CanEdit" text="Can Edit"/>
+<message id="CanRead" text="Can Read"/>
+<message id="CannotGetChangeList" text="Sorry, I cannot get list of changes for this fragment."/>
+<message id="CannotSaveChanges" text="Cannot save changes :(. Error code: %1"/>
+<message id="Change" text="Edit"/>
+<message id="ChangesSaved" text="Changes saved."/>
+<message id="Checking" text="Checking..."/>
+<message id="CheckIsComplete" text="Check is successful. Please wait a few seconds while page will load."/>
+<message id="CloseList" text="Close list"/>
+<message id="Configure" text="Configure"/>
+<message id="Download" text="Download"/>
+<message id="edit" text="Edit"/>
+<message id="EditFormLoading" text="Editing form is loading..."/>
+<message id="Enter" text="Login/Signup"/>
+<message id="ElementWithIDNotFound" text="Element with ID %s is not found."/>
+<message id="EmailCannotBeEmpty" text="E-mail is required to be sure that you is you. Also it's required to get password if you'll forget it. And we also very want to have a possibility to contact with you, if something important will happen (there is no SPAM!). Specify your e-mail, please."/>
+<message id="EmailChangeConfirmation" text="E-mail change confirmation on a web-site"/>
+<message id="EmailChangeIsConfirmed" text="Thank you! E-mail change is confirmed."/>
+<message id="EmailChangeMessage" text="Hello, %s!\n\n
+You've changed your e-mail on web-site '%s'\n
+Please click the following link to confirm the change:\n
+%s\n\n
+If you didn't ask to send this e-mail to you, please sorry that you get it.\n
+It seems that someone has used your e-mail on web site %s\n
+Please contact us if this issue will repeat.\n\n
+Best regards,\n
+Support team"/>
+<message id="EmailChangeWrongCode" text="Wrong e-mail change confirmation code specified."/>
+<message id="EmailIsEmpty" text="If you'll not specify your e-mail we'll not be able to send you your password."/>
+<message id="EmailIsNotSet" text="E-mail is not specified."/>
+<message id="EmailIsWrong" text="There is an error in your e-mail. Wants something like email@server.com"/>
+<message id="EnterLoginAndPassword" text="You should enter login and password to access this page."/>
+<message id="FileIsNotSet" text="File is not set for media block."/>
+<message id="ForgotPassword" text="Forget password"/>
+<message id="Grant" text="Grant authorization"/>
+<message id="GuestNotAdmin" text="Guest cannot be admin."/>
+<message id='IDisEmpty' text='ID is empty.'/>
+<message id='IDisNotSet' text='ID is not set.'/>
+<message id='IfYourForgetPassword' text="If you forget your login or password, please enter e-mail you used on registration. We'll send a new password via e-mail."/>
+<message id='IfYouForgetShort' text="If you forget your login or password, it's always &lt;a href='%1'&gt;possible to recover it&lt;/a&gt;."/>
+<message id='InfoIsNotSet' text='Information is not specified.'/>
+<message id='InternalError' text='Internal error'/>
+<message id='InternalErrorOccured' text='Internal error occured:'/>
+<message id="HomePage" text="Home page name"/>
+<message id="HomePageIsRequired" text="Home page is required."/>
+<message id="Language" text="Language"/>
+<message id="LanguageForUI" text="language for user interface."/>
+<message id="LastCheckDateIsNotSet" text="Date of the last request is not specified."/>
+<message id="LastVersion" text="last revision"/>
+<message id="lessMinute" text="less than minute"/>
+<message id="Links" text="Links:"/>
+<message id="Login" text="Login"/>
+<message id="LoginAsLogin" text="Login"/>
+<message id="LoginCannotBeEmpty" text="Login cannot be empty."/>
+<message id="LoginField" text="Login (please use A-Z, a-z and 0-9)"/>
+<message id="LoginIsEmpty" text="Login is empty."/>
+<message id="LoginIsNotSet" text="Login is not specified."/>
+<message id="LoginIsRegistered" text="Someone with login specified is already registered. If it's you, please specify password you used first time and continue registration."/>
+<message id="LoginIsUsed" text="Specified login is already in use on the site."/>
+<message id="LoginOrPasswordWrong" text="Login and password is wrong."/>
+<message id="LoginRule" text="You can use A-Z, a-z letters and 0-9 digits for login."/>
+<message id="LoginWrong" text="Login is worng."/>
+<message id="Logout" text="Logout"/>
+<message id="monJan" text="Jan"/>
+<message id="monFeb" text="Feb"/>
+<message id="monMar" text="Mar"/>
+<message id="monApr" text="Apr"/>
+<message id="monMay" text="May"/>
+<message id="monJun" text="Jun"/>
+<message id="monJul" text="Jul"/>
+<message id="monAug" text="Aug"/>
+<message id="monSep" text="Sep"/>
+<message id="monOct" text="Oct"/>
+<message id="monNov" text="Nov"/>
+<message id="monDec" text="Dec"/>
+<message id="NameIsNotSet" text="Name is not set."/>
+<message id="NameIsRequired" text="We very want to know your name. Please specify it."/>
+<message id="NewPassword" text="New password"/>
+<message id="NewPasswrodMessage" text="Hello, %s!\n\n
+You asked to send you a new password on web-site '%s'\n\n
+Your login: %s\n
+Your new password: %s\n\n
+Use these login and password to enter the web-site\n
+%s\n\n
+You can change your new password on your account page:\n
+%s\n\n
+If you didn't ask to send this e-mail to you, please sorry that you get it.\n
+It seems that someone has used your e-mail on web site %s\n
+Please contact us if this issue will repeat.\n\n
+Best regards,\n
+Support team"/>
+<message id="NewPasswordOldPassword" text="If you want to change your password, please specify the old one. It's an additional check that you is you."/>
+<message id="NewPasswrodOnSite" text="New password on the site"/>
+<message id="NewPasswrodSent" text="We sent you an e-mail with new password."/>
+<message id="NewUserCanEdit" text="New user can edit"/>
+<message id="NewUserCanView" text="New user can read"/>
+<message id="NewVersionAvailable" text="New version is available: &lt;a href='%s'&gt;WikiCrowd %s&lt;/a&gt;."/>
+<message id="NoAdminExist" text="There is no admin. Please choose one."/>
+<message id="NoChanges" text="No changes yet."/>
+<message id="NothingIsChanged" text="It seems that nothing is changed."/>
+<message id="NotRegisteredYet" text="If you'd not registered on the site you can do it right now."/>
+<message id="OldPassword" text="Old password"/>
+<message id="OldPasswordIsNotSet" text="Old password is not set."/>
+<message id="Original" text="original"/>
+<message id="Overwrite" text="Overwrite"/>
+<message id="Pages" text="Pages: "/>
+<message id="Password" text="Password"/>
+<message id="PasswordCannotBeEmpty" text="Password cannot be empty. If you'll not specify the password anyone will be able to pass oneself off as you."/>
+<message id="PasswordCannotBeEmptyWOAlert" text="Password cannot be empty."/>
+<message id="PasswordIsNotSet" text="Password is not specified."/>
+<message id="PasswordIsWrong" text="Password is wrong."/>
+<message id="Persons" text="Persons"/>
+<message id="Register" text="Register"/>
+<message id="Registring" text="Registering..."/>
+<message id="Registration" text="Registration"/>
+<message id="RegistrationConfirmation" text="Registration confirmation"/>
+<message id="RegistrationEmail" text="Hello, %s!\n\n
+Thank you so much for registration on web-site '%s'!\n
+Your login: %s\n
+Your password: %s\n\n
+Please click on the following link to activate your account:\n
+%s\n\n
+If you didn't ask to send this e-mail to you, please sorry that you get it.\n
+It seems that someone has used your e-mail on web site %s\n
+Please contact us if this issue will repeat.\n\n
+Best regards,\n
+Support team"/>
+<message id="RegistrationFailed" text="Activation e-mail was not deliverd. Please try again."/>
+<message id="RegistrationIsClosed" text="Registration is closed."/>
+<message id="RegistrationSuccess" text="Registration successful! We sent you a confirmation e-mail. Please click on link in the e-mail to confirm your account."/>
+<message id="RememberMe" text="Remember me"/>
+<message id="RestrictedAccess" text="Access to restricted page"/>
+<message id="RestrictedArea" text="Restricted area"/>
+<message id="RevIsEmpty" text="Rev is empty."/>
+<message id="RevIsNotSet" text="Rev is not specified."/>
+<message id="RSSDescription" text="Latest changes from wiki"/>
+<message id="SandboxUsers" text="Unauthorized users"/>
+<message id="Save" text="Save"/>
+<message id="Saved" text="Saved."/>
+<message id="Saving" text="Saving..."/>
+<message id="Send" text="Send"/>
+<message id="Sending" text="Sending..."/>
+<message id="SessionExpired" text="We don't recognize you. It seems that session is expired."/>
+<message id="SomethingHappen" text="Something happened."/>
+<message id="SomethingWithNetwork" text="Problems with network. Try again later."/>
+<message id="SomethingWithServer" text="Problems with server."/>
+<message id="SpecifyLoginAndPassword" text="Please specify your login and password to relogin and save again."/>
+<message id="SuccessfullyActivated" text="successfuly activated."/>
+<message id="SupportIsNotified" text="Our support team is already got the notification and will fix the issue as soon as possible."/>
+<message id="SupportsEmail" text="Support's e-mail"/>
+<message id="SupportsEmailLookWrong" text="Support's e-mail looks wrong."/>
+<message id="TextIsNotSet" text="Text is not specified."/>
+<message id="Title" text="Title of wiki site"/>
+<message id="TitleIsNotSet" text="'title' property is not set"/>
+<message id="TitleIsRequired" text="Title is required."/>
+<message id="ThereAreNoAccounts" text="There are no accounts with e-mail specified."/>
+<message id="ToChangePassword" text="To change you password please enter the old and a new one"/>
+<message id="ToHome" text="Home"/>
+<message id="ToManyElementsWithID" text="To many elements with ID"/>
+<message id="Use" text="Use"/>
+<message id="User" text="User"/>
+<message id="UserRights" text="Registered user's rights"/>
+<message id="VersionConflict" text="Version conflict occured."/>
+<message id="VersionConflictBody" text="%1 &lt;a href='%2'&gt;%3&lt;/a&gt; saved new version of content you're editing"/>
+<message id="view" text="View"/>
+<message id="ViewChangeList" text="View change list"/>
+<message id="WelcomeToWiki" text="Welcome to wiki"/>
+<message id="WikiHelp"><![CDATA[
+<h2>Wiki-syntax</h2>
+<p><strong>Links:</strong> in any place of text:</p>
+<ul>
+	<li><code>@page "Page title"</code>&mdash;link to the wiki page.</li>
+	<li><code>@page[Page title] "link text"</code>&mdash;link to the wiki page with specified link text.</li>
+	<li><code>@page[URL] "link text"</code>&mdash;link to an outside URL.</li>
+	<li><code>@page[Page/Sub page] "Sub page"</code>&mdash;link to a sub-page in hierarchy tree.</li>
+</ul>
+<p><strong>Prefixes of block types:</strong> use it on line begin<br/>before text to change block type:</p>
+<ul>
+	<li><code>@title</code>&mdash;title;</li>
+	<li><code>@subtitle</code>&mdash;subtitle;</li>
+	<li><code>@subsubtitle</code>&mdash;sub-subtitle;</li>
+	<li><code>@par</code>&mdash;just a text;</li>
+	<li><code>@listitem</code>&mdash;list;</li>
+	<li><code>@footnote</code>&mdash;footnote;</li>
+	<li><code>@quote</code>&mdash;quotation;</li>
+	<li><code>@img url</code>&mdash;image from url.</li>
+	<li><code>@html ...</code>&nbsp;any HTML code.</li>
+</ul>
+<p><strong>Additional layout:</strong> in any place of text:</p>
+<ul>
+	<li><code>*bold*</code>&mdash;for <strong>bold</strong>;</li>
+	<li><code>//italic//</code>&mdash;for <em>italic</em>;</li>
+	<li><code>^superscript^</code>&mdash;for <sup>superscript</sup>;</li>
+	<li><code>_subscript_</code>&mdash;for <sub>subscript</sub>.</li>
+</ul>]]>
+</message>
+<message id="WikiHelpTip" text="Wiki syntax short help "/>
+<message id="WrongBlockType" text="Wrong block type"/>
+<message id="WrongOldPassword" text="Wrong old password specified."/>
+<message id="YouHaveNoPermissions" text="You have no permissions to access this wiki page."/>
+<message id="YourAccout" text="Your account"/>
+<message id="YourLogin" text="Login"/>
+<message id="YourEmail" text="Your e-mail (for communicaton, doesn't published)"/>
+<message id="YourEmailField" text="Your e-mail"/>
+<message id="YourInformation" text="Information about you (published)"/>
+<message id="YourName" text="Your name"/>
+
+<function id="getMinutesText" params="minutes"><![CDATA[return minutes + " minute" + (minutes > 1	? "s" : "");]]></function>
+<function id="getHoursText" params="hours"><![CDATA[return hours + " hour" + (hours > 1 ? "s" : "");]]></function>
+<function id="getDaysText" params="days"><![CDATA[return days + " day" + (days > 1 ? "s" : "");]]></function>
+</locale>

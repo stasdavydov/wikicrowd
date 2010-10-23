@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<locale language="Русский">
+<message id="AccessRights" text="Права доступа для нового пользователя"/>
+<message id="AccoutActivation" text="Активация учетной записи"/>
+<message id="AccountIsNotActive" text="Ваша учетная запись еще не активирована. Пожалуйста, кликните на ссылку из письма с подтверждением, чтобы активировать вашу учетную запись."/>
+<message id="AccountIsNotActiveYet" text="Ваша учетная запись еще не активирована. Мы повторно отправили вам письмо о подтверждении учетной записи, так что просто кликните на ссылку из письма, чтобы активировать вашу учетную запись."/>
+<message id="AccountIsNotFound" text="Нет такого человека"/>
+<message id="ActionIsNotSet" text="Действие не определено."/>
+<message id="Admin" text="Администратор"/>
+<message id="AllChanges" text="Журнал"/>
+<message id='AllFieldsRequired' text='Все поля обязательны.'/>
+<message id="AlreadyActivated" text="уже активирована."/>
+<message id="AnyoneCanRegister" text="Любой может зарегистрироваться"/>
+<message id="back" text="назад"/>
+<message id="Cancel" text="Отменить"/>
+<message id="CanEdit" text="Может редактировать"/>
+<message id="CanRead" text="Может читать"/>
+<message id="CannotGetChangeList" text="К сожалению, не могу получить список изменений данного фрагмента."/>
+<message id="CannotSaveChanges" text="Не могу сохранить изменения :(. Код ошибки: %1"/>
+<message id="Change" text="Изменить"/>
+<message id="ChangesSaved" text="Изменения сохранены."/>
+<message id="Checking" text="Идет проверка..."/>
+<message id="CheckIsComplete" text="Проверка прошла успешно! Подождите, пожалуйста, несколько секунд, пока страница загрузится."/>
+<message id="CloseList" text="Закрыть список"/>
+<message id="Configure" text="Конфигурация"/>
+<message id="Download" text="Скачать"/>
+<message id="edit" text="Редактировать"/>
+<message id="EditFormLoading" text="Загрузка формы для редактирования..."/>
+<message id="ElementWithIDNotFound" text="Элемент с ID %s не найден."/>
+<message id="EmailCannotBeEmpty" text="E-mail нужен для того, чтобы точно убедиться, что вы - это вы. Еще он нужен, чтобы получить письмом пароль, если вдруг вы его забыли. А еще нам очень хочется иметь возможность связаться с вами, если что (никакого СПАМа!). Укажите, пожалуйста, ваш e-mail."/>
+<message id="EmailChangeConfirmation" text="Подтверждение изменения e-mail на сайте"/>
+<message id="EmailChangeIsConfirmed" text="Спасибо! Изменение e-mail подтверждено."/>
+<message id="EmailChangeMessage" text="Здравствуйте, %s!\n\n
+Вы изменили ваш e-mail адрес на сайте '%s'\n
+Чтобы подтвердить новый адрес, пожалуйста, перейдите \n
+по следующей ссылке: \n
+%s\n\n
+Если вы не просили присылать это письмо, просим нас извинить, 
+что оно к вам пришло.\n
+Вероятно, кто-то использовал ваш e-mail на сайте %s\n
+Если это повторится, пожалуйста, свяжитесь с нами.\n\n
+С уважением,\n
+Служба поддержки"/>
+<message id="EmailChangeWrongCode" text="Неверно указан код подтверждения изменения e-mail."/>
+<message id="EmailIsEmpty" text="Если вы не укажете ваш e-mail, мы не сможем прислать вам пароль."/>
+<message id="EmailIsNotSet" text="E-mail не указан."/>
+<message id="EmailIsWrong" text="В вашем e-mail ошибка, проверьте, пожалуйста. Хочется чего-то вроде email@server.com"/>
+<message id="Enter" text="Вход"/>
+<message id="EnterLoginAndPassword" text="Для доступа к этой странице вам необходимо ввести логин и пароль."/>
+<message id="FileIsNotSet" text="Файл не задан для media-блока."/>
+<message id="ForgotPassword" text="Вспомнить пароль"/>
+<message id="Grant" text="Авторизовать"/>
+<message id="GuestNotAdmin" text="Гость не может быть администратором."/>
+<message id='IDisEmpty' text='ID пуст.'/>
+<message id='IDisNotSet' text='ID не указан.'/>
+<message id='IfYourForgetPassword' text='Если вы забыли пароль или логин, укажите e-mail, который вы использовали при регистрации на этом сайте. Мы вышлем вам новый пароль письмом на указанный адрес.'/>
+<message id='IfYouForgetShort' text='Если вы забыли ваш логин или пароль, их всегда &lt;a href="%1"&gt;можно восстановить&lt;/a&gt;.'/>
+<message id='InfoIsNotSet' text='Информация не указана.'/>
+<message id='InternalError' text='Внутренняя ошибка'/>
+<message id='InternalErrorOccured' text='Произошла внутренняя ошибка:'/>
+<message id="HomePage" text="Имя домашней страницы"/>
+<message id="HomePageIsRequired" text="Имя домашней страницы не задано."/>
+<message id="Language" text="Язык"/>
+<message id="LanguageForUI" text="язык интерфейса."/>
+<message id="LastCheckDateIsNotSet" text="Дата последнего запроса не указана."/>
+<message id="LastVersion" text="последняя версия"/>
+<message id="lessMinute" text="меньше минуты"/>
+<message id="Links" text="Ссылки:"/>
+<message id="Login" text="Войти"/>
+<message id="LoginAsLogin" text="Логин"/>
+<message id="LoginCannotBeEmpty" text="Логин не может быть пустым."/>
+<message id="LoginField" text="Логин (последовательность из латинских букв и цифр)"/>
+<message id="LoginIsEmpty" text="Логин пуст."/>
+<message id="LoginIsNotSet" text="Логин не указан."/>
+<message id="LoginIsRegistered" text="Некто, с указанным вами логином, уже зарегистрирован. Если это были вы, пожалуйста, укажите пароль, который вы использовали первый раз, и продолжите регистрацию."/>
+<message id="LoginIsUsed" text="Указанный вами логин уже используется на нашем сайте."/>
+<message id="LoginOrPasswordWrong" text="Логин или пароль указаны неверно."/>
+<message id="LoginRule" text="Логин может содержать только латинские буквы (a-z, A-Z) или арабские цифры (0-9)."/>
+<message id="LoginWrong" text="Логин указан неверно."/>
+<message id="Logout" text="Выйти"/>
+<message id="monJan" text="янв"/>
+<message id="monFeb" text="фев"/>
+<message id="monMar" text="мар"/>
+<message id="monApr" text="апр"/>
+<message id="monMay" text="мая"/>
+<message id="monJun" text="июн"/>
+<message id="monJul" text="июл"/>
+<message id="monAug" text="авг"/>
+<message id="monSep" text="сен"/>
+<message id="monOct" text="окт"/>
+<message id="monNov" text="ноя"/>
+<message id="monDec" text="дек"/>
+<message id="NameIsNotSet" text="Имя не указано."/>
+<message id="NameIsRequired" text="Нам бы очень хотелось знать, как вас зовут. Укажите, пожалуйста, ваше имя."/>
+<message id="NewPassword" text="Новый пароль"/>
+<message id="NewPasswrodMessage" text="Здравствуйте, %s!\n\n
+Вы попросили прислать вам новый пароль на сайте '%s'\n\n
+Ваш логин: %s\n
+Ваш новый пароль: %s\n\n
+Введите их на странице входа на сайт: \n
+%s\n\n
+Вы можете изменить ваш новый пароль на странице с вашей учетной записью:\n
+%s\n\n
+Если вы не просили присылать это письмо, вероятно, кто-то использовал \n
+Ваш e-mail на сайте %s\n
+Если это повторится, пожалуйста, свяжитесь с нами.\n\n
+С уважением,\n
+Служба поддержки"/>
+<message id="NewPasswordOldPassword" text="Если вы хотите задать новый пароль, пожалуйста, укажите ваш старый пароль. Это нужно для дополнительной проверки, что вы - это вы."/>
+<message id="NewPasswrodOnSite" text="Новый пароль на сайте"/>
+<message id="NewPasswrodSent" text="Мы отправили вам письмо с новым паролем."/>
+<message id="NewUserCanEdit" text="Новый пользователь может редактировать"/>
+<message id="NewUserCanView" text="Новый пользователь может читать"/>
+<message id="NewVersionAvailable" text="Появилась новая версия: &lt;a href='%s'&gt;WikiCrowd %s&lt;/a&gt;."/>
+<message id="NoAdminExist" text="На сайте не осталось админов, пожалуйста, выберите хотя бы одного."/>
+<message id="NoChanges" text="Изменений еще не было."/>
+<message id="NothingIsChanged" text="Такое впечатление, что ничего не изменилось."/>
+<message id="NotRegisteredYet" text="Если вы еще не регистрировались на нашем сайте, можно сделать это прямо сейчас."/>
+<message id="OldPassword" text="Старый пароль"/>
+<message id="OldPasswordIsNotSet" text="Старый пароль не указан."/>
+<message id="Original" text="оригинал"/>
+<message id="Overwrite" text="Перезаписать"/>
+<message id="Pages" text="Страницы: "/>
+<message id="Password" text="Пароль"/>
+<message id="PasswordCannotBeEmpty" text="Пароль не может быть пустым. Если не задать пароль, кто угодно сможет выдать себя за вас."/>
+<message id="PasswordCannotBeEmptyWOAlert" text="Пароль не может быть пустым."/>
+<message id="PasswordIsNotSet" text="Пароль не указан."/>
+<message id="PasswordIsWrong" text="Пароль, который вы указали, неверный."/>
+<message id="Persons" text="Люди"/>
+<message id="Register" text="Зарегистрироваться"/>
+<message id="Registring" text="Идет регистрация..."/>
+<message id="Registration" text="Регистрация"/>
+<message id="RegistrationConfirmation" text="Подтверждение регистрации на сайте"/>
+<message id="RegistrationEmail" text="Здравствуйте, %s!\n\n
+Большое спасибо за регистрацию на сайте '%s'!\n
+Ваш логин: %s\n
+Ваш пароль: %s\n\n
+Чтобы активировать вашу учетную запись, пожалуйста, перейдите \n
+по следующей ссылке: \n
+%s\n\n
+Если вы не просили присылать это письмо, вероятно, кто-то использовал \nваш e-mail на 
+сайте %s\n
+Если это повторится, пожалуйста, свяжитесь с нами.\n\n
+С уважением,\n
+Служба поддержки\n"/>
+<message id="RegistrationFailed" text="Письмо с активацией не было отправлено. Попробуйте еще раз."/>
+<message id="RegistrationIsClosed" text="Регистрация закрыта."/>
+<message id="RegistrationSuccess" text="Регистрация прошла успешно! На указанный вами e-mail было отправлено письмо со ссылкой, перейдя по которой, вы активируете вашу учетную запись."/>
+<message id="RememberMe" text="Запомнить меня надолго"/>
+<message id="RestrictedAccess" text="Доступ к закрытой части сайта"/>
+<message id="RestrictedArea" text="Закрытая часть сайта"/>
+<message id="RevIsEmpty" text="Rev пуст."/>
+<message id="RevIsNotSet" text="Rev не указан."/>
+<message id="RSSDescription" text="Последние изменения wiki"/>
+<message id="SandboxUsers" text="Неавторизованные пользователи"/>
+<message id="Save" text="Сохранить"/>
+<message id="Saved" text="Сохранено."/>
+<message id="Saving" text="Сохраняем..."/>
+<message id="Send" text="Выслать"/>
+<message id="Sending" text="Отправляем..."/>
+<message id="SessionExpired" text="Мы вас не узнаем. Вероятно, время сессии истекло."/>
+<message id="SomethingHappen" text="Возникли сложности."/>
+<message id="SomethingWithNetwork" text="Вероятно что-то с сетью. Попробуйте повторить чуть позже."/>
+<message id="SomethingWithServer" text="Какие-то проблемы на сервере."/>
+<message id="SpecifyLoginAndPassword" text="Укажите ваш логин и пароль для доступа к сайту и сохраните текст еще раз."/>
+<message id="SuccessfullyActivated" text="успешно активирована."/>
+<message id="SupportIsNotified" text="Наша служба поддержки уже получила уведомление и постарается исправить проблему как можно скорее."/>
+<message id="SupportsEmail" text="E-mail службы поддержки"/>
+<message id="SupportsEmailLookWrong" text="E-mail службы поддержки выглядит странно."/>
+<message id="TextIsNotSet" text="Текст не задан."/>
+<message id="ThereAreNoAccounts" text="Не найдено ни одной учетной записи с указанным вами e-mail."/>
+<message id="Title" text="Название wiki сайта"/>
+<message id="TitleIsNotSet" text="Свойство 'title' не задано."/>
+<message id="TitleIsRequired" text="Название wiki сайта не задано."/>
+<message id="ToChangePassword" text="Чтобы изменить пароль, введите ваш старый и новый пароли"/>
+<message id="ToHome" text="Домой"/>
+<message id="ToManyElementsWithID" text="Слишком много элементов с ID"/>
+<message id="UserRights" text="Права зарегистрированных пользователей"/>
+<message id="Use" text="Использовать"/>
+<message id="User" text="Пользователь"/>
+<message id="VersionConflict" text="Произошел конфликт версий."/>
+<message id="VersionConflictBody" text="Пока вы редактировали этот текст, %1 &lt;a href='%2'&gt;%3&lt;/a&gt; успел сохранить новую версию"/>
+<message id="view" text="Посмотреть"/>
+<message id="ViewChangeList" text="Посмотреть список изменений"/>
+<message id="WelcomeToWiki" text="Добро пожаловать в wiki"/>
+<message id="WikiHelp"><![CDATA[
+<h2>Wiki-синтаксис</h2>
+<p><strong>Ссылки:</strong> в любом месте текста:</p>
+<ul>
+	<li><code>@page "Название страницы"</code>&nbsp;&mdash; ссылка на страницу в wiki.</li>
+	<li><code>@page[Название страницы] "текст ссылки"</code>&nbsp;&mdash; ссылка на страницу в wiki с заданным текстом.</li>
+	<li><code>@page[URL] "текст ссылки"</code>&nbsp;&mdash; ссылка на внешний URL.</li>
+	<li><code>@page[Страница/Подстраница] "Подстраница"</code>&nbsp;&mdash; ссылка на подстраницу в иерархии.</li>
+</ul>
+<p><strong>Префиксы типов блоков:</strong> использовать в начале строки<br/>перед текстом, чтобы изменить тип блока:</p>
+<ul>
+	<li><code>@title</code>&nbsp;&mdash; заголовок;</li>
+	<li><code>@subtitle</code>&nbsp;&mdash;подзаголовок;</li>
+	<li><code>@subsubtitle</code>&nbsp;&mdash;под-подзаголовок;</li>
+	<li><code>@par</code>&nbsp;&mdash; просто текст;</li>
+	<li><code>@listitem</code>&nbsp;&mdash; список;</li>
+	<li><code>@footnote</code>&nbsp;&mdash; сноска;</li>
+	<li><code>@quote</code>&nbsp;&mdash; цитата;</li>
+	<li><code>@img url</code>&nbsp;&mdash; картинка по адресу url.</li>
+	<li><code>@html ...</code>&nbsp;&mdash; любой HTML-код.</li>
+</ul>
+<p><strong>Дополнительная разметка:</strong> в любом месте текста:</p>
+<ul>
+	<li><code>*bold*</code>&nbsp;&mdash; <strong>жирный</strong>;</li>
+	<li><code>//italic//</code>&nbsp;&mdash; <em>наклонный</em>;</li>
+	<li><code>^superscript^</code>&nbsp;&mdash; <sup>верхний</sup> индекс;</li>
+	<li><code>_subscript_</code>&mdash;&nbsp; <sub>нижний</sub> индекс.</li>
+</ul>]]>
+</message>
+<message id="WikiHelpTip" text="Краткая справка по wiki-синтаксису"/>
+<message id="WrongBlockType" text="Недопустимый тип блока"/>
+<message id="WrongOldPassword" text="Вы неправильно указали ваш старый пароль."/>
+<message id="YouHaveNoPermissions" text="У вас нет доступа к этой странице."/>
+<message id="YourAccout" text="Ваша учетная запись"/>
+<message id="YourLogin" text="Логин"/>
+<message id="YourEmail" text="Ваш e-mail (для связи, на сайте не публикуется)"/>
+<message id="YourEmailField" text="Ваш e-mail"/>
+<message id="YourInformation" text="Информация о вас (будет опубликована на сайте)"/>
+<message id="YourName" text="Ваше имя"/>
+
+<function id="getMinutesText" params="minutes"><![CDATA[return minutes + " минут" + 
+(minutes == 1 || (minutes > 20 && minutes % 10 == 1)
+	? "у" 
+	: ((minutes >= 2 && minutes <= 4) || (minutes > 20 && minutes%10 >= 2 && minutes%10 <= 4)
+		? "ы" 
+		: ""));
+]]></function>
+<function id="getHoursText" params="hours"><![CDATA[return hours + " час" +
+(hours >= 20 && hours%10 == 1
+	? "" 
+	: ((hours >= 2 && hours <= 4) || (hours >= 20 && hours%10 >= 2 && hours%10 <= 4)
+		? "а" 
+		: (hours == 0 || hours >= 5
+			? "ов"
+			: "")));
+]]></function>
+<function id="getDaysText" params="days"><![CDATA[return days + " " + (days == 1 || (days >= 20 && days%10 == 1)
+? "день"
+: ((days >= 2 && days <= 4) || (days >= 20 && days%10 >= 2 && days%10 <= 4)
+	? "дня"
+	: "дней"));
+]]></function>
+</locale>
