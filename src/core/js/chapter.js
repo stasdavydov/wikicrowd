@@ -122,10 +122,6 @@ var edit = function(div) {
 	}
 };
 
-var editOff = function() {
-	editIsOff = true;
-}
-
 var Plugin = function(type) {
 	var plugin = {
 	    appendEditForm: function(form, ajax) {},

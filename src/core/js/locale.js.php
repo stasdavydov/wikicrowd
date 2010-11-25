@@ -3,7 +3,7 @@
 
 	$localeFile = CORE.'xml/locale/'.LOCALE.'.xml';
 	if (!file_exists($localeFile)) {
-  		header('HTTP/1.0 404 Not Found');
+  		error404();
    		exit;
 	}
 
