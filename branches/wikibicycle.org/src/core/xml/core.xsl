@@ -37,6 +37,17 @@
 			</xsl:choose>
 		</p>
 		<div style="margin-top:2em;background:#CCC"><xsl:comment>SAPE</xsl:comment></div>
+		<script type="text/javascript"><xsl:text>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-131873-6']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();</xsl:text>
+		</script>
 	</xsl:template>
 
 	<xsl:template name="menu">
@@ -44,12 +55,12 @@
 		<div class="menu">
 			<div class="leftside">
 				<xsl:choose>
-					<xsl:when test="count(/chapter) > 0 and $MODE = 'view' and $CANEDIT = '1'">
-						<a href="?edit"><xsl:value-of select="$locale//message[@id='edit']/@text"/></a>
+					<xsl:when test="$page = 'home'">
+						<span class="selected"><xsl:value-of select="$locale//message[@id='ToHome']/@text"/></span>
 					</xsl:when>
-					<xsl:when test="count(/chapter) > 0 and $MODE = 'edit' and $CANVIEW = '1'">
-						<a href="?"><xsl:value-of select="$locale//message[@id='view']/@text"/></a>
-					</xsl:when>
+					<xsl:otherwise>
+						<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$locale//message[@id='ToHome']/@text"/></a>
+					</xsl:otherwise>
 				</xsl:choose>
 			</div>
 			<div class="rightside">
@@ -81,15 +92,16 @@
 					</xsl:otherwise>
 				</xsl:choose>
 				<xsl:choose>
-					<xsl:when test="$page = 'home'">
-						<span class="selected"><xsl:value-of select="$locale//message[@id='ToHome']/@text"/></span>
+					<xsl:when test="count(/chapter) > 0 and $MODE = 'view' and $CANEDIT = '1'">
+						<a href="?edit"><xsl:value-of select="$locale//message[@id='edit']/@text"/></a>
 					</xsl:when>
-					<xsl:otherwise>
-						<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$locale//message[@id='ToHome']/@text"/></a>
-					</xsl:otherwise>
+					<xsl:when test="count(/chapter) > 0 and $MODE = 'edit' and $CANVIEW = '1'">
+						<a href="?"><xsl:value-of select="$locale//message[@id='view']/@text"/></a>
+					</xsl:when>
 				</xsl:choose>
 			</div>
 		</div>
+        <div class='mybookmarks' id='mybookmarksdefault'><xsl:text> </xsl:text></div><style type='text/css'>@import url('http://acti.vate.me/bookmarks.css');</style><script type='text/javascript' charset='windows-1251' src="http://acti.vate.me/js/63/6396300e015bef8178248727d2298a32.js">//"</script>
 	</xsl:template>
 
 	<xsl:template name="link">

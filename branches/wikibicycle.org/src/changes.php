@@ -9,6 +9,8 @@
 		exit;
 	}
 
+	install_sape();
+
 	if(!file_exists(CORE.'changes.xml')) {
 		$dom = new DOMDocument('1.0', 'utf-8');
 		$dom->appendChild($dom->createElement('changes'));
@@ -27,6 +29,8 @@
 		'ADMIN'=>isAdmin($person),
 		'PAGE'=>$page,
 		'PAGESIZE'=>10), PROJECT_MTIME);
+
+	flush_sape();
 
 	ob_end_flush();
 ?>

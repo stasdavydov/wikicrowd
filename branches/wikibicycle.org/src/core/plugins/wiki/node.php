@@ -50,7 +50,7 @@ function make_link($link, $name) {
 	if (! preg_match('/^'.uri_pattern.'$/i', $link))
 		$link = www.($link == "/" ? '' : wikiUrlEncode($link));
 
-	return '`[{<noindex><a onclick="javascript:editOff()" href="'.$link.'">'.$name.'</a></noindex>}]`';
+	return '`[{<a onclick="javascript:editOff()" href="'.$link.'">'.$name.'</a>}]`';
 }
 
 abstract class base_callback {

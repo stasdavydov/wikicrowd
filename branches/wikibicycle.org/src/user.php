@@ -2,8 +2,7 @@
 	require_once 'core.php';
 
 	if (! array_key_exists('uid', $_GET)) {
-  		header('HTTP/1.0 404 Not Found');
-   		exit;
+  		error404();
 	}
 	ob_start('ob_gzhandler');
 
@@ -17,19 +16,19 @@
 	if ($uid == "") {
 		// list all persons	
 		getPersonIndex();
+		install_sape();
 		echo transformXML(CACHE.'persons-index.xml', CORE.'xml/persons.xsl', 
 			array('UID' => $person->getAttribute('uid'), 
 				'NAME' => $person->getAttribute('name'),
 				'ADMIN' => isAdmin($person)), PROJECT_MTIME);
-
+		flush_sape();
 		ob_end_flush();
 		exit;
 	}
 
 	$personFile = PERSONS.$uid.'.xml';
 	if (!file_exists($personFile)) {
-  		header('HTTP/1.0 404 Not Found');
-   		exit;
+  		error404();
 	}
 
 	$params = array('MODE'=>'restricted');
@@ -44,7 +43,9 @@
 	$params['NAME'] = $person->getAttribute('name');
 	$params['ADMIN'] = isAdmin($person);
 
+	install_sape();
 	echo transformXML($personFile, $xsl, $params, PROJECT_MTIME);
+	flush_sape();
 
 	ob_end_flush();
 ?>

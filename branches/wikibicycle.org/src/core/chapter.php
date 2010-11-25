@@ -46,8 +46,7 @@ class chapter {
 		if ($chapterName === NULL) {
 			$chapterName = chapter::getChapterName($ajaxUsing);
 			if ($chapterName === NULL) {
-  				header('HTTP/1.0 404 Not Found');
-	   			exit;
+  				error404();
 			} else if ($chapterName == "") {
 				$chapterName = homePage;
 //				header('Location: '.www.rawurlencode(homePage));
@@ -61,11 +60,10 @@ class chapter {
 		enterCriticalSection($LOCKFILE);
 
 		$person = getSessionPerson();
-		if (! file_exists($this->chapterFile)) {
+		if (! $this->exists()) {
 
 			if (! personCanEdit($person)) {
-	  			header('HTTP/1.0 404 Not Found');
-		   		exit;
+                error404();
 			}
 
 			$this->dom->appendChild($this->dom->implementation->createDocumentType(

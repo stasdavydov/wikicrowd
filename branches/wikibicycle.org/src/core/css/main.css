@@ -13,8 +13,9 @@ hr { padding: 0; margin: 0 0 0 -1em; text-align: left; height: 5px;}
 .selected { background: #CCC; }
 
 h1 { margin: 0.25em 0 0.5em 0; }
-h2 { margin: 0.5em 0 0.25em 0; }
-h3 { margin: 0; }
+h2 { margin: 1.5ex 0 0 0; }
+h3 { margin: 1.5ex 0 0 0; }
+h4 { margin: 0.5ex 0 0 0; }
 
 p { margin: 0 0 0.5em 0; }
 
@@ -92,7 +93,7 @@ height: 2ex; }
 
 .deleted { background: #FCF; height: 1em; }
 
-.help { float: right; margin: -1px 1px 0 0; width: 40%; }
+.help { float: right; margin: 14ex 1px 0 0; width: 40%; }
 .help a { border-bottom-style: none; color: #CCC; display: block; float: right; padding: 0 0.25em 0 0.25em;
 border: 1px solid #FFF; font-size: 300%; margin: 2px 1px 0 0; }
 .help a:hover, .help a:active { color: #C00;  }
@@ -111,3 +112,6 @@ code { background: #FFC; }
 .pages ul li span { background: #EEE; }
 
 .ad { margin: 1ex 0 2ex 0; }
+
+.mybookmarks { position: absolute; width: 10em; margin: 10px 10px 0 0; right: 0; padding: 1ex; background: #EEE; }
+.mybookmarks a { border: none; }

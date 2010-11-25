@@ -208,7 +208,8 @@ function internal($msg) {
 
 function menu($current = '') {
 	$person = getSessionPerson();
-?><div class="menu"><div class="rightside"><?
+?><div class="menu"><div class="leftside"><a href="<?=www?>"><?=
+	getMessage('ToHome')?></a></div><div class="rightside"><?
 	
 	if ($current == "auth") {
 ?><span><?=getMessage('Login')?></span><?
@@ -222,8 +223,7 @@ function menu($current = '') {
 ?><a href="<?=www?>configure/"><?=getMessage('Configure')?></a><?
 	}
 
-?><a href="<?=www?>allchanges/"><?=getMessage('AllChanges')?></a><a href="<?=
-	www?>"><?=getMessage('ToHome')?></a></div></div>
+?><a href="<?=www?>allchanges/"><?=getMessage('AllChanges')?></a></div></div>
 <?
 }
 
@@ -290,4 +290,18 @@ function sape_embed($content) {
 	return str_replace('<!--SAPE-->', $sape->return_links(), $content);
 }
 
+function error404() {
+    header('HTTP/1.0 404 Not Found', true, 404);
+
+    $errorChapter = new chapter(false, 'error/404');
+    echo $errorChapter->transform(CORE . 'xml/chapter.xsl', array(
+        'MODE' => 'view',
+        'UID' => 'guest',
+        'NAME' => 'Guest',
+        'ADMIN' => '',
+        'CANEDIT' => '',
+        'CANVIEW' => '1'));
+
+    exit;
+}
 ?>

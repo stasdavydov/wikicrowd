@@ -203,3 +203,8 @@ window.onload = function() {
 		oldWindowOnload();
 	updateTime();
 };
+
+var editOff = function() {
+	editIsOff = true;
+}
+
