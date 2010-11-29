@@ -6,4 +6,4 @@
  * [http://stasdavydov.com/freedombook/ Книга о свободе].
  * [http://bestreaders.ru/ Best Readers].
  * [http://mimes.ru/ Pantomime].
- * [http://artishock.su/ Artishock].
+ * [http://artishock.su/ Artishock] (with custom theme).
