@@ -269,7 +269,6 @@ fieldset input { display: inline; }
     
 			// since 0.0.7
 			addProperty($dom, 'LOCALE', $locale);
-			addProperty($dom, 'theme', 'default');
    
 			// since 0.0.8
 			if ($accessPlan < count($accessPlans)) {
@@ -282,7 +281,10 @@ fieldset input { display: inline; }
 			addProperty($dom, 'anyoneCanRegister', $anyoneCanRegister); // anyone can register on wiki
 			addProperty($dom, 'newUserCanEdit', $newUserCanEdit); // new registered user can edit any page
 			addProperty($dom, 'newUserCanView', $newUserCanView); // new registered user can view any page
-    
+
+			// since 0.0.16
+			addProperty($dom, 'theme', 'default');
+		 
 			$dom->save('core/config.xml');
 
 			// create admin account
