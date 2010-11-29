@@ -18,7 +18,7 @@
 	function sendRegistrationConfirmationEmail($email, $name, $login, $password) {
 		@mail ($email, 
 			"=?UTF-8?b?".base64_encode(getMessage('RegistrationConfirmation').' "'.title.'"')."?=", 
-			chunk_split(base64_encode($msg=
+			chunk_split(base64_encode(//$msg=
 				sprintf(getMessage('RegistrationEmail'),
 					$name, title, $login, $password,
 					"http://{$_SERVER['SERVER_NAME']}".www."check/$login-".md5(md5($password)).'/',
@@ -83,7 +83,7 @@
 
 	} else if ($do == "loadchanges") {
 
-		$chapter = new chapter();
+		$chapter = new chapter(true, NULL, false);
 
 		if (! array_key_exists('id', $_REQUEST))
 			internal(getMessage('IDisNotSet'));
@@ -200,7 +200,27 @@
 			internal(getMessage('LastCheckDateIsNotSet'));
 		$last = $_REQUEST['last'];
 
-		$chapter = new chapter();
+		try {
+			$chapter = new chapter(true, NULL, false);
+		} catch (ChapterNotFoundException $e) {
+			$dom = new DOMDocument();
+			if (file_exists($fileName = CORE.'renametable.xml')) {
+				$dom->load($fileName);
+
+				$xpath = new DOMXPath($dom);
+				$renamed = $xpath->query('//renamed[@from = \''.$e->getTitle().'\']');
+				if ($renamed->length > 0) {
+					$renamed = $renamed->item($renamed->length - 1);
+					echo '<response><renamed author="'.$renamed->getAttribute('author').
+						'" to="'.$renamed->getAttribute('to').'"/></response>';
+					exit;					
+				}
+			}
+
+			echo '<response/>';
+			exit;
+		}
+
 		$person = getSessionPerson();
 		echo $chapter->changedSince($last, $person ? 'edit' : 'view');
 		

@@ -269,6 +269,7 @@ fieldset input { display: inline; }
     
 			// since 0.0.7
 			addProperty($dom, 'LOCALE', $locale);
+			addProperty($dom, 'theme', 'default');
    
 			// since 0.0.8
 			if ($accessPlan < count($accessPlans)) {

@@ -18,7 +18,14 @@
 
 	<xsl:template match="/">
 		<form>
-			<xsl:apply-templates select="//block[@id = $ID and @rev = $REV]" mode="form"/>
+			<xsl:choose>
+				<xsl:when test="$ID = 'chaptertitle'">
+					<xsl:apply-templates select="/chapter" mode="form"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="//block[@id = $ID and @rev = $REV]" mode="form"/>
+				</xsl:otherwise>
+			</xsl:choose>
 		</form>
 	</xsl:template>
 

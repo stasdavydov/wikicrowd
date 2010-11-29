@@ -18,7 +18,7 @@
 
 	<xsl:template match="response | chapter">
 		<response>
-			<xsl:for-each select="updated | inserted | conflict | block[@created-ts > $LAST]">
+			<xsl:for-each select="updated | inserted | conflict | chapterrenamed | block[@created-ts > $LAST]">
 				<xsl:element name="{name()}">
 					<xsl:for-each select="@*">
 						<xsl:copy/>

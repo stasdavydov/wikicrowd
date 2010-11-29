@@ -5,8 +5,7 @@
 
 	if (! array_key_exists('login', $_GET) ||
 		! array_key_exists('hash', $_GET)) {
-  		header('HTTP/1.0 404 Not Found');
-   		exit;
+  		error404();
 	}
 
 	$login = trim($_GET['login']);
@@ -34,8 +33,7 @@
 			$msg = "<a href='".www."person/$login'>".getMessage('YourAccout')."</a> ".getMessage('AlreadyActivated');
 		}
 	} else {
-  		header('HTTP/1.0 404 Not Found');
-   		exit;
+  		error404();
 	}
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

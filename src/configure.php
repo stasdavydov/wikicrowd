@@ -11,7 +11,7 @@
 	}
 
 	function checkNewerVersion() {
-		global $version;
+//		global $version;
 		$svnVersion = @file_get_contents('http://wikicrowd.googlecode.com/svn/trunk/build/version.txt');
 		if(preg_match('/\d\.\d\.\d/', $svnVersion) && version_compare($svnVersion, VERSION) > 0) {
 			$url = "http://wikicrowd.googlecode.com/files/wikicrowd-$svnVersion.zip";
@@ -45,6 +45,7 @@
 	$homePage = homePage;
 	$supportEmail = supportEmail;
 	$locale = LOCALE;
+	$theme = theme;
 
 	$anyoneCanRegister = anyoneCanRegister;
 	$newUserCanEdit = newUserCanEdit;
@@ -118,6 +119,7 @@
 		}
 
 		$locale = $_POST['locale'];
+		$theme = $_POST['theme'];
 
 		if(count($errors) == 0) {
 			$dom = new DOMDocument();
@@ -128,6 +130,7 @@
 			setProperty($dom, 'supportEmail', $supportEmail);
 
 			setProperty($dom, 'LOCALE', $locale);
+			setProperty($dom, 'theme', $theme);
 
 			setProperty($dom, 'anyoneCanRegister', $anyoneCanRegister);
 			setProperty($dom, 'newUserCanEdit', $newUserCanEdit);
@@ -250,14 +253,23 @@ th.ne { border: none; border-bottom: 1px solid #999; }
 <label for="title"><?=getMessage('Title')?>:</label> <input class="block" type="text" name="title" id="title" size="50" value="<?=$title?>"/>
 <label for="homePage"><?=getMessage('HomePage')?>:</label> <input class="block" type="text" name="homePage" id="homePage" size="50" value="<?=$homePage?>"/>
 <label class="optional" for="supportEmail"><nobr><?=getMessage('SupportsEmail')?>:</nobr><br/><small>(optional)</small></label> <input class="block" type="text" name="supportEmail" id="supportEmail" size="50" value="<?=$supportEmail?>"/>
-<h2><?=getMessage('Language')?></h2>
+
+<h2><?=getMessage('Interface')?></h2>
 <label for="locale"><?=getMessage('Use')?> <select name="locale" id="locale"><?php
 	foreach($locales as $code=>$name) {
 		if ($code == "") continue;
 		echo '<option '.($code == $locale ? 'selected="selected" ' : '').
 			"value='$code'>$name</option>";
 	}
-?></select> <?=getMessage('LanguageForUI')?></label>
+?></select> <?=getMessage('LanguageAnd')?> <select name="theme" id="theme"><?php
+	$dir = opendir(HOME.'themes/');
+	while($file = readdir($dir)) {
+		if ($file != "." && $file != ".." && is_dir(HOME.'themes/'.$file)) {
+			echo '<option '.($file == $theme ? 'selected="selected" ' : '').
+				"value='$file'>$file</option>";
+		}
+	}
+?></select> <?=getMessage('ThemeForUI')?>.</label>
 
 <h2><?=getMessage('AccessRights')?></h2>
 <table border="0" cellspacing="0" cellpadding="3">

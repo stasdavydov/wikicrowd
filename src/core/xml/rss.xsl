@@ -15,6 +15,8 @@
 
 	<xsl:include href="core.xsl"/>
 
+    <xsl:param name="wwwHost"/>
+
 	<xsl:template match="/">
 		<rss version="2.0">
 			<channel>

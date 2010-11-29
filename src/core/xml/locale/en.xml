@@ -19,6 +19,7 @@
 <message id="CannotSaveChanges" text="Cannot save changes :(. Error code: %1"/>
 <message id="Change" text="Edit"/>
 <message id="ChangesSaved" text="Changes saved."/>
+<message id="ChapterWasRenamed" text="The page is renamed by %1 to '%2'. It will be reloaded now."/>
 <message id="Checking" text="Checking..."/>
 <message id="CheckIsComplete" text="Check is successful. Please wait a few seconds while page will load."/>
 <message id="CloseList" text="Close list"/>
@@ -54,11 +55,13 @@ Support team"/>
 <message id='IfYourForgetPassword' text="If you forget your login or password, please enter e-mail you used on registration. We'll send a new password via e-mail."/>
 <message id='IfYouForgetShort' text="If you forget your login or password, it's always &lt;a href='%1'&gt;possible to recover it&lt;/a&gt;."/>
 <message id='InfoIsNotSet' text='Information is not specified.'/>
+<message id='Interface' text='Interface'/>
 <message id='InternalError' text='Internal error'/>
 <message id='InternalErrorOccured' text='Internal error occured:'/>
 <message id="HomePage" text="Home page name"/>
 <message id="HomePageIsRequired" text="Home page is required."/>
 <message id="Language" text="Language"/>
+<message id="LanguageAnd" text="language and"/>
 <message id="LanguageForUI" text="language for user interface."/>
 <message id="LastCheckDateIsNotSet" text="Date of the last request is not specified."/>
 <message id="LastVersion" text="last revision"/>
@@ -165,6 +168,7 @@ Support team"/>
 <message id="SupportsEmail" text="Support's e-mail"/>
 <message id="SupportsEmailLookWrong" text="Support's e-mail looks wrong."/>
 <message id="TextIsNotSet" text="Text is not specified."/>
+<message id="ThemeForUI" text=" theme"/>
 <message id="Title" text="Title of wiki site"/>
 <message id="TitleIsNotSet" text="'title' property is not set"/>
 <message id="TitleIsRequired" text="Title is required."/>

@@ -3,6 +3,8 @@
 RewriteEngine on
 RewriteBase %www%
 
+RewriteRule ^sitemap.xml.gz$ sitemap.php [L]
+
 RewriteRule ^core/js/locale.js$ core/js/locale.js.php [L]
 RewriteRule ^auth$ auth/ [R,L]
 RewriteRule ^auth/$ auth.php [L,QSA]

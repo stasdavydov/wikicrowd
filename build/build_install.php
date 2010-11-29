@@ -41,6 +41,7 @@
 			'configure.php',
 			'core.php',
 			'mb_diff.php',
+			'sitemap.php',
 			'rss.php',
 			'user.php') as $file)
 			$zip->addFile(HOME.$file, $file);
@@ -49,6 +50,7 @@
 		addRecursive($zip, CHAPTERS, 'chapters/');
 		addRecursive($zip, CORE, 'core/');
 		addRecursive($zip, PERSONS, 'persons/');
+		addRecursive($zip, HOME.'themes/', 'themes/');
 		addRecursive($zip, HOME.'../build/migrate/', 'migrate/');
 
 		$zip->close();
