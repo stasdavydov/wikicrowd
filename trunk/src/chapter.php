@@ -22,17 +22,7 @@
 		exit;
 	}
 
-	$xslFile = CORE.'xml/chapter.xsl';
-
-	$params = array(
-		'MODE'=>personCan($person, $mode) ? $mode : 'restricted',
-		'UID'=>$person->getAttribute('uid'),
-		'NAME'=>$person->getAttribute('name'),
-		'ADMIN'=>isAdmin($person),
-		'CANEDIT'=>personCanEdit($person),
-		'CANVIEW'=>personCanView($person));
-
-	echo $chapter->transform($xslFile, $params);
+	$THEME->transform($chapter, $person, $mode);
 
 	ob_end_flush();
 ?>

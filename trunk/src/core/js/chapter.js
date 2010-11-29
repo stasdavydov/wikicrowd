@@ -16,8 +16,8 @@ var BlockController = {
 		el.onclick =  function() { edit(el.parentNode); }
 	},
 	getContainerParams: function(container) {
-		// id:type:rev
-		var params = container.getAttribute('id').split(/:/);
+		// id__type__rev
+		var params = container.getAttribute('id').split(/__/);
 		return {id: params[0], type: params[1], rev: params[2]};
 	},
 	containers: {},
@@ -30,7 +30,7 @@ var BlockController = {
 			oldOnload = window.onload;
 
 		window.onload = function() {
-			var divs = $('chapter').getElementsByTagName('div');
+			var divs = document.getElementsByTagName('div');
 			for(var i = 0; i<divs.length; i++) {
 				var div = divs[i];
 
@@ -49,6 +49,7 @@ var BlockController = {
 					div.insertBefore(control, div.firstChild);
 				}
 			}
+
 			if (oldOnload)
 				oldOnload();
 		}
@@ -68,7 +69,7 @@ var BlockController = {
 		var id = rawNode.getAttribute('id');
 
     	var container = createElement('div', {className: 'part fade', 
-    		id: id + ':' + rawNode.getAttribute('type') + ':' + rawNode.getAttribute('rev')},
+    		id: id + '__' + rawNode.getAttribute('type') + '__' + rawNode.getAttribute('rev')},
     		[BlockController.createRawBlock(rawNode)]);
 
 		var control = createElement('div', 
@@ -88,13 +89,15 @@ var BlockController = {
 		container.removeChild($('block' + id));
 		container.appendChild(BlockController.createRawBlock(rawNode));
 		container.setAttribute('id', 
-			id + ':' + rawNode.getAttribute('type') + ':' + rawNode.getAttribute('rev'));
+			id + '__' + rawNode.getAttribute('type') + '__' + rawNode.getAttribute('rev'));
 
 		if ($('changes' + id)) {
 			loadChanges(id);
 		} else if (rawNode.getAttribute('rev') > 0 && ! $('loadchanges' + id)) {
 			createChangesSign(id);
 		}
+
+//		lastCheck = rawNode.getAttribute('created-ts') * 1000;
 	}
 
 };
@@ -123,8 +126,8 @@ var edit = function(div) {
 };
 
 var editOff = function() {
-	editIsOff = true;
-}
+    editIsOff = true;
+};
 
 var Plugin = function(type) {
 	var plugin = {
@@ -145,32 +148,32 @@ var cancelEditing = function(id) {
 };
 
 var approximateTextareaRows = function(textarea) {
-	var rows = 0;
-	var pos = 0;
-	var cols = Math.ceil(textarea.getAttribute('cols') / 0.75);
+    var rows = 0;
+    var pos = 0;
+    var cols = Math.ceil(textarea.getAttribute('cols') / 0.75);
 
-	if (textarea.value.length > 1000)
-		rows = 20;
-	else {
-		while (pos != -1) {
-			var nextPos = textarea.value.indexOf('\n', pos + 1);
-			if (nextPos == -1) {
-				rows += Math.ceil((textarea.value.length - pos)/cols);
-				break;
-			} else if (nextPos - pos < 60)
-				rows += 1;
-			else 
-				rows += (1 + Math.ceil((nextPos - pos)/cols));
-			pos = nextPos;
-		}
-	}
-	if (rows <= 1)
-		rows = 2;
+    if (textarea.value.length > 1000)
+        rows = 20;
+    else {
+        while (pos != -1) {
+            var nextPos = textarea.value.indexOf('\n', pos + 1);
+            if (nextPos == -1) {
+                rows += Math.ceil((textarea.value.length - pos) / cols);
+                break;
+            } else if (nextPos - pos < 60)
+                rows += 1;
+            else
+                rows += (1 + Math.ceil((nextPos - pos) / cols));
+            pos = nextPos;
+        }
+    }
+    if (rows <= 1)
+        rows = 2;
 
-	if (rows != textarea.getAttribute('rows')) {
-		textarea.setAttribute('rows', rows);
-	}
-}
+    if (rows != textarea.getAttribute('rows')) {
+        textarea.setAttribute('rows', rows);
+    }
+};
 
 var BlockPlugin = function(type) {
 	return Object.extend(new Plugin(type), {
@@ -261,6 +264,7 @@ var BlockPlugin = function(type) {
 			var saved = xml.getElementsByTagName('updated');
 			var inserted = xml.getElementsByTagName('inserted');
 			var auth = xml.getElementsByTagName('auth');
+			var renamed = xml.getElementsByTagName('chapterrenamed');
 	
 			ajax.params.plugin.authError = false;
 
@@ -324,6 +328,9 @@ var BlockPlugin = function(type) {
     			}
 		
 				FadeEffect.start();
+			} else if (renamed.length > 0) {
+				var change = renamed.item(0);
+				location.href = www + change.getAttribute('newtitle');
 			} else {
 				showError($('error' + id), Locale.SomethingWithServer + ' RAW output: ' + 
 					ajax.responseText());
@@ -454,8 +461,18 @@ setTimeout(chapterChangeChecker, refreshPeriod);
 
 function chapterChanged(ajax) {
 	var xml = ajax.responseXML();
+	var renamed = xml.getElementsByTagName('renamed');
 	var blocks = xml.getElementsByTagName('block');
-	
+
+	if (renamed.length > 0) {
+		renamed = renamed.item(0);
+		alert(Locale.getMessage('ChapterWasRenamed', 
+			renamed.getAttribute('author'), renamed.getAttribute('to')));
+
+		location.href = www + renamed.getAttribute('to');
+		return;
+	}
+
 	for(var i = 0; i < blocks.length; i++) {
 		var rawNode = blocks.item(i);
 		var id = rawNode.getAttribute('id');
@@ -516,6 +533,6 @@ var createControl = function(id) {
 BlockController.init();
 
 var help = function() {
-	$('help-content').style.display = 
-		$('help-content').style.display == "block" ? "none" : "block";
-}
+    $('help-content').style.display =
+            $('help-content').style.display == "block" ? "none" : "block";
+};

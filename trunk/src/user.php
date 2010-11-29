@@ -2,8 +2,7 @@
 	require_once 'core.php';
 
 	if (! array_key_exists('uid', $_GET)) {
-  		header('HTTP/1.0 404 Not Found');
-   		exit;
+  		error404();
 	}
 	ob_start('ob_gzhandler');
 
@@ -28,8 +27,7 @@
 
 	$personFile = PERSONS.$uid.'.xml';
 	if (!file_exists($personFile)) {
-  		header('HTTP/1.0 404 Not Found');
-   		exit;
+  		error404();
 	}
 
 	$params = array('MODE'=>'restricted');

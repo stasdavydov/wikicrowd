@@ -70,7 +70,7 @@ class url_callback extends base_callback {
 
 class tag_callback extends base_callback {
 	private $tag;
-	private $sign;
+//	private $sign;
 	private $openSign;
 	private $closeSign;
 	public function __construct($tag, $openSign, $closeSign = NULL) {
@@ -113,6 +113,9 @@ function format_wiki($text) {
 			return make_link($matches[1], $matches[2]);'), $text);
 	$text = preg_replace_callback(
 		'/@page\s*\[([^\]]+)\]/', create_function('$matches', '
+			return make_link($matches[1], $matches[1]);'), $text);
+	$text = preg_replace_callback(
+		'/\[\[([^\]]+)\]\]/', create_function('$matches', '
 			return make_link($matches[1], $matches[1]);'), $text);
 
 	return remove_escape(replace_pull::replace($text));

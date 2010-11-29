@@ -12,13 +12,15 @@ hr { padding: 0; margin: 0 0 0 -1em; text-align: left; height: 5px;}
 .tab { margin-right: 0.5em; border: none; padding: 0 0.25em 0 0.25em; }
 .selected { background: #CCC; }
 
-h1 { margin: 0.25em 0 0.5em 0; }
+#chaptertitle__chaptertitle__0 { width: 50%; margin: 0 0 0 1em; }
+
+h1 { margin: 0.25em 0 0.25em 0; font-size: 250%; }
 h2 { margin: 0.5em 0 0.25em 0; }
 h3 { margin: 0; }
 
 p { margin: 0 0 0.5em 0; }
 
-.text a.block { border: none; color: #000; display: block; padding: 0.15em; position: relative; 
+.text a.block { color: #000; display: block; padding: 0.15em; position: relative;
 border: 1px solid #FFF; }
 .text a .tip { display: block; visibility: hidden; position: absolute; right: 0; top: 0;
 color: #999; background: #FFF; padding: 5px; font-size: 12px; font-weight: bold;
@@ -54,7 +56,7 @@ border: #999 1px dotted; background: #FFC; }
 .error .info a:visited { color: #909; border-bottom-color: #909; }
 .error .info a:hover, .error .info a:active { color: #C00; border-bottom-color: #C00; }
 
-.changes { position: absolute; left:100%; top: 0; margin: -1px 0 0 0px; padding: 0 1px 0 0; font-size: 250%;
+.changes { position: absolute; left:100%; top: 0; margin: -1px 0 0 0; padding: 0 1px 0 0; font-size: 250%;
 border: none; line-height: 1em; color: #CCC; }
 .changes:visited { color: #CCC; }
 .changes img { position: absolute; top: 3px; width: 0.425em; height: 0.425em; border: none; }
@@ -68,7 +70,7 @@ ins ins { background: #FFC; text-decoration: none; }
 .error { color: #C00; }
 .notice { color: #060; }
 
-p.copyright { clear: both; background: #EEE url('../img/favicon.gif') no-repeat 10px 1em; 
+p.copyright { clear: both; background: #EEE url('../img/favicon.gif') no-repeat 10px 1em;
 padding: 1em 1em 1em 55px; clear:both; margin: 3em 0 0 0; 
 font-size: 75%; width: 25em; border: 1px solid #DDD; border-left: none; }
 
@@ -92,8 +94,8 @@ height: 2ex; }
 
 .deleted { background: #FCF; height: 1em; }
 
-.help { float: right; margin: -1px 1px 0 0; width: 40%; }
-.help a { border-bottom-style: none; color: #CCC; display: block; float: right; padding: 0 0.25em 0 0.25em;
+.help { float: right; margin: -1px 1px 0 0; width: 40%; z-index:9999;}
+.help a { color: #CCC; display: block; float: right; padding: 0 0.25em 0 0.25em;
 border: 1px solid #FFF; font-size: 300%; margin: 2px 1px 0 0; }
 .help a:hover, .help a:active { color: #C00;  }
 .help .content { display: none; border: 1px solid #CCC; padding: 0.5em; }
@@ -102,7 +104,7 @@ border: 1px solid #FFF; font-size: 300%; margin: 2px 1px 0 0; }
 code { background: #FFC; }
 
 .breadcrump { font-size: 75%; margin: 0 0 0 0.65em; color: #666; text-align:right;}
-.breadcrump a { text-decoration: underline; }
+.breadcrump a { }
 
 .pages .label { float: left; }
 .pages ul { float: left; }

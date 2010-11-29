@@ -87,6 +87,9 @@
 						<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$locale//message[@id='ToHome']/@text"/></a>
 					</xsl:otherwise>
 				</xsl:choose>
+				<xsl:if test="$MODE = 'edit'">
+					<a href="javascript:help()" title="{$locale//message[@id='WikiHelpTip']/@text}">?</a>
+				</xsl:if>
 			</div>
 		</div>
 	</xsl:template>

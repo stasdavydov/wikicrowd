@@ -168,6 +168,7 @@ abstract class block extends versioned {
 	}
 
 	abstract public function update($data, $author);
+	abstract public function updateLink($from, $to, $author);
 	abstract public function diff($conflict, $data);	// diff last block version with raw data
 														// and append result to $conflict node
 

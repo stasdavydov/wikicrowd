@@ -32,7 +32,6 @@
 				<link rel="stylesheet" type="text/css" href="{$config//property[@name='www']/@value}core/css/main.css"/>
 				<link rel="stylesheet" type="text/css" href="{$config//property[@name='www']/@value}core/css/plugins.css"/>
 				<link rel="alternate" type="application/rss+xml" title="RSS" href="{$config//property[@name='www']/@value}allchanges/rss/"/>
-				<style type="text/css">h1 { margin: 0.25em 0 0.5em 0.65em; } </style>
 				<script type="text/javascript">var www = '<xsl:value-of select="$config//property[@name='www']/@value"/>';</script>
 				<script type="text/javascript" src="{$config//property[@name='www']/@value}core/js/base.js">//<!--"--></script>
 				<script type="text/javascript" charset="utf-8" src="{$config//property[@name='www']/@value}core/js/locale.js">//<!--"--></script>
@@ -53,17 +52,19 @@
 					</xsl:with-param>
 				</xsl:call-template>
 				<xsl:if test="$MODE = 'edit'">
-					<div class="help"><a href="javascript:help()" title="{$locale//message[@id='WikiHelpTip']/@text}">?</a>
+					<div class="help"><!--a href="javascript:help()" title="{$locale//message[@id='WikiHelpTip']/@text}">?</a-->
 						<div class="content" id="help-content">
 							<xsl:value-of select="$locale//message[@id='WikiHelp']" disable-output-escaping="yes"/>
 						</div>
 					</div>
 				</xsl:if>
-				<h1>
-					<xsl:call-template name="chapter-exactly-title">
-						<xsl:with-param name="title" select="/chapter/@title"/>
-					</xsl:call-template>
-				</h1>
+				<div class="part" id="chaptertitle__chaptertitle__0">
+					<h1>
+						<xsl:call-template name="chapter-exactly-title">
+							<xsl:with-param name="title" select="/chapter/@title"/>
+						</xsl:call-template>
+					</h1>
+				</div>
 				<div id="chapter">
 					<p class="breadcrump"> 
 						<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a> &#0187; <xsl:call-template name="breadcrump">
@@ -74,7 +75,7 @@
 					<xsl:choose>
 						<xsl:when test="$MODE = 'edit'">
 							<xsl:for-each select="/chapter/block">
-								<div class="part" id="{@id}:{@type}:{@rev}">
+								<div class="part" id="{@id}__{@type}__{@rev}">
 									<xsl:apply-templates select="." mode="wiki"/>
 									<xsl:call-template name="changes"/>
 								</div>
@@ -87,7 +88,7 @@
 
 						<xsl:otherwise>
 							<xsl:for-each select="/chapter/block[not(@deleted)]">
-								<div class="part" id="{@id}:{@type}:{@rev}">
+								<div class="part" id="{@id}__{@type}__{@rev}">
 									<xsl:apply-templates select="." mode="wiki"/>
 								</div>
 							</xsl:for-each>

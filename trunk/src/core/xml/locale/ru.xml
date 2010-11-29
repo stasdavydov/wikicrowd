@@ -19,6 +19,7 @@
 <message id="CannotSaveChanges" text="Не могу сохранить изменения :(. Код ошибки: %1"/>
 <message id="Change" text="Изменить"/>
 <message id="ChangesSaved" text="Изменения сохранены."/>
+<message id="ChapterWasRenamed" text="Пользователь %1 только что переименовал эту страницу в '%2'. Она сейчас будет перезагружена."/>
 <message id="Checking" text="Идет проверка..."/>
 <message id="CheckIsComplete" text="Проверка прошла успешно! Подождите, пожалуйста, несколько секунд, пока страница загрузится."/>
 <message id="CloseList" text="Закрыть список"/>
@@ -56,11 +57,13 @@
 <message id='IfYourForgetPassword' text='Если вы забыли пароль или логин, укажите e-mail, который вы использовали при регистрации на этом сайте. Мы вышлем вам новый пароль письмом на указанный адрес.'/>
 <message id='IfYouForgetShort' text='Если вы забыли ваш логин или пароль, их всегда &lt;a href="%1"&gt;можно восстановить&lt;/a&gt;.'/>
 <message id='InfoIsNotSet' text='Информация не указана.'/>
+<message id='Interface' text='Интерфейс'/>
 <message id='InternalError' text='Внутренняя ошибка'/>
 <message id='InternalErrorOccured' text='Произошла внутренняя ошибка:'/>
 <message id="HomePage" text="Имя домашней страницы"/>
 <message id="HomePageIsRequired" text="Имя домашней страницы не задано."/>
 <message id="Language" text="Язык"/>
+<message id="LanguageAnd" text="язык и"/>
 <message id="LanguageForUI" text="язык интерфейса."/>
 <message id="LastCheckDateIsNotSet" text="Дата последнего запроса не указана."/>
 <message id="LastVersion" text="последняя версия"/>
@@ -169,6 +172,7 @@
 <message id="SupportsEmailLookWrong" text="E-mail службы поддержки выглядит странно."/>
 <message id="TextIsNotSet" text="Текст не задан."/>
 <message id="ThereAreNoAccounts" text="Не найдено ни одной учетной записи с указанным вами e-mail."/>
+<message id="ThemeForUI" text=" тему"/>
 <message id="Title" text="Название wiki сайта"/>
 <message id="TitleIsNotSet" text="Свойство 'title' не задано."/>
 <message id="TitleIsRequired" text="Название wiki сайта не задано."/>

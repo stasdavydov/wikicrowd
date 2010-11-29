@@ -8,6 +8,7 @@ define('PLUGINS', CORE.'plugins/');
 $LOCKFILE = fopen(CACHE.'lock', 'w');
 define('IMPORT_XSL_FILE', CORE.'xml/import.xsl');
 define('EMAIL_REGEXP', '/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]+$/i');
+define('CHAPTERS_INDEX', CACHE.'chapter-index.xml');
 
 // load configuration
 if (file_exists(CORE.'config.xml')) {
@@ -52,7 +53,8 @@ define('PROJECT_MTIME', max(plugins_mtime('/node.xsl'),
 	@filemtime(IMPORT_XSL_FILE), 
 	@filemtime(CORE.'xml/core.xsl'),
 	@filemtime(HOME.'mb_diff.php'),
-	@filemtime(CORE.'config.xml')));
+	@filemtime(CORE.'config.xml'),
+	@filemtime(CORE.'renametable.xml')));
 
 // check import.xsl for plugins XSL files
 if (! file_exists(IMPORT_XSL_FILE) || filemtime(IMPORT_XSL_FILE) < PROJECT_MTIME) {
@@ -95,6 +97,18 @@ mergePluginFiles(CORE.'plugins.php', '/node.php');
 require_once CORE.'chapter.php';
 require_once CORE.'person.php';
 require_once CORE.'plugins.php';
+require_once CORE.'theme.php';
+
+// load template
+if (! defined('theme'))
+	$theme = 'default';
+else
+	$theme = theme;
+if (! file_exists(HOME.'themes/'.$theme.'/theme.php'))
+	$theme = 'default';
+require_once HOME.'themes/'.$theme.'/theme.php';
+$theme = $theme.'_theme';
+$THEME = new $theme;
 
 define ('DEBUG', false);
 if (DEBUG) {
@@ -152,16 +166,16 @@ function makeFileName($someFileName) {
 }
 
 function transformXML($xmlFile, $xslFile, $params, $mtime = 0) {
-	$cacheFile = CACHE.
+	$cacheFile =
 		preg_replace('/[^\w\d-_]/', '_', getRelativeFilePath($xmlFile, HOME)).'.'.
 		preg_replace('/[^\w\d-_]/', '_', getRelativeFilePath($xslFile, HOME)).'.';
 
 	foreach($params as $name=>$value)
 		$cacheFile .= $name.'_'.fileNamePartEncode($value);
 
-	$cacheFile = makeFileName($cacheFile);
+	$cacheFile = CACHE.makeFileName($cacheFile);
 
-	$cache_mtime = @filemtime($cacheFile);
+	$cache_mtime = file_exists($cacheFile) ? @filemtime($cacheFile) : 0;
 	if (file_exists($cacheFile) 
 		&& $cache_mtime >= filemtime($xmlFile) 
 		&& $cache_mtime >= filemtime($xslFile) 
@@ -257,5 +271,20 @@ function copyright() {
 ?>License: <a href="http://www.gnu.org/licenses/lgpl.html">LGPL</a>.<?
 	}
 ?></p><?
+}
+
+function error404() {
+    header('HTTP/1.0 404 Not Found', true, 404);
+
+    $errorChapter = new chapter(false, 'error/404');
+    echo $errorChapter->transform(CORE . 'xml/chapter.xsl', array(
+        'MODE' => 'view',
+        'UID' => 'guest',
+        'NAME' => 'Guest',
+        'ADMIN' => '',
+        'CANEDIT' => '',
+        'CANVIEW' => '1'));
+
+    exit;
 }
 ?>

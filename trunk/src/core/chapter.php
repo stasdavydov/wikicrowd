@@ -4,7 +4,7 @@ require_once HOME.'mb_diff.php';
 class chapter {
 	private $chapterFile;
     private $dom;
-    private $response;	// track of changes on update
+    private $response;  // track of changes on update
     private $allChanges;// track all changes
 
 	static private function getChapterName($fromReferer = false) {
@@ -29,7 +29,126 @@ class chapter {
 		return $chapter;
 	}
 
-	private function getTitle() { return $this->dom->documentElement->getAttribute('title'); }
+	public function getTitle() { return $this->dom->documentElement->getAttribute('title'); }
+
+	public function setTitle($title, $author) {
+		$oldTitle = $this->getTitle();
+
+		// change title
+		$this->dom->documentElement->setAttribute('title', $title);
+		$this->dom->save($this->chapterFile);
+
+		// rename file
+		rename($this->chapterFile, CHAPTERS.self::getChapterFileName($title));
+
+		// update chapter index
+		ChapterIndex::getInstance()->renameChapter($oldTitle, $title);
+		ChapterIndex::getInstance()->save();
+
+		// update rename table
+		$dom = new DOMDocument('1.0', 'UTF-8');
+		if (! file_exists($fileName = CORE.'renametable.xml')) {
+			$dom->appendChild($dom->createElement('renametable'));
+		} else {
+			$dom->load($fileName);
+		}
+
+		$renamed = $dom->createElement('renamed');
+		$renamed->setAttribute('from', $oldTitle);
+		$renamed->setAttribute('to', $title);
+		$renamed->setAttribute('ts', time());
+		$renamed->setAttribute('author', $author);
+
+		// include all chapters for updating links
+		$titles = ChapterIndex::getInstance()->getTitles($oldTitle);
+		for($i = 0; $i < $titles->length; $i++) {
+			$chapTitle = $titles->item($i);
+			$entry = $dom->createElement('entry');
+			$entry->setAttribute('title', $chapTitle->getAttribute('title'));
+			$renamed->appendChild($entry);
+		}
+		$dom->documentElement->appendChild($renamed);
+		$dom->save($fileName);
+
+		// update "child" pages
+		$titles = ChapterIndex::getInstance()->getTitles($oldTitle);
+		$oldTitleLen = strlen($oldTitle);
+		for($i = 0; $i < $titles->length; $i++) {
+			$chapTitle = $titles->item($i);
+			$chapTitle = $chapTitle->getAttribute('title');
+			if (strpos($chapTitle, $oldTitle) === 0) {
+				try {
+					$childChap = new chapter(false, $chapTitle, false);
+					$childChap->setTitle(/* $newTitle = */$title . substr($chapTitle, $oldTitleLen), $author);
+//					$this->fireChapterRenamed($chapTitle, $newTitle, $author);
+				} catch(ChapterNotFoundException $e) {
+					// it can happen on cascade renaming
+					// we can ignore it, because the page was already renamed
+				}
+			}
+		}
+	}
+
+	private function checkRenames() {
+		if (! file_exists($fileName = CORE.'renametable.xml')
+			|| filemtime($fileName) < filemtime($this->chapterFile))
+			return;
+
+		$dom = new DOMDocument('1.0', 'UTF-8');
+		$dom->load($fileName);
+
+		// update links by table
+		$xpath = new DOMXPath($dom);
+		$actualRenames = $xpath->query(
+			'//renamed/entry[@title = \''.$this->getTitle().'\']');
+		if ($actualRenames->length > 0) {
+			$xpath = new DOMXPath($this->dom);
+			$blocks = $xpath->query('//block');
+
+			$changed = false;
+
+			$person = getSessionPerson();
+			$author = $person->getAttribute('uid');
+
+			$this->allChanges = new DOMDocument('1.0', 'utf-8');
+			if(file_exists(CORE.'changes.xml'))
+				$this->allChanges->load(CORE.'changes.xml');
+			else
+				$this->allChanges->appendChild($this->allChanges->createElement('changes'));
+
+			for($i = 0; $i < $actualRenames->length; $i++) {
+				$entry = $actualRenames->item($i);
+				$rename = $entry->parentNode;
+				$from = $rename->getAttribute('from');
+				$to = $rename->getAttribute('to');
+
+				for($j = 0; $j < $blocks->length; $j++) {
+					$element = $blocks->item($j);
+					$type = $element->getAttribute('type');
+					$block = new $type($this);
+					$block->load($element);
+					$previous = new previous($block);
+
+					if ($block->updateLink($from, $to, $author)) {
+						$block->element->appendChild($previous->element);
+						$block->increaseRevision($author);
+						$this->fireBlockUpdated($block);
+
+						$changed |= true;
+					}
+				}
+				$rename->removeChild($entry);
+			}
+			if ($changed) {
+				// save new version
+				$this->dom->save($this->chapterFile);
+
+				// save changes log
+				$this->allChanges->save(CORE.'changes.xml');
+			}
+		}
+		$dom->save($fileName);
+	}
 
 	static private function getChapterFileName($chapterName) {
 		return makeFileName(fileNamePartEncode(trim($chapterName)).'.xml');
@@ -40,21 +159,19 @@ class chapter {
 	 * it will be requested from environment. There is only one exception: when you want
 	 * to manually create chapter with the specific name.
 	 */
-	public function __construct($ajaxUsing = true, $chapterName = NULL) {
+	public function __construct($ajaxUsing = true, $chapterName = NULL, $createIfPossible = true) {
 		global $LOCKFILE;
 
 		if ($chapterName === NULL) {
 			$chapterName = chapter::getChapterName($ajaxUsing);
 			if ($chapterName === NULL) {
-  				header('HTTP/1.0 404 Not Found');
-	   			exit;
+  				error404();
 			} else if ($chapterName == "") {
-				header('Location: '.www.rawurlencode(homePage));
-				exit;
+				$chapterName = homePage;	// determine / as a default home page
 			}
 		}
 
-		$this->chapterFile = CHAPTERS . chapter::getChapterFileName($chapterName);
+		$this->chapterFile = CHAPTERS . self::getChapterFileName($chapterName);
 		$this->dom = new DOMDocument('1.0', 'utf-8');
 
 		enterCriticalSection($LOCKFILE);
@@ -63,8 +180,11 @@ class chapter {
 		if (! file_exists($this->chapterFile)) {
 
 			if (! personCanEdit($person)) {
-	  			header('HTTP/1.0 404 Not Found');
-		   		exit;
+                error404();
+			}
+
+			if (! $createIfPossible) {
+				throw new ChapterNotFoundException($chapterName);
 			}
 
 			$this->dom->appendChild($this->dom->implementation->createDocumentType(
@@ -78,8 +198,12 @@ class chapter {
 			$this->appendBlock($par);
 
 			$this->save(false);	
+
+			ChapterIndex::getInstance()->appendChapter($chapterName);
+			ChapterIndex::getInstance()->save();
 		} else {
 			$this->dom->load($this->chapterFile);
+			$this->checkRenames();
 		}
 	}
 
@@ -169,6 +293,32 @@ class chapter {
 			$this->createChange($block);
 	}
 
+	private function fireChapterRenamed($oldTitle, $newTitle, $author) {
+		if ($this->response) {
+			$event = $this->response->createElement('chapterrenamed');
+			$event->setAttribute('oldtitle', $oldTitle);
+			$event->setAttribute('newtitle', $newTitle);
+			$event->setAttribute('author', $author);
+			$this->response->documentElement->appendChild($event);
+
+			if ($this->allChanges) {
+				$change = $this->allChanges->createElement('rename');
+				$change->setAttribute('old', $oldTitle);
+				$change->setAttribute('new', $newTitle);
+				$change->setAttribute('created-ts', $ts = time());
+				$change->setAttribute('created-date', date('d/m/Y H:i', $ts));
+				$change->setAttribute('author', $author);
+
+				$change->appendChild(
+					$this->allChanges->importNode($event, true));
+				$this->allChanges->documentElement->appendChild($change);
+				$this->allChanges->save(CORE.'changes.xml');
+			}
+			
+			return $event;
+		}
+	}
+
 	private function fireConflict($block, $data) {
 //	    if (DEBUG)
 //	    	fb($data, 'chapter::fireConflict '.$block->id);
@@ -230,12 +380,6 @@ class chapter {
 		$this->response = new DOMDocument('1.0', 'utf-8');
 		$this->response->appendChild($this->response->createElement('response'));
 
-		$this->allChanges = new DOMDocument('1.0', 'utf-8');
-		if(file_exists(CORE.'changes.xml'))
-			$this->allChanges->load(CORE.'changes.xml');
-		else
-			$this->allChanges->appendChild($this->allChanges->createElement('changes'));
-
 		// load data
 		if (! array_key_exists('id', $data))
 			internal(getMessage('IDisNotSet'));
@@ -244,32 +388,51 @@ class chapter {
 		if ($id == "") 
 			internal(getMessage('IDisEmpty'));
 
-		$rev = trim($data['rev']);
-		$rev = $rev == "" ? 0 : $rev;
+		$this->allChanges = new DOMDocument('1.0', 'utf-8');
+		if(file_exists(CORE.'changes.xml'))
+			$this->allChanges->load(CORE.'changes.xml');
+		else
+			$this->allChanges->appendChild($this->allChanges->createElement('changes'));
 
-		if (! ($block = $this->getBlock($id)))
-			internal(sprintf(getMessage('ElementWithIDNotFound'), $id));
+		if ($id == "chaptertitle") {
+			if (! array_key_exists('text', $data))
+				internal(getMessage('TextIsNotSet'));
 
-//		if (DEBUG)
-//			fb($id, 'Update element');
+			$text = trim(stripslashes($data['text']));
+			$oldTitle = $this->getTitle();
+			$chapTitle = new chaptertitle($this);
 
-		// check conflicts
-		$overwrite = array_key_exists('overwrite', $data) ? true : false;
-		if ($block->rev > $rev && ! $overwrite) {
-			$this->fireConflict($block, $data);
-		} else {
-			// update
-			$previous = new previous($block);
-//			if (DEBUG)
-//				fb($data, 'Update block with');
-			if ($block->update($data, $author)) {
-//				fb($block, 'Block updated');
-				$block->element->appendChild($previous->element);
-				$block->increaseRevision($author);
-				$this->fireBlockUpdated($block);
+			if ($chapTitle->update($data, $author)) {
+				$this->fireChapterRenamed($oldTitle, $text, $author);
 			}
+		} else {
+            $rev = trim($data['rev']);
+            $rev = $rev == "" ? 0 : $rev;
 
-			$this->save();
+            if (! ($block = $this->getBlock($id)))
+                internal(sprintf(getMessage('ElementWithIDNotFound'), $id));
+
+    //		if (DEBUG)
+    //			fb($id, 'Update element');
+
+            // check conflicts
+            $overwrite = array_key_exists('overwrite', $data) ? true : false;
+            if ($block->rev > $rev && ! $overwrite) {
+                $this->fireConflict($block, $data);
+            } else {
+                // update
+                $previous = new previous($block);
+    //			if (DEBUG)
+    //				fb($data, 'Update block with');
+                if ($block->update($data, $author)) {
+    //				fb($block, 'Block updated');
+                    $block->element->appendChild($previous->element);
+                    $block->increaseRevision($author);
+                    $this->fireBlockUpdated($block);
+                }
+
+                $this->save();
+            }
 		}
 		$this->respond();
 	}
@@ -316,7 +479,86 @@ class chapter {
 	}
 }
 
-require_once 'block.php';
 
+class ChapterIndex {
+	private $dom;
+	private static $instance;
+
+	public static function getInstance() {
+		if (self::$instance == NULL)
+			self::$instance = new ChapterIndex();
+		return self::$instance;
+	}
+
+	private function __construct() {
+		if ($this->dom == NULL) {
+			$this->dom = new DOMDocument('1.0', 'UTF-8');
+			if (! file_exists(CHAPTERS_INDEX)) {
+				$this->dom->appendChild($this->dom->createElement('chapters'));
+
+				$dir = opendir(CHAPTERS);
+				while($file = readdir($dir)) {
+					if (preg_match('/\.xml$/', $file)
+						&& preg_match('/<chapter title="(?P<title>[^"]+)"/', 
+							file_get_contents(CHAPTERS.$file), $matches))
+						$this->appendChapter($matches['title']);
+				}
+				closedir($dir);
+				$this->save();
+			} else {
+				$this->load(CHAPTERS_INDEX);
+			}
+		}
+	}
+
+	private function load() {
+		$this->dom->load(CHAPTERS_INDEX);
+	}
+
+	public function save() {
+		$this->dom->save(CHAPTERS_INDEX);
+	}
+
+	public function appendChapter($chapTitle) {
+		$xpath = new DOMXPath($this->dom);
+		$chap = $xpath->query('//chapter[@title = \''.$chapTitle.'\']');
+		if ($chap->length == 0) {
+			$chap = $this->dom->createElement('chapter');
+			$chap->setAttribute('title', $chapTitle);
+			$this->dom->documentElement->appendChild($chap);
+		}
+	}
+
+	public function renameChapter($oldTitle, $newTitle) {
+	 	$this->removeChapter($oldTitle);
+	 	$this->appendChapter($newTitle);
+	}
+
+	private function removeChapter($chapTitle) {
+		$xpath = new DOMXPath($this->dom);
+		$chap = $xpath->query('//chapter[@title = \''.$chapTitle.'\']');
+		if ($chap->length > 1) {
+			throw new Exception('Wrong case, more than one chapter with the same name "'.$chapTitle.'"');
+		} else if ($chap->length == 1)
+			$this->dom->documentElement->removeChild($chap->item(0));
+	}
+
+	public function getTitles($exceptTitle = NULL) {
+		$xpath = new DOMXPath($this->dom);
+		return $xpath->query('//chapter'.
+			($exceptTitle == NULL ? '' : '[not(@title = \''.$exceptTitle.'\')]'));
+	}
+}
+
+class ChapterNotFoundException extends Exception {
+	private $title;
+	public function __construct($title) {
+		$this->title = $title;
+	}
+
+	public function getTitle() { return $this->title; }
+}
+
+require_once 'block.php';
 
 ?>

@@ -1,7 +1,8 @@
 var $ = function (id) { 
-	if(!document.getElementById) document.getElementById = function (id){
-		return document.all[id];
-	}
+	if(!document.getElementById)
+        document.getElementById = function (id) {
+            return document.all[id];
+        };
 
 	return document.getElementById(id); 
 };
@@ -9,8 +10,10 @@ var getCl = function (el) {
 	var className = el.getAttribute('className');
 	if (className && className != "")
 		return className;
-	else
-		return el.getAttribute('class');
+	else {
+		className = el.getAttribute('class');
+		return className == null ? '' : className;
+	}
 };
 var setCl = function(el, c) { 
 	el.setAttribute('class', c);

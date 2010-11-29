@@ -36,6 +36,15 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
+  0.0.16  Error log for unexpected errors now stores to ./errors.txt -
+          it will be helpful for researching errors on client installations.
+          Rename pages feature (issue #21).
+          Generate sitemap.xml file (issue #37).
+          Additional syntax for links: [[link to somewhere]] (issue #35).
+          New syntax for italic: //italic//. 
+          Improved HTTP/404 page (now it's customizable by editing page ./error/404).
+          Themes support.
+
   0.0.15  Paging on 'All changes' page.
 
   0.0.14  List unauthorized users in admin interface and

@@ -75,7 +75,7 @@ abstract class textblock extends block {
 			$after = $this;
 
 			$type = $this->type;
-			$suggestedType = $this->getNextBlockType();
+			//$suggestedType = $this->getNextBlockType();
 
 			foreach($texts as $text) {
 				$text = trim($text);
@@ -171,6 +171,18 @@ abstract class textblock extends block {
 	public function getNextBlockType() {
 		return 'par';
 	}
+
+	public function updateLink($from, $to, $author) {
+		$text = preg_replace('/@page\s*\['.preg_quote($from, '/').'\]/', '@page['.$to.']', $this->text);
+		$text = preg_replace('/@page\s*"'.preg_quote($from, '/').'"/', '@page "'.$to.'"', $text);
+		$text = preg_replace('/\[\['.preg_quote($from, '/').'\]\]/', '[['.$to.']]', $text);
+
+		if(strcmp($text, $this->text) != 0) {
+			$this->text = $text;
+			return true;
+	    } else
+	    	return false;
+    }
 }
 
 ?>

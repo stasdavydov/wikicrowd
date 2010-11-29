@@ -51,7 +51,7 @@ h2 { margin: 0 0 0.15em 0; }
 					<xsl:choose>
 						<xsl:when test="count(/changes/change) &gt; 0">
 							<ul style="clear:left">
-								<xsl:for-each select="/changes/change">
+								<xsl:for-each select="/changes/change | /changes/rename">
 									<xsl:sort select="position()" data-type="number" order="descending"/>
 
 									<xsl:if test="position() &gt;= ($PAGE - 1) * $PAGESIZE and position() &lt; $PAGE * $PAGESIZE">
@@ -83,6 +83,29 @@ h2 { margin: 0 0 0.15em 0; }
 				<a href="{$config//property[@name='www']/@value}person/{child::previous/@author}"><xsl:value-of select="child::previous/@author"/></a>: <xsl:call-template name="time">
 					<xsl:with-param name="ts" select="child::previous/@created-ts"/>
 					<xsl:with-param name="date" select="child::previous/@created-date"/>
+				</xsl:call-template>
+			</div>
+		</li>
+	</xsl:template>
+
+	<xsl:template match="rename">
+		<li>
+			<h2>
+				<xsl:call-template name="chapter-exactly-title">
+					<xsl:with-param name="title" select="@old"/>
+				</xsl:call-template>
+				<xsl:text> &#x2192; </xsl:text>
+
+				<a class="chapterlink" href="{$config//property[@name='www']/@value}{php:function('wikiUrlEncode', string(@new))}">
+					<xsl:call-template name="chapter-exactly-title">
+						<xsl:with-param name="title" select="@new"/>
+					</xsl:call-template>
+				</a>
+			</h2>
+			<div class="info serv">
+				<a href="{$config//property[@name='www']/@value}person/{@author}"><xsl:value-of select="@author"/></a>: <xsl:call-template name="time">
+					<xsl:with-param name="ts" select="@created-ts"/>
+					<xsl:with-param name="date" select="@created-date"/>
 				</xsl:call-template>
 			</div>
 		</li>
