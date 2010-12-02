@@ -39,6 +39,21 @@
 		unlink($zipFileName);
 	}
 
+	// set up error handler
+	function myErrorHandler($errno, $errstr, $errfile, $errline, $errcontext) {
+	
+?><pre>Error (<?php echo $errfile.':'.$errline; ?>)
+      Date: <?php echo date('Y-m-d H:i:s'); ?>
+      Code: <?php echo $errno; ?>
+	ErrStr: <?php echo $errstr; ?>
+  $_SERVER: <?php echo print_r($_SERVER, true); ?>
+   Context: <?php echo print_r($errcontext, true); ?></pre>
+<?
+       return false;                
+    }
+    set_error_handler("myErrorHandler");
+
+
 	function updateHTAccess() {
 		global $www;
 		file_put_contents('.htaccess', str_replace('%www%', $www, file_get_contents('.htaccess')));
@@ -345,18 +360,17 @@ th.ne { border: none; border-bottom: 1px solid #999; }
 <p class="info">WikiCrowd is a light useful wiki engine.
 Please visit <a href="http://code.google.com/p/wikicrowd/">WikiCrowd home page</a> to get more information about it.</p>
 <?php
-	// check newer version
-	checkNewerVersion();
 	
 	$reqFails = array();
 
 	// check system requirements
-
-	@file_put_contents('test.tmp', '');
-	if (! @file_exists('test.tmp')) {
-		$reqFails[] = 'Cannot create files in '.dirname(__FILE__);
+	$f = fopen($fileName = __DIR__.'/test.tmp', 'w');
+	fwrite($f, ' ');
+	fclose($f);
+	if (! file_exists($fileName)) {
+		$reqFails[] = 'Cannot create files in '.__DIR__;
 	} 
-	@unlink('test.tmp');
+	unlink($fileName);
 
 	if (function_exists('version_compare') && version_compare(phpversion(), '5.2', '<'))
 		$reqFails[] = 'PHP version 5.2 or later is required';
@@ -373,17 +387,20 @@ Please visit <a href="http://code.google.com/p/wikicrowd/">WikiCrowd home page</
 	if (! class_exists('ZipArchive'))
 		$reqFails[] = '<a href="http://ru.php.net/manual/en/book.zip.php">ZipArchive</a> support is required';
 
+	// check newer version
+	checkNewerVersion();
+
 	if (count($reqFails) > 0) {
 ?><p>The following issue<?= count($reqFails) > 1 ? 's' : '' ?> should be fixed before installation:</p>
 <ul class="error">
 <?php
 		foreach($reqFails as $error) {
-?><li><span><?=$error?></span></li><?php
+?><li><?=$error?></li><?php
 		}
 ?></ul>
 <p><a href="<?=$_SERVER['REQUEST_URI']?>">Try again</a> when fixed.</p>
-<?php	} else {
-
+<?php	
+	} else {
 		if (count($errors) > 0) {
 ?><ul class="error"><?php
 			foreach($errors as $error) {

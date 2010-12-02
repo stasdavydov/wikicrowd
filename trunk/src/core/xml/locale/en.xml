@@ -16,7 +16,7 @@
 <message id="CanEdit" text="Can Edit"/>
 <message id="CanRead" text="Can Read"/>
 <message id="CannotGetChangeList" text="Sorry, I cannot get list of changes for this fragment."/>
-<message id="CannotSaveChanges" text="Cannot save changes :(. Error code: %1"/>
+<message id="CannotSaveChanges" text="Cannot save changes :(. Try again later. Error code: %1"/>
 <message id="Change" text="Edit"/>
 <message id="ChangesSaved" text="Changes saved."/>
 <message id="ChapterWasRenamed" text="The page is renamed by %1 to '%2'. It will be reloaded now."/>
@@ -192,6 +192,7 @@ Support team"/>
 	<li><code>@page[Page title] "link text"</code>&mdash;link to the wiki page with specified link text.</li>
 	<li><code>@page[URL] "link text"</code>&mdash;link to an outside URL.</li>
 	<li><code>@page[Page/Sub page] "Sub page"</code>&mdash;link to a sub-page in hierarchy tree.</li>
+	<li><code>[[URL or a page title]]</code>.</li>
 </ul>
 <p><strong>Prefixes of block types:</strong> use it on line begin<br/>before text to change block type:</p>
 <ul>

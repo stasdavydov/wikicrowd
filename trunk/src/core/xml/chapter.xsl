@@ -52,7 +52,7 @@
 					</xsl:with-param>
 				</xsl:call-template>
 				<xsl:if test="$MODE = 'edit'">
-					<div class="help"><!--a href="javascript:help()" title="{$locale//message[@id='WikiHelpTip']/@text}">?</a-->
+					<div class="help">
 						<div class="content" id="help-content">
 							<xsl:value-of select="$locale//message[@id='WikiHelp']" disable-output-escaping="yes"/>
 						</div>

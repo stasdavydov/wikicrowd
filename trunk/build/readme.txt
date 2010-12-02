@@ -36,6 +36,10 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
+  0.0.17  Fixed error detecting for installation on PHP less than 5.2.
+          Fixed layout error.
+          Wiki syntax update: replace -- with mdash.
+
   0.0.16  Error log for unexpected errors now stores to ./errors.txt -
           it will be helpful for researching errors on client installations.
           Rename pages feature (issue #21).
