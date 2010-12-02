@@ -1,6 +1,11 @@
 #labels Featured
 = Released =
 
+== 0.0.17 ==
+ * Fix problem with layout in 0.0.16.
+ * Fixed error detecting for installation on PHP less than 5.2.
+ * Wiki syntax update: replace -- with mdash.
+
 == 0.0.16 ==
  * Error log for unexpected errors now stores to ./errors.txt - it will be helpful for researching errors on client installations.
  * Rename pages feature (issue #21).
