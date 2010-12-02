@@ -39,3 +39,6 @@ Also WikiCrowd automatically changes URLs to links.
 `@img url` for an image.
 
 `@html ...` for any HTML code.
+
+== General ==
+-- replaced with mdash.
