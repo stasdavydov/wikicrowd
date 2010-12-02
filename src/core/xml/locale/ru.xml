@@ -16,7 +16,7 @@
 <message id="CanEdit" text="Может редактировать"/>
 <message id="CanRead" text="Может читать"/>
 <message id="CannotGetChangeList" text="К сожалению, не могу получить список изменений данного фрагмента."/>
-<message id="CannotSaveChanges" text="Не могу сохранить изменения :(. Код ошибки: %1"/>
+<message id="CannotSaveChanges" text="Не могу сохранить изменения :(. Попробуйте позже. Код ошибки: %1"/>
 <message id="Change" text="Изменить"/>
 <message id="ChangesSaved" text="Изменения сохранены."/>
 <message id="ChapterWasRenamed" text="Пользователь %1 только что переименовал эту страницу в '%2'. Она сейчас будет перезагружена."/>
@@ -195,6 +195,7 @@
 	<li><code>@page[Название страницы] "текст ссылки"</code>&nbsp;&mdash; ссылка на страницу в wiki с заданным текстом.</li>
 	<li><code>@page[URL] "текст ссылки"</code>&nbsp;&mdash; ссылка на внешний URL.</li>
 	<li><code>@page[Страница/Подстраница] "Подстраница"</code>&nbsp;&mdash; ссылка на подстраницу в иерархии.</li>
+	<li><code>[[URL или название страницы]]</code>.</li>
 </ul>
 <p><strong>Префиксы типов блоков:</strong> использовать в начале строки<br/>перед текстом, чтобы изменить тип блока:</p>
 <ul>

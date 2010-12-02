@@ -68,6 +68,24 @@ class url_callback extends base_callback {
 	}
 }
 
+class replace_callback extends base_callback {
+	private $pattern;
+	private $replace;
+
+	public function __construct($pattern, $replace) {
+		$this->pattern = $pattern;
+		$this->replace = $replace;
+	}
+
+	public function pattern() {
+		return '/('.$this->pattern.')/';
+	}
+
+	public function callback($matches) {
+		return $this->replace;
+	}
+}
+
 class tag_callback extends base_callback {
 	private $tag;
 //	private $sign;
@@ -95,7 +113,9 @@ class replace_pull {
 				new tag_callback('strong', '*'),
 				new tag_callback('em', '//'),
 				new tag_callback('sup', '^'),
-				new tag_callback('sub', '_'));
+				new tag_callback('sub', '_'),
+				new replace_callback(' --', '&nbsp;&mdash;'),
+				new replace_callback('--', '&mdash;'));
 		foreach(replace_pull::$callbacks as $callback) {
 			$text = exclude_replace($callback->pattern(), array($callback, 'callback'), $text);
 		}
