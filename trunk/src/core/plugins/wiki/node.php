@@ -10,11 +10,10 @@ define('uri_pattern', '(ftps?|mailto|https?):\/{0,2}[a-z0-9:\-\._~?#&=%\/\$\+@]+
 
 /*
 	*bold* -> <strong>bold</strong>
-	/italic/ -> <em>italic</em>
+	//italic// -> <em>italic</em>
 	_subscript_ -> <sub>subscript</sub>
 	^superscript^ -> <sup>superscript</sup>
 */
-
 
 function exclude_replace($pattern, $callback, $text) {
 	if ($text == "")
@@ -46,8 +45,17 @@ function remove_escape($text) {
 	return str_replace(array('`[{', '}]`'), array('', ''), $text);
 }
 
-function make_link($link, $name) {
-	if (! preg_match('/^'.uri_pattern.'$/i', $link))
+function specialUrlEncode($str) {
+	$str = rawurlencode($str);
+	$backward = array('%23'=>'#', '%25'=>'%', '%26'=>'&', '%2B'=>'+', '%2F'=>'/', '%3A'=>':', '%2C'=>',',
+        '%3D'=>'=', '%3F'=>'?', '%40'=>'@', '%7E'=>'~');
+	return strtr($str, $backward);
+}
+
+function make_link($link, $name, $softURLCheck = false) {
+    if ($softURLCheck && preg_match('/^(https?|mailto|ftps?):\/\//', $link))
+        $link = specialUrlEncode($link);
+    else if (! preg_match('/^'.uri_pattern.'$/i', $link))
 		$link = www.($link == "/" ? '' : wikiUrlEncode($link));
 
 	return '`[{<a onclick="javascript:editOff()" href="'.$link.'">'.$name.'</a>}]`';
@@ -88,7 +96,6 @@ class replace_callback extends base_callback {
 
 class tag_callback extends base_callback {
 	private $tag;
-//	private $sign;
 	private $openSign;
 	private $closeSign;
 	public function __construct($tag, $openSign, $closeSign = NULL) {
@@ -130,10 +137,10 @@ function format_wiki($text) {
 			return make_link($matches[1], $matches[1]);'), $text);
 	$text = preg_replace_callback(
 		'/@page\s*\[([^\]]+)\]\s+"(?P<name>[^"]+)"/', create_function('$matches', '
-			return make_link($matches[1], $matches[2]);'), $text);
+			return make_link($matches[1], $matches[2], true);'), $text);
 	$text = preg_replace_callback(
 		'/@page\s*\[([^\]]+)\]/', create_function('$matches', '
-			return make_link($matches[1], $matches[1]);'), $text);
+			return make_link($matches[1], $matches[1], true);'), $text);
 	$text = preg_replace_callback(
 		'/\[\[([^\]]+)\]\]/', create_function('$matches', '
 			return make_link($matches[1], $matches[1]);'), $text);

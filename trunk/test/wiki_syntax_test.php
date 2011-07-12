@@ -3,11 +3,7 @@
 // todo: create unit-test for wiki-syntax
 
 require_once('simpletest/autorun.php');
-if (file_exists('../core/plugins/wiki/node.php')) {
-	require_once('../core.php');
-} else {
-	require_once('../src/core.php');
-}
+require_once(dirname(__FILE__).'/../src/core.php');
 
 define ('www', '/www/');
 
@@ -40,42 +36,42 @@ class TestWikiSyntax extends UnitTestCase {
 	}
 
 	function testBoldItalic1() {
-		$str = '*/bold/*';
+		$str = '*//bold//*';
 		$expected = '<strong><em>bold</em></strong>';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
 
 	function testBoldItalic2() {
-		$str = '*/bold*/';
-		$expected = '<strong>/bold</strong>/';
+		$str = '*//bold*//';
+		$expected = '<strong>//bold</strong>//';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
 
 	function testItalic1() {
-		$str = '/italic/';
+		$str = '//italic//';
 		$expected = '<em>italic</em>';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
 	function testItalic2() {
-		$str = '//';
-		$expected = '//';
+		$str = '////';
+		$expected = '////';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
 	
 	function testDiv1() {
-		$str = '<div>/italic/</div>';
+		$str = '<div>//italic//</div>';
 		$expected = '<div><em>italic</em></div>';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
 	
 	function testDiv2() {
-		$str = '<div>/italic</div>/';
-		$expected = '<div>/italic</div>/';
+		$str = '<div>//italic</div>/';
+		$expected = '<div>//italic</div>/';
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
@@ -141,8 +137,20 @@ class TestWikiSyntax extends UnitTestCase {
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
+    function testLink7() {
+        $str = 'http://www.netflix.com/#home.';
+        $expected = '<a onclick="javascript:editOff()" href="http://www.netflix.com/#home">http://www.netflix.com/#home</a>.';
+
+        $this->assertEqual($expected, format_wiki($str));
+    }
+    function testLink8() {
+        $str = 'http://www.netflix.com/?home=1.';
+        $expected = '<a onclick="javascript:editOff()" href="http://www.netflix.com/?home=1">http://www.netflix.com/?home=1</a>.';
+
+        $this->assertEqual($expected, format_wiki($str));
+    }
 	function testExcludeReplace1() {
-		$str = 'aa */bbb/* ccc';
+		$str = 'aa *//bbb//* ccc';
 		$expected = 'aa `[{<strong>}]``[{<em>}]`bbb`[{</em>}]``[{</strong>}]` ccc';
 		$this->assertEqual($expected, replace_pull::replace($str));
 	}
@@ -159,6 +167,15 @@ class TestWikiSyntax extends UnitTestCase {
 
 		$this->assertEqual($expected, format_wiki($str));
 	}
+
+    function testUTF8URL() {
+        $crowdsourcing = 'краудсорсинг';
+        $Crowdsourcing = 'Краудсорсинг';
+        $text = '@page[http://ru.wikipedia.org/wiki/'.iconv('windows-1251', 'UTF-8', $Crowdsourcing).'] "'.iconv('windows-1251', 'UTF-8', $crowdsourcing).'"';
+        $expected = '<a onclick="javascript:editOff()" href="http://ru.wikipedia.org/wiki/'.wikiUrlEncode(iconv('windows-1251', 'UTF-8', $Crowdsourcing)).'">'.iconv('windows-1251', 'UTF-8', $crowdsourcing).'</a>';
+
+        $this->assertEqual($expected, format_wiki($text));
+    }
 }
 
 // todo: add more cases
