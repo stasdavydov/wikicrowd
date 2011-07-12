@@ -1,6 +1,9 @@
 #labels Featured
 = Released =
 
+== 0.0.19 ==
+ * Fixed installation bug from 0.0.18.
+
 == 0.0.18 ==
  * Fixed very specific bug with linking to a URL with UTF-8 characters.
  * Minor fixes.
