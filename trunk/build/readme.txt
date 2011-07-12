@@ -36,6 +36,8 @@ II. INSTALLATION:
 
 
 III. RELEASE NOTES:
+  0.0.19  Fixed installation bug from 0.0.18.
+  
   0.0.18  Fixed very specific bug with linking to a URL with UTF-8 characters.
 
   0.0.17  Fixed error detecting for installation on PHP less than 5.2.
