@@ -66,12 +66,13 @@
 					</h1>
 				</div>
 				<div id="chapter">
-					<p class="breadcrump"> 
-						<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a> &#0187; <xsl:call-template name="breadcrump">
-							<xsl:with-param name="title" select="/chapter/@title"/>
-						</xsl:call-template>
-					</p>
-
+					<xsl:if test="not($config//property[@name='homePage']/@value = /chapter/@title)">
+						<p class="breadcrump"> 
+							<a href="{$config//property[@name='www']/@value}"><xsl:value-of select="$config//property[@name='title']/@value"/></a> &#0187; <xsl:call-template name="breadcrump">
+								<xsl:with-param name="title" select="/chapter/@title"/>
+							</xsl:call-template>
+						</p>
+					</xsl:if>
 					<xsl:choose>
 						<xsl:when test="$MODE = 'edit'">
 							<xsl:for-each select="/chapter/block">

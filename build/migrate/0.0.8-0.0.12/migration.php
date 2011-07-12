@@ -16,4 +16,6 @@ class migrate_0_0_8_to_0_0_12 implements migration {
 		return TRUE;
 	}
 }
+
+migrator::getInstance()->addToChain(new migrate_0_0_8_to_0_0_12());
 ?>
