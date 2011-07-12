@@ -31,5 +31,5 @@ class migrate_0_0_17_to_0_0_18 implements migration {
 	}
 }
 
-migrator::getInstance()->addToChain(new migrate_200_0_16_to_200_0_17());
+migrator::getInstance()->addToChain(new migrate_0_0_17_to_0_0_18());
 ?>
