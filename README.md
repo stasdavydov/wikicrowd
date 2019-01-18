@@ -1,5 +1,5 @@
 # wikicrowd
-Light useful wiki engine powered by Ajax, PHP, XML and XSL
+Light useful wiki engine powered by Ajax, PHP, XML and XSL.
 
 Installation Guide
 1. Copy install.php file to the path where you want to install WikiCrowd. For example: /var/www/wiki/install.php
