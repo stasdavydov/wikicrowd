@@ -1,4 +1,6 @@
-# wikicrowd
+I didn't update this code for years, but surprisingly it continues to be working at least for one web site [mimes.ru](https://mimes.ru/)
+
+# WikiCrowd
 Light useful wiki engine powered by Ajax, PHP, XML and XSL.
 
 Installation Guide
